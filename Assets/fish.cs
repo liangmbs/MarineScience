@@ -17,6 +17,8 @@ public class fish : MonoBehaviour {
     private float swimY = 0;
     private float randomX = 0;
     private float randomY = 0;
+    private float rotation = 0;
+    static float ROTSPEED = 2f; //rotations per second
 
 	// Use this for initialization
 	void Start () {
@@ -28,7 +30,7 @@ public class fish : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         float rate = curve.getCurve(273 + temperature.currentTemp) * swimmySpeed;
-
+        
         size += optimalGrowthPerSecond * Time.deltaTime * rate;
 
         transform.localScale = new Vector3(size, size, 0);
@@ -52,6 +54,18 @@ public class fish : MonoBehaviour {
         if (swimY > Mathf.PI * 2)
             swimY -= Mathf.PI * 2;
 
-        transform.position = startingPos + new Vector3(Mathf.Sin(swimX) * swimmyness, Mathf.Sin(swimY) * swimmyness, 0);
+        Vector3 motion = new Vector3(Mathf.Sin(swimX) * swimmyness, Mathf.Sin(swimY) * swimmyness, 0);
+
+        transform.position = startingPos + motion;
+
+        if (Mathf.Cos(swimX) < 0)
+            rotation -= 180 * ROTSPEED * Time.deltaTime;
+        else
+            rotation += 180 * ROTSPEED * Time.deltaTime;
+        if (rotation < 0)
+            rotation = 0;
+        if (rotation > 180)
+            rotation = 180;
+        transform.rotation = Quaternion.Euler(new Vector3(0, rotation, 0));
 	}
 }
