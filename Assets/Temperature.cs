@@ -28,4 +28,12 @@ public class Temperature : MonoBehaviour {
         }
         currentTemp = baseTemp + variability * Mathf.Sin(currentTime / realCycle);
 	}
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        float x = currentTemp * transform.localScale.x;
+        Vector3 pos = transform.position;
+        Gizmos.DrawLine(pos + new Vector3(x, 0, 0), pos + new Vector3(x, transform.localScale.y, 0));
+    }
 }
