@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{88A31D57-9148-7C41-63D7-B905FFF229EC}</ProjectGuid>
+	<ProjectGuid>{1A7FCA6E-F9E4-C438-A9E6-3F3600004F59}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -47,13 +47,16 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\DataReader.cs" />
+     <Compile Include="Assets\Temperature.cs" />
+     <Compile Include="Assets\ThermalCurve.cs" />
      <Compile Include="Assets\dataChart.cs" />
      <Compile Include="Assets\debModel.cs" />
-     <None Include="Assets\WaterTemps_sine_02032015_short.txt" />
-     <None Include="Assets\WaterTemps_sine_02032015.txt" />
-     <None Include="Assets\Food_sine_02032015.txt" />
-     <None Include="Assets\ShellLength_out.txt" />
-     <None Include="Assets\TissueWeight_out.txt" />
+     <Compile Include="Assets\fish.cs" />
+     <None Include="Assets\textdata\WaterTemps_sine_02032015_short.txt" />
+     <None Include="Assets\textdata\WaterTemps_sine_02032015.txt" />
+     <None Include="Assets\textdata\Food_sine_02032015.txt" />
+     <None Include="Assets\textdata\ShellLength_out.txt" />
+     <None Include="Assets\textdata\TissueWeight_out.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.1/UnityEngine.UI.dll</HintPath>
  </Reference>
