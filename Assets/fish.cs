@@ -18,7 +18,7 @@ public class fish : MonoBehaviour {
     private float randomX = 0;
     private float randomY = 0;
     private float rotation = 0;
-    static float ROTSPEED = 2f; //rotations per second
+    public float spinSpeed = 2f; //rotations per second
 
 	// Use this for initialization
 	void Start () {
@@ -59,9 +59,9 @@ public class fish : MonoBehaviour {
         transform.position = startingPos + motion;
 
         if (Mathf.Cos(swimX) < 0)
-            rotation -= 180 * ROTSPEED * Time.deltaTime;
+            rotation -= 180 * spinSpeed * Time.deltaTime;
         else
-            rotation += 180 * ROTSPEED * Time.deltaTime;
+            rotation += 180 * spinSpeed * Time.deltaTime;
         if (rotation < 0)
             rotation = 0;
         if (rotation > 180)
