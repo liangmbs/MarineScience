@@ -11,6 +11,10 @@ public class Temperature : MonoBehaviour {
 
     public float currentTemp;
 
+	private float heaterTemp;
+
+	public HeaterInterface heater;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -18,6 +22,8 @@ public class Temperature : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		print (heater.temperature);
+		heaterTemp = heater.temperature;
         currentTime += Time.deltaTime;
 
         float realCycle = cycleTime / (Mathf.PI * 2);
@@ -26,7 +32,7 @@ public class Temperature : MonoBehaviour {
         {
             currentTime -= Mathf.PI * 2 * realCycle;
         }
-        currentTemp = baseTemp + variability * Mathf.Sin(currentTime / realCycle);
+        currentTemp = baseTemp + heaterTemp + variability * Mathf.Sin(currentTime / realCycle);
 	}
 
     void OnDrawGizmos()
