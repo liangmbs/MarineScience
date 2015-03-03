@@ -158,10 +158,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Heater: {fileID: 1876047636}
   BaseLine: {fileID: 1389256276}
-  Amplitude: 0
+  amplitude: 0
   temperature: 0
   temp: 0
-  Angle: 0
+  time: 0
   i: 0
   frequency: 1000
   baseline: 0
@@ -249,6 +249,8 @@ MonoBehaviour:
   baseTemp: 20
   variability: 20
   cycleTime: 10
+  outsideTemp: 0
+  heaterTemp: 0
   currentTemp: 0
   heater: {fileID: 92904469}
 --- !u!4 &98863381
@@ -258,7 +260,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 98863379}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 100, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 100, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -740,7 +742,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 369181795}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 100, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1557,7 +1559,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 953169769}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 100, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1813,7 +1815,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 512934533}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 20
+  m_MaxValue: 40
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
@@ -1839,7 +1841,7 @@ RectTransform:
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
   m_AnchoredPosition: {x: 100, y: 80}
-  m_SizeDelta: {x: 160, y: 20}
+  m_SizeDelta: {x: 500, y: 20}
   m_Pivot: {x: .5, y: .5}
 --- !u!1 &1432672094
 GameObject:
@@ -1992,7 +1994,7 @@ RectTransform:
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
   m_AnchoredPosition: {x: 100, y: 60}
-  m_SizeDelta: {x: 167, y: 29}
+  m_SizeDelta: {x: 500, y: 30}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1876047636
 MonoBehaviour:
@@ -2033,9 +2035,9 @@ MonoBehaviour:
   m_FillRect: {fileID: 1338949758}
   m_HandleRect: {fileID: 684629307}
   m_Direction: 0
-  m_MinValue: -20
-  m_MaxValue: 20
-  m_WholeNumbers: 0
+  m_MinValue: -40
+  m_MaxValue: 40
+  m_WholeNumbers: 1
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:

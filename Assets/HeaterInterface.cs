@@ -6,10 +6,10 @@ public class HeaterInterface : MonoBehaviour {
 	
 	public Slider Heater;
 	public Slider BaseLine;
-	public float Amplitude;
+	public float amplitude;
 	public float temperature;
 	public float temp;
-	public float Angle;
+	public float time;
 	public float i = 0.0f;
 	public float frequency = 1000.0f;
 	public float baseline;
@@ -19,21 +19,20 @@ public class HeaterInterface : MonoBehaviour {
 	void Start () {
 	}
 	
-	float Gettingtemperature(float amplitude, float angle, float baseline){
-		temp = amplitude * Mathf.Sin (angle);
-		temp = temp + baseline;
-		return temp;
+	public float getTemperature(float cycleTime)
+    {
+        return amplitude * Mathf.Sin(cycleTime) + baseline;
 	}
 	
 	
 	// Update is called once per frame
 	void Update () {
-		Amplitude = Heater.value;
+		amplitude = Heater.value;
 		baseline = BaseLine.value;
-		Angle = (2 * Mathf.PI * i * frequency)/8000;	
-		temperature = Gettingtemperature (Amplitude, Angle, baseline);
+		/*time = Time.deltaTime;	
+		temperature = Gettingtemperature (amplitude, time, baseline);
 		i = i + 0.3f;
-		print (temperature);
+		print (temperature);*/
 		
 	}
 }
