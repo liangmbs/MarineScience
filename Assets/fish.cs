@@ -6,7 +6,8 @@ public class fish : MonoBehaviour {
     public ThermalCurve curve;
     public float size = 50;
     public float optimalGrowthPerSecond = 20;
-    public Temperature temperature;
+    private float currentRate = 0;
+    private bool active = false;
 
     public float swimmyness = 100;
     public float swimmySpeed = 2f;
@@ -26,13 +27,26 @@ public class fish : MonoBehaviour {
         swimX = Random.value * Mathf.PI * 2;
         swimY = Random.value * Mathf.PI * 2;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-        float rate = curve.getCurve(273 + temperature.currentTemp) * swimmySpeed;
-        
-        size += optimalGrowthPerSecond * Time.deltaTime * rate;
 
+    public void activate()
+    {
+        active = true;
+    }
+
+    public void deactivate()
+    {
+        active = false;
+    }
+
+    public void growFish(float temperature, float delta)
+    {
+        currentRate = curve.getCurve(273 + temperature);
+        size += optimalGrowthPerSecond * delta * currentRate;
+    }
+
+	// Update is called once per frame
+    // This just animates the fish. Growth is handled separately so that it can be deterministic.
+	void Update () {
         transform.localScale = new Vector3(size, size, 0);
 
         //swim
@@ -47,16 +61,17 @@ public class fish : MonoBehaviour {
         if (randomY < -1)
             randomY = -1;
 
-        swimX += rate * Time.deltaTime + randomX * swimmyRandom;
-        swimY += rate * Time.deltaTime + randomY * swimmyRandom;
+        swimX += Mathf.Abs(currentRate * Time.deltaTime * swimmySpeed + randomX * swimmyRandom);
+        swimY += Mathf.Abs(currentRate * Time.deltaTime * swimmySpeed + randomY * swimmyRandom);
+
         if (swimX > Mathf.PI * 2)
             swimX -= Mathf.PI * 2;
         if (swimY > Mathf.PI * 2)
             swimY -= Mathf.PI * 2;
 
-        Vector3 motion = new Vector3(Mathf.Sin(swimX) * swimmyness, Mathf.Sin(swimY) * swimmyness, 0);
+        Vector3 swimPos = new Vector3(Mathf.Sin(swimX) * swimmyness, Mathf.Sin(swimY) * swimmyness, 0);
 
-        transform.position = startingPos + motion;
+        transform.position = startingPos + swimPos;
 
         if (Mathf.Cos(swimX) < 0)
             rotation -= 180 * spinSpeed * Time.deltaTime;

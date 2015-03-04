@@ -22,20 +22,20 @@ public class Temperature : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		print (heater.temperature);
-        currentTime += Time.deltaTime;
 
-        float realCycle = cycleTime / (Mathf.PI * 2);
-
-        if (currentTime / realCycle > Mathf.PI * 2)
-        {
-            currentTime -= Mathf.PI * 2 * realCycle;
-        }
-
-        heaterTemp = heater.getTemperature(currentTime / realCycle);
-        outsideTemp = baseTemp + variability * Mathf.Sin(currentTime / realCycle);
-        currentTemp = outsideTemp + heaterTemp;
 	}
+
+    //cycle time is the position in the current cycle
+    //should be between 0 and 1
+    public float getHeat(float cycleTime)
+    {
+        float piTime = cycleTime * Mathf.PI * 2;
+
+        heaterTemp = heater.getTemperature(piTime);
+        outsideTemp = baseTemp + variability * Mathf.Sin(piTime);
+        currentTemp = outsideTemp + heaterTemp;
+        return currentTemp;
+    }
 
     void OnDrawGizmos()
     {
