@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class HeatGame : MonoBehaviour {
 
     public fish fish;
     public Temperature temperature;
+    public Text sizeText;
+    public Text tempText;
     public int numCycles = 7;
     public float cycleLength = 5; // in seconds
 
@@ -46,6 +49,8 @@ public class HeatGame : MonoBehaviour {
             }
             float currentTemp = temperature.getHeat(cycleTimer / cycleLength);
             fish.growFish(currentTemp, t);
+            sizeText.text = "Size: " + Mathf.Floor(fish.size);
+            tempText.text = "Temperature: " + Mathf.Floor(currentTemp);
         }
     }
 
