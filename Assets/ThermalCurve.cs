@@ -43,7 +43,7 @@ public class ThermalCurve : MonoBehaviour {
 
         if (chart != null)
         {
-            chart.data = data;
+            chart.setData(data);
         }
     }
 	

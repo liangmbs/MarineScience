@@ -18,24 +18,12 @@ public class dataChart : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
 	}
 
     void OnDrawGizmos()
     {
-        float x = gameObject.transform.position.x;
-        float y = gameObject.transform.position.y;
-
-        for (int i = 1; i < data.Length; i++)
-        {
-            Gizmos.color = color;
-            Gizmos.DrawLine(new Vector3(
-                    x + (i - 1) * xScale, 
-                    y + data[i - 1] * yScale + yOffset * yScale, 0),
-                new Vector3(
-                    x + i * xScale, 
-                    y + data[i] * yScale + yOffset * yScale, 0));
-        }
+        
     }
 
     public void setData(float[] dat)
@@ -44,6 +32,22 @@ public class dataChart : MonoBehaviour {
         for (int i = 0; i < (dat.Length / dataCrop) - 1; i++)
         {
             data[i] = dat[i * dataCrop];
+        }
+
+        LineRenderer renderer = GetComponent<LineRenderer>();
+        if (renderer == null)
+        {
+            Debug.Log("please attach a linerenderer");
+        }
+        renderer.SetVertexCount(data.Length);
+
+        float x = gameObject.transform.position.x;
+        float y = gameObject.transform.position.y;
+
+        for (int i = 0; i < data.Length; i++)
+        {
+            renderer.SetPosition(i, new Vector3(i * xScale,
+                data[i] * yScale + yOffset * yScale, 0));
         }
     }
 }
