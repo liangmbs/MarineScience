@@ -46,14 +46,14 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\DataReader.cs" />
-     <Compile Include="Assets\HeatGame.cs" />
-     <Compile Include="Assets\HeaterInterface.cs" />
-     <Compile Include="Assets\Temperature.cs" />
-     <Compile Include="Assets\ThermalCurve.cs" />
-     <Compile Include="Assets\dataChart.cs" />
-     <Compile Include="Assets\debModel.cs" />
-     <Compile Include="Assets\fish.cs" />
+     <Compile Include="Assets\scripts\DataReader.cs" />
+     <Compile Include="Assets\scripts\HeatGame.cs" />
+     <Compile Include="Assets\scripts\HeaterInterface.cs" />
+     <Compile Include="Assets\scripts\Temperature.cs" />
+     <Compile Include="Assets\scripts\ThermalCurve.cs" />
+     <Compile Include="Assets\scripts\dataChart.cs" />
+     <Compile Include="Assets\scripts\debModel.cs" />
+     <Compile Include="Assets\scripts\fish.cs" />
      <None Include="Assets\textdata\WaterTemps_sine_02032015_short.txt" />
      <None Include="Assets\textdata\WaterTemps_sine_02032015.txt" />
      <None Include="Assets\textdata\Food_sine_02032015.txt" />
