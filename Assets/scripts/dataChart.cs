@@ -4,9 +4,7 @@ using System.Collections.Generic;
 
 public class dataChart : MonoBehaviour {
 
-    public float xScale = 0.01f;
     public float yOffset = 0f;
-    public float yScale = 1.0f;
     public int dataCrop = 100;
     public float[] data;
     public Color color;
@@ -46,8 +44,8 @@ public class dataChart : MonoBehaviour {
 
         for (int i = 0; i < data.Length; i++)
         {
-            renderer.SetPosition(i, new Vector3(i * xScale,
-                data[i] * yScale + yOffset * yScale, 0));
+            renderer.SetPosition(i, new Vector3(i * transform.localScale.x,
+                data[i] * transform.localScale.y + yOffset * transform.localScale.y, 0));
         }
     }
 }
