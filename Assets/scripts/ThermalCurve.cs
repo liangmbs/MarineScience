@@ -17,18 +17,45 @@ public class ThermalCurve : MonoBehaviour {
     public float lowerBound = 286;
     public float upperBound = 298;
 
+    //temperature graph
+    public GameObject temperatureCursor;
+    public float tempXTravel = 10;
+    private float tempXStart = 0;
+    public Color tempGoodColor = Color.green;
+    public Color tempOkColor = Color.yellow;
+    public Color tempBadColor = Color.red;
+
 	// Use this for initialization
 	void Start () {
-
+        tempXStart = temperatureCursor.transform.position.x;
+        updateChart();
 	}
 
     public float getCurve(float temp)
     {
-        return Mathf.Exp(arrhenBreadth / optimalTemp - arrhenBreadth / temp) *
+        float performance = Mathf.Exp(arrhenBreadth / optimalTemp - arrhenBreadth / temp) *
                 (1 + Mathf.Exp(arrhenLower / optimalTemp - arrhenLower / lowerBound) +
                     Mathf.Exp(arrhenUpper / upperBound - arrhenUpper / optimalTemp)) /
                 (1 + Mathf.Exp(arrhenLower / temp - arrhenLower / lowerBound) +
                     Mathf.Exp(arrhenUpper / upperBound - arrhenUpper / temp));
+        if(performance > 1) {
+            performance = 1;
+        }
+
+        temperatureCursor.transform.position = new Vector3(
+            tempXStart + tempXTravel * ((temp - 273) / 40 - 0.5f),
+            temperatureCursor.transform.position.y,
+            temperatureCursor.transform.position.z);
+        Renderer tempRend = temperatureCursor.GetComponent<Renderer>();
+        if(performance > .5f) {
+            tempRend.material.color = Color.Lerp(tempOkColor, tempGoodColor, (performance - .5f) * 2);
+        }
+        else
+        {
+            tempRend.material.color = Color.Lerp(tempBadColor, tempOkColor, performance * 2);
+        }
+
+        return performance;
     }
 
     void updateChart()
@@ -54,6 +81,6 @@ public class ThermalCurve : MonoBehaviour {
 
     void OnDrawGizmos()
     {
-        updateChart();
+        //updateChart();
     }
 }
