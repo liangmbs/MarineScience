@@ -48,11 +48,11 @@ public class ThermalCurve : MonoBehaviour {
             temperatureCursor.transform.position.z);
         Renderer tempRend = temperatureCursor.GetComponent<Renderer>();
         if(performance > .5f) {
-            tempRend.material.color = Color.Lerp(tempOkColor, tempGoodColor, (performance - .5f) * 2);
+            tempRend.sharedMaterial.color = Color.Lerp(tempOkColor, tempGoodColor, (performance - .5f) * 2);
         }
         else
         {
-            tempRend.material.color = Color.Lerp(tempBadColor, tempOkColor, performance * 2);
+            tempRend.sharedMaterial.color = Color.Lerp(tempBadColor, tempOkColor, performance * 2);
         }
 
         return performance;
@@ -81,6 +81,6 @@ public class ThermalCurve : MonoBehaviour {
 
     void OnDrawGizmos()
     {
-        //updateChart();
+        updateChart();
     }
 }
