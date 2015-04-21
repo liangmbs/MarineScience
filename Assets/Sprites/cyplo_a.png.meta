@@ -1,20 +1,18 @@
 fileFormatVersion: 2
-guid: e5db300cdec0cc34185f7d3c020fad28
-timeCreated: 1426010863
+guid: 0d42ff66f01e2ed4ab8e119207587d00
+timeCreated: 1429633815
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: yelloo_0
-    21300002: yelloo_1
-    21300004: yelloo_2
-    21300006: yelloo_3
-    21300008: yelloo_4
-    21300010: yelloo_5
-    21300012: yelloo_6
-    21300014: yelloo_7
-    21300016: yelloo_8
-    21300018: yelloo_9
-    21300020: yelloo_10
+    21300000: cyplo_a_0
+    21300002: cyplo_a_1
+    21300004: cyplo_a_2
+    21300006: cyplo_a_3
+    21300008: cyplo_a_4
+    21300010: cyplo_a_5
+    21300012: cyplo_a_6
+    21300014: cyplo_a_7
+    21300016: cyplo_a_8
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -37,7 +35,7 @@ TextureImporter:
   cubemapConvolutionSteps: 8
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
-  textureFormat: -1
+  textureFormat: -3
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
@@ -60,115 +58,95 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: yelloo_0
+    - name: cyplo_a_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 625
-        width: 214
-        height: 336
-      alignment: 9
-      pivot: {x: .860008538, y: .0364530645}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: yelloo_1
-      rect:
-        serializedVersion: 2
-        x: 274
-        y: 625
-        width: 214
-        height: 336
-      alignment: 9
-      pivot: {x: .137393415, y: .0313764289}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: yelloo_2
-      rect:
-        serializedVersion: 2
-        x: 566
-        y: 728
-        width: 184
-        height: 219
+        x: 152
+        y: 878
+        width: 57
+        height: 59
       alignment: 8
       pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: yelloo_3
+    - name: cyplo_a_1
       rect:
         serializedVersion: 2
-        x: 797
-        y: 724
-        width: 184
-        height: 219
+        x: 467
+        y: 861
+        width: 26
+        height: 81
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cyplo_a_2
+      rect:
+        serializedVersion: 2
+        x: 855
+        y: 867
+        width: 57
+        height: 59
       alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: yelloo_4
+    - name: cyplo_a_3
       rect:
         serializedVersion: 2
-        x: 827
-        y: 503
-        width: 45
-        height: 45
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: yelloo_5
-      rect:
-        serializedVersion: 2
-        x: 387
-        y: 92
-        width: 348
-        height: 397
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: yelloo_6
-      rect:
-        serializedVersion: 2
-        x: 821
-        y: 436
-        width: 56
-        height: 56
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: yelloo_7
-      rect:
-        serializedVersion: 2
-        x: 806
-        y: 338
-        width: 88
-        height: 89
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: yelloo_8
-      rect:
-        serializedVersion: 2
-        x: 43
-        y: 23
-        width: 101
-        height: 304
-      alignment: 3
-      pivot: {x: 1, y: 1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: yelloo_9
-      rect:
-        serializedVersion: 2
-        x: 210
-        y: 23
+        x: 308
+        y: 655
         width: 102
-        height: 304
-      alignment: 1
-      pivot: {x: 0, y: 1}
+        height: 159
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: yelloo_10
+    - name: cyplo_a_4
       rect:
         serializedVersion: 2
-        x: 899
-        y: 174
-        width: 36
-        height: 37
+        x: 549
+        y: 655
+        width: 102
+        height: 159
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cyplo_a_5
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 545
+        width: 83
+        height: 83
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cyplo_a_6
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 109
+        width: 234
+        height: 445
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cyplo_a_7
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 62
+        width: 261
+        height: 381
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cyplo_a_8
+      rect:
+        serializedVersion: 2
+        x: 693
+        y: 25
+        width: 261
+        height: 381
+      alignment: 6
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

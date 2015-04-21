@@ -1,19 +1,18 @@
 fileFormatVersion: 2
-guid: a23cf75704e7e124c8f6e9d758637884
-timeCreated: 1426007289
+guid: e0bdd111aa898e743b49a070e56bbfad
+timeCreated: 1429632215
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: copepod_parts_0
-    21300002: copepod_parts_1
-    21300004: copepod_parts_2
-    21300006: copepod_parts_3
-    21300008: copepod_parts_4
-    21300010: copepod_parts_5
-    21300012: copepod_parts_6
-    21300014: copepod_parts_7
-    21300016: copepod_parts_8
-    21300018: copepod_parts_9
+    21300000: cyplo_c_0
+    21300002: cyplo_c_1
+    21300004: cyplo_c_2
+    21300006: cyplo_c_3
+    21300008: cyplo_c_4
+    21300010: cyplo_c_5
+    21300012: cyplo_c_6
+    21300014: cyplo_c_7
+    21300016: cyplo_c_8
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -59,105 +58,95 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: copepod_parts_0
+    - name: cyplo_c_0
       rect:
         serializedVersion: 2
-        x: 398
-        y: 289
-        width: 182
-        height: 441
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: copepod_parts_1
-      rect:
-        serializedVersion: 2
-        x: 751
-        y: 610
-        width: 61
-        height: 56
+        x: 348
+        y: 856
+        width: 57
+        height: 88
       alignment: 8
       pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: copepod_parts_2
+    - name: cyplo_c_1
       rect:
         serializedVersion: 2
-        x: 841
-        y: 590
-        width: 20
-        height: 95
+        x: 409
+        y: 369
+        width: 233
+        height: 566
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cyplo_c_2
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 851
+        width: 57
+        height: 88
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cyplo_c_3
+      rect:
+        serializedVersion: 2
+        x: 902
+        y: 834
+        width: 25
+        height: 122
       alignment: 7
       pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: copepod_parts_3
+    - name: cyplo_c_4
       rect:
         serializedVersion: 2
-        x: 879
-        y: 610
-        width: 60
-        height: 56
-      alignment: 6
+        x: 45
+        y: 558
+        width: 105
+        height: 105
+      alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: copepod_parts_4
+    - name: cyplo_c_5
       rect:
         serializedVersion: 2
-        x: 721
-        y: 492
-        width: 109
-        height: 101
+        x: 233
+        y: 602
+        width: 102
+        height: 159
       alignment: 8
       pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: copepod_parts_5
+    - name: cyplo_c_6
       rect:
         serializedVersion: 2
-        x: 879
-        y: 459
-        width: 108
-        height: 101
+        x: 694
+        y: 602
+        width: 102
+        height: 159
       alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: copepod_parts_6
+    - name: cyplo_c_7
       rect:
         serializedVersion: 2
-        x: 751
-        y: 297
-        width: 82
-        height: 82
-      alignment: 0
+        x: 18
+        y: 37
+        width: 373
+        height: 335
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cyplo_c_8
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 6
+        width: 373
+        height: 335
+      alignment: 6
       pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: copepod_parts_7
-      rect:
-        serializedVersion: 2
-        x: 879
-        y: 356
-        width: 45
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: copepod_parts_8
-      rect:
-        serializedVersion: 2
-        x: 11
-        y: 134
-        width: 365
-        height: 146
-      alignment: 9
-      pivot: {x: .998222649, y: .0614235252}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: copepod_parts_9
-      rect:
-        serializedVersion: 2
-        x: 577
-        y: 34
-        width: 365
-        height: 147
-      alignment: 9
-      pivot: {x: .00556991808, y: .0552849025}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

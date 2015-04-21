@@ -1,20 +1,20 @@
 fileFormatVersion: 2
-guid: 0291d4a23cb618346b13d0bd515c176a
-timeCreated: 1426016497
+guid: 8b0dae7df0627364aa31314bf9d90220
+timeCreated: 1429635458
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: hexapod_0
-    21300002: hexapod_1
-    21300004: hexapod_2
-    21300006: hexapod_3
-    21300008: hexapod_4
-    21300010: hexapod_5
-    21300012: hexapod_6
-    21300014: hexapod_7
-    21300016: hexapod_8
-    21300018: hexapod_9
-    21300020: hexapod_10
+    21300000: hexapod_c_0
+    21300002: hexapod_c_1
+    21300004: hexapod_c_2
+    21300006: hexapod_c_3
+    21300008: hexapod_c_4
+    21300010: hexapod_c_5
+    21300012: hexapod_c_6
+    21300014: hexapod_c_7
+    21300016: hexapod_c_8
+    21300018: hexapod_c_9
+    21300020: hexapod_c_10
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -37,7 +37,7 @@ TextureImporter:
   cubemapConvolutionSteps: 8
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
-  textureFormat: -1
+  textureFormat: -3
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
@@ -60,115 +60,115 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: hexapod_0
+    - name: hexapod_c_0
       rect:
         serializedVersion: 2
-        x: 64
-        y: 356
-        width: 609
-        height: 561
+        x: 45
+        y: 835
+        width: 131
+        height: 131
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: hexapod_1
+    - name: hexapod_c_1
       rect:
         serializedVersion: 2
-        x: 837
-        y: 872
-        width: 139
-        height: 103
+        x: 227
+        y: 850
+        width: 102
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: hexapod_c_2
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 850
+        width: 101
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: hexapod_c_3
+      rect:
+        serializedVersion: 2
+        x: 502
+        y: 848
+        width: 96
+        height: 112
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: hexapod_c_4
+      rect:
+        serializedVersion: 2
+        x: 653
+        y: 855
+        width: 125
+        height: 92
       alignment: 7
       pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: hexapod_2
+    - name: hexapod_c_5
       rect:
         serializedVersion: 2
-        x: 853
-        y: 703
-        width: 106
-        height: 125
+        x: 819
+        y: 848
+        width: 95
+        height: 112
       alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: hexapod_3
+    - name: hexapod_c_6
       rect:
         serializedVersion: 2
-        x: 853
-        y: 512
-        width: 106
-        height: 125
-      alignment: 1
-      pivot: {x: 0, y: 1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: hexapod_4
-      rect:
-        serializedVersion: 2
-        x: 837
-        y: 367
-        width: 139
-        height: 102
-      alignment: 2
-      pivot: {x: .5, y: 1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: hexapod_5
-      rect:
-        serializedVersion: 2
-        x: 705
-        y: 251
-        width: 34
-        height: 34
+        x: 28
+        y: 293
+        width: 391
+        height: 362
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: hexapod_6
+    - name: hexapod_c_7
       rect:
         serializedVersion: 2
-        x: 853
-        y: 194
-        width: 106
-        height: 125
+        x: 443
+        y: 230
+        width: 546
+        height: 503
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: hexapod_c_8
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 25
+        width: 95
+        height: 112
       alignment: 3
       pivot: {x: 1, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: hexapod_7
+    - name: hexapod_c_9
       rect:
         serializedVersion: 2
-        x: 168
-        y: 103
-        width: 113
-        height: 113
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 695
+        y: 46
+        width: 124
+        height: 91
+      alignment: 2
+      pivot: {x: .5, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: hexapod_8
+    - name: hexapod_c_10
       rect:
         serializedVersion: 2
-        x: 330
-        y: 86
-        width: 146
-        height: 146
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: hexapod_9
-      rect:
-        serializedVersion: 2
-        x: 506
-        y: 103
-        width: 113
-        height: 113
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: hexapod_10
-      rect:
-        serializedVersion: 2
-        x: 853
-        y: 34
-        width: 106
-        height: 125
-      alignment: 8
-      pivot: {x: 1, y: 0}
+        x: 858
+        y: 35
+        width: 95
+        height: 112
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
