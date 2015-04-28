@@ -14,7 +14,7 @@ public class SwimmingHolder : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetButtonDown("Jump"))
+        /*if (Input.GetButtonDown("Jump"))
         {
             AddCreature();
         }
@@ -24,24 +24,13 @@ public class SwimmingHolder : MonoBehaviour {
             {
                 AddCreature();
             }
-        }
+        }*/
 	}
 
-    void AddCreature()
+    void AddCreature(int cId)
     {
         //GameObject cObj = GameObject.Instantiate(cyplo);
-        GameObject cObj;
-        if (Random.value < 0.1)
-        {
-            cObj = (GameObject)PrefabUtility.InstantiatePrefab(prefabs[2]);
-        }
-        else if (Random.value < 0.2)
-        {
-            cObj = (GameObject)PrefabUtility.InstantiatePrefab(prefabs[1]);
-        } else 
-        {
-            cObj = (GameObject)PrefabUtility.InstantiatePrefab(prefabs[0]);
-        }
+        GameObject cObj = (GameObject)PrefabUtility.InstantiatePrefab(prefabs[cId]);
         SwimmingCreature c = cObj.GetComponent<SwimmingCreature>();
         creatures.Add(c);
         c.creatureFlock = creatures;
