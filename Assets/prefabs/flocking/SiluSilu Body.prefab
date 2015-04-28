@@ -421,6 +421,7 @@ MonoBehaviour:
   avoidRadius: 20
   fleeRadius: 20
   huntRadius: 20
+  eatRadius: 4
   alignPower: .200000003
   attractPower: .5
   avoidPower: 1
