@@ -8,7 +8,9 @@ public class ThermalCurve : MonoBehaviour {
 
     public float interval = 0.1f;
     public float[] data;
-    public dataChart chart;
+    //public dataChart chart;
+    //TODO: the datachart should have a slot for a thermalcurve, 
+    //and also track the cursor, colors, etc.
 
     public float optimalTemp = 295.15f;
     public float arrhenBreadth = 4258;
@@ -18,17 +20,19 @@ public class ThermalCurve : MonoBehaviour {
     public float upperBound = 298;
 
     //temperature graph
+    //TODO: re-create this functionality in the chart object.
+    /*
     public GameObject temperatureCursor;
     public float tempXTravel = 10;
     private float tempXStart = 0;
     public Color tempGoodColor = Color.green;
     public Color tempOkColor = Color.yellow;
-    public Color tempBadColor = Color.red;
+    public Color tempBadColor = Color.red;*/
 
 	// Use this for initialization
 	void Start () {
-        tempXStart = temperatureCursor.transform.position.x;
-        updateChart();
+        //tempXStart = temperatureCursor.transform.position.x;
+        //updateChart();
 	}
 
     public float getCurve(float temp)
@@ -42,7 +46,7 @@ public class ThermalCurve : MonoBehaviour {
             performance = 1;
         }
 
-        temperatureCursor.transform.position = new Vector3(
+        /*temperatureCursor.transform.position = new Vector3(
             tempXStart + tempXTravel * ((temp - 273) / 40 - 0.5f),
             temperatureCursor.transform.position.y,
             temperatureCursor.transform.position.z);
@@ -53,12 +57,12 @@ public class ThermalCurve : MonoBehaviour {
         else
         {
             tempRend.sharedMaterial.color = Color.Lerp(tempBadColor, tempOkColor, performance * 2);
-        }
+        }*/
 
         return performance;
     }
 
-    void updateChart()
+    /*void updateChart()
     {
         int length = 2 + (int)((MAX - MIN) * (1 / interval));
         data = new float[length];
@@ -72,7 +76,7 @@ public class ThermalCurve : MonoBehaviour {
         {
             chart.setData(data);
         }
-    }
+    }*/
 	
 	// Update is called once per frame
 	void Update () {
@@ -81,6 +85,6 @@ public class ThermalCurve : MonoBehaviour {
 
     void OnDrawGizmos()
     {
-        updateChart();
+        //updateChart();
     }
 }
