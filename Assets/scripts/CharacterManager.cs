@@ -1,75 +1,63 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[System.Serializable]	
-public class CharacterManager{
+public class CharacterManager : MonoBehaviour {
 
-	/*
-	 *  Species action resutls
-	 */
+    //species stats (these change during gameplay)
+	public float speciesAmount = 0;
+	public float performanceRate = 1;
+    public float fedRate = 1;
 
-	public float speciesamount ;
-	public float performancerate;
+    //object references
 	public ThermalCurve thermalcurve;
 	public PlayerManager player;
 	/*
-	 *  Species Property
+	 *  Species Properties
 	 */
-	protected string speciesname;
-	protected float eatingrate;
-	protected int specieslevel;
-	protected float reproductiomulti;
-	/*
-	 *  Adding fish information when try to buy/create fish
-	 */
-	public CharacterManager (int eat, int level, float temperature, string name){
-		speciesname = name;
-		eatingrate = eat;
-		specieslevel = level;
+	public string uniqueName = "Nameless"; //a unique name for each species
+    public float eatingAmount = 3; //the amount of fish I need to eat every day
+    public int foodChainLevel = 1; //how high I am in the food chain (1 == bottom)
+    public float reproductionMultiplier = .5f; //how many babies I have every day
+
+    public float deathThreashold = .3f; //if performance gets too low, you start dying
+    public float deathRate = .5f; //if I'm dying, population drops by this ratio every day
+    public float minimumDeaths = 1; //if I'm dying, I will always lose at least this many fish!
+
+    public void updatePerformance(float temperature)
+    {
+        performanceRate = thermalcurve.getCurve(temperature);
+    }
+    
+	public float GetEatingRate(){
+		return eatingAmount * performanceRate;
 	}
+
+    public float getFinalPerformance()
+    {
+        return fedRate * performanceRate;
+    }
+
+    //fish reproduce or die based on performance.
+    public void ReproduceOrDie(float days)
+    {
+        //if performance is too low, fish die
+        if (getFinalPerformance() < deathThreashold)
+        {
+            float deaths = speciesAmount * deathRate;
+            deaths = Mathf.Max(minimumDeaths, deathRate);
+            speciesAmount -= deaths * days;
+            speciesAmount = Mathf.Min(0, speciesAmount);
+        }
+        else //otherwise, fish reproduce
+        {
+            speciesAmount = speciesAmount * getFinalPerformance() * 
+                (1 + reproductionMultiplier) * days;
+        }
+    }
 	
-	public string SpeciesName(){
-		return speciesname;
-	}
-
-	public float EatingRate(){
-		return eatingrate;
-	}
-
-	public int SpeciesLevel(){
-		return specieslevel;
-	}
-
-	public float Reproductionrate(){
-		return reproductiomulti;
-	}
-	
-	/*
-	 *  obtain the performance rate based on the optimal temperature
-	 */
+	//obtain the performance rate based on the optimal temperature
 	void Update(){
-		performancerate = thermalcurve.getCurve (player.currentmperature);
-		Death ();
-	}
 
-	/*
-	 *  As long as the performance rate is below 0.3f, the species is death
-	 */
-	private void Death(){
-		if (performancerate < 0.3) {
-			speciesamount = speciesamount - 1;
-			if(speciesamount <= 0){
-				Debug.Log("the species is death");
-				speciesamount = 0;
-			}
-		} 
-		player.Levelsamount ();
-	}
-
-	// Reproduce the new fish
-	public void Reproduce(){
-			speciesamount =  speciesamount* performancerate *Reproductionrate(); 
-			player.Levelsamount ();
 	}
 	
 }
