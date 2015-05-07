@@ -6,8 +6,9 @@ public class PlayerManager : MonoBehaviour {
 
 	/*
 	 *  Player's species
+     *  Make sure that these are in the same order as the SwimmingHolder's prefabs!
 	 */
-	public List<CharacterManager> species = new List<CharacterManager> ();
+	public List<CharacterManager> species; 
     //Highest level in the species list
     public int lowestLevel = 1;
     public int highestLevel = 3;
@@ -24,15 +25,32 @@ public class PlayerManager : MonoBehaviour {
 	 * Initialize with three species at each level
 	 */
 	void Awake(){
-
+        foreach (CharacterManager c in species)
+        {
+            c.player = this;
+        }
 	}
 
     public void Update()
     {
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Submit"))
         {
             StepEcosystem(1);
         }
+        if (Input.GetButtonDown("Fire1"))
+        {
+            if (Random.value < .05)
+                CreatureAmountChanged(2, 1);
+            else if (Random.value < .2)
+                CreatureAmountChanged(1, 1);
+            else
+                CreatureAmountChanged(0, 1);
+        }
+    }
+
+    public void CreatureAmountChanged(int index, float amount)
+    {
+        species[index].speciesAmount += amount;
     }
 
     //step the ecosystem forward by a given number or fraction of days
@@ -40,6 +58,7 @@ public class PlayerManager : MonoBehaviour {
     {
         days += dayStep;
         //TODO: update temperature
+        currentTemperature = 15 + Random.value * 10;
         foreach (CharacterManager c in species)
         {
             c.updatePerformance(currentTemperature);
@@ -65,27 +84,35 @@ public class PlayerManager : MonoBehaviour {
         return amount;
     }
 
+    //returns a list of all the creatures for a given level
+    private List<CharacterManager> getCharactersAtLevel(int level)
+    {
+        List<CharacterManager> list = new List<CharacterManager>();
+        foreach (CharacterManager c in species)
+        {
+            if (c.foodChainLevel == level)
+            {
+                list.Add(c);
+            }
+        }
+        return list;
+    }
+
     //eats a certain amount of creatures sampled evenly within that level
     //negative things will happen if eatAmount is > the amount of creatures
     //^^^^^^^^ pun intended.
     private void eatAtLevel(int level, float eatAmount)
     {
         //make a list of all creatures in this level
-        float totalAmount = 0;
-        List<CharacterManager> eatenCreatures = new List<CharacterManager>();
-        foreach (CharacterManager c in species)
-        {
-            if (c.foodChainLevel == level)
-            {
-                eatenCreatures.Add(c);
-                totalAmount += c.speciesAmount;
-            }
-        }
+        float totalAmount = getTotalAmountAtLevel(level);
+        List<CharacterManager> eatenCreatures = getCharactersAtLevel(level);
         //eat them... EAT THEM!!! 
+        if (totalAmount == 0)
+            return;
         foreach (CharacterManager c in eatenCreatures)
         {
             float ratio = c.speciesAmount / totalAmount;
-            c.speciesAmount -= ratio * eatAmount;
+            c.speciesAmount = c.speciesAmount - ratio * eatAmount;
         }
     }
 
@@ -93,7 +120,7 @@ public class PlayerManager : MonoBehaviour {
     private void Predation(float dayStep)
     {
         //step through each species level, skipping the first one (they don't eat anything)
-        for (int i = lowestLevel + 1; i <= highestLevel; i++ )
+        for (int i = lowestLevel + 1; i <= highestLevel; i++)
         {
             List<CharacterManager> leveliCharacters = new List<CharacterManager>();
             float leveliAmount = 0;
@@ -107,7 +134,7 @@ public class PlayerManager : MonoBehaviour {
                     foodRequestAmount += c.speciesAmount * c.GetEatingRate() * dayStep;
                 }
             }
-
+            
             //if we don't have enough food to go around
             if (foodRequestAmount > getTotalAmountAtLevel(i - 1))
             {
