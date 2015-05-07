@@ -11,6 +11,8 @@ public class SwimmingCreature : MonoBehaviour {
 
     public int level = 1;
 
+    public int id = 0;
+
     public List<SwimmingCreature> creatureFlock;
 
     //radii for responding to other creatures
@@ -327,17 +329,24 @@ public class SwimmingCreature : MonoBehaviour {
         //randomly spawn outside the bounds
         float xSpawn;
         float ySpawn;
-        if (Random.value < .5)
+        /*if (Random.value < .5)
             xSpawn = bounds.xMin + bounds.xMin * Random.value;
         else
             xSpawn = bounds.xMax + bounds.xMax * Random.value;
         if (Random.value < .5)
             ySpawn = bounds.yMin * Random.value;
         else
-            ySpawn = bounds.yMax * Random.value;
+            ySpawn = bounds.yMax * Random.value;*/
+        xSpawn = Random.value * bounds.xMax;
+        ySpawn = Random.value * bounds.yMax;
 
         transform.position = new Vector3(xSpawn, ySpawn, transform.position.z);
         velocity = new Vector2(Random.Range(-maxSpeed, maxSpeed),
             Random.Range(-maxSpeed, maxSpeed));
+    }
+
+    public void KillForever()
+    {
+        Destroy(gameObject);
     }
 }

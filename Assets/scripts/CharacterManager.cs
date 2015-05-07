@@ -25,7 +25,7 @@ public class CharacterManager : MonoBehaviour {
 
     public void updatePerformance(float temperature)
     {
-        performanceRate = thermalcurve.getCurve(temperature);
+        performanceRate = thermalcurve.getCurve(temperature + 273);
     }
     
 	public float GetEatingRate(){
@@ -52,6 +52,11 @@ public class CharacterManager : MonoBehaviour {
         {
             speciesAmount = speciesAmount * getFinalPerformance() * 
                 (1 + reproductionMultiplier) * days;
+        }
+
+        if (speciesAmount < 1)
+        {
+            speciesAmount = 0;
         }
     }
 	
