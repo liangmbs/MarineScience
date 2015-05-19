@@ -31,8 +31,12 @@ public class Temperature : MonoBehaviour {
     public int historicalSegments = 6;
 
     public float animationSeconds = 4; //how long the animation plays
-    public float animationFlipSpeed = .1f; //how fast it flips between dots.
+    public float animationFlipMaxSpeed = .1f; //how fast it flips between dots.
+    public float animationFlipMinSpeed = .3f; //how slow the flipping gets at the end.
     private float animationTimer = 0;
+    private float flipTimer = 0;
+    private int currentDot = 0;
+    private bool animating = false;
 
     private Queue<float> historicalTemperatures;
 
@@ -79,10 +83,57 @@ public class Temperature : MonoBehaviour {
 	void Update () {
         if (Input.GetButtonDown("Jump"))
         {
-            generatePossibilities();
-            drawLines();
+            //generatePossibilities();
+            //drawLines();
+            animating = true;
+            animationTimer = 0;
+        }
+        if (animating)
+        {
+            Animate();
         }
 	}
+
+    void Animate()
+    {
+        if (animationTimer > animationSeconds)
+        {
+            animating = false;
+            animationTimer = 0;
+            flipTimer = 0;
+            PickTemperature();
+            return;
+        }
+
+        float currentFlipLength = animationFlipMinSpeed + (animationTimer/animationSeconds) * (animationFlipMaxSpeed - animationFlipMinSpeed);
+        if (flipTimer > currentFlipLength)
+        {
+            //reset last dot
+            SpriteRenderer s = dots[currentDot];
+            s.color = getColorTemperature(getTempFromDot(currentDot));
+            //pick new dot and try to make sure it's not the same as the first one
+            int lastDot = currentDot;
+            for (int i = 0; i < 10; i++)
+            {
+                if (lastDot == currentDot)
+                    currentDot = Random.Range(0, dots.Count);
+            }
+            //color new dot
+            dots[currentDot].color = Color.white;
+            //increment
+            flipTimer = 0;
+        }
+
+        animationTimer += Time.deltaTime;
+        flipTimer += Time.deltaTime;
+    }
+
+    void PickTemperature()
+    {
+        temperature = getTempFromDot(currentDot);
+        generatePossibilities();
+        drawLines();
+    }
 
     //creates possible temperatures
     void generatePossibilities()
@@ -179,6 +230,30 @@ public class Temperature : MonoBehaviour {
                 d++;
             }
         }
+    }
+
+    float getTempFromDot(int d)
+    {
+        int l = 0;
+        int lSub = 1;
+        for (int i = 0; i <= d; i++)
+        {
+            if (i == d)
+            {
+                return possibleTemperatures[l];
+            }
+
+            if (lSub > possibleLikelihoods[l])
+            {
+                l++;
+                lSub = 1;
+            }
+            else
+            {
+                lSub++;
+            }
+        }
+        return 0;
     }
 
     Color getColorTemperature(float temp)
