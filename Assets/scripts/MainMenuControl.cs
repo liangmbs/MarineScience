@@ -3,39 +3,55 @@ using System.Collections;
 using UnityEngine.UI;
 public class MainMenuControl : MonoBehaviour {
 
-	//initialize the window
-	public Renderer window;
-	public Renderer button;
 
+	//initialize the window
+	public GameObject window;
 	//initialize Button
 	public GameObject controler;
+	public GameObject screen;
 
-	public bool opened = false;
+	public RectTransform sc;
+
 	
+	public bool opened = false;
+
+	public float bounds;
+	public float end;
+
+
 	public float start(){
-		
+
 		return window.transform.position.x;
 	}
 		
+	void Start(){
+
+		RectTransform rt = (RectTransform)window.transform;
+		sc = (RectTransform)screen.transform;
+		bounds =rt.rect.width;
+	}
+
 	void Update(){
 		controler.GetComponent<Button>().
 			onClick.AddListener (() => Controler());
 	}
 	
 	void OnGUI(){
-		if (opened) {
+		if (opened == true) {
 			float starting = start ();
-			button.transform.rotation = Quaternion.Euler(0,0,0);
+			controler.transform.rotation = Quaternion.Euler(0,0,0);
 			window.transform.position = new Vector3
-				(Mathf.Lerp (starting, 734.1f, Time.deltaTime * 0.8f), 
+				(Mathf.Lerp (starting, sc.rect.width - bounds/2
+				             , Time.deltaTime * 0.8f), 
 				 window.transform.position.y, window.transform.position.z);
 		}
 		
-		if (!opened) {
+		if (opened == false) {
 			float starting = start ();
-			button.transform.rotation = Quaternion.Euler(0,0,180);
+			controler.transform.rotation = Quaternion.Euler(0,0,180);
 			window.transform.position = new Vector3
-				(Mathf.Lerp ( starting,853.6f, Time.deltaTime * 0.8f), 
+				(Mathf.Lerp ( starting,sc.rect.width + bounds/2
+				             , Time.deltaTime * 0.8f), 
 				 window.transform.position.y, window.transform.position.z);
 		}
 	}
