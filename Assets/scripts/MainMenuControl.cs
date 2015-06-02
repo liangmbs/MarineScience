@@ -11,13 +11,9 @@ public class MainMenuControl : MonoBehaviour {
 	public GameObject screen;
 
 	public RectTransform sc;
-
+	public RectTransform rt;
 	
 	public bool opened = false;
-
-	public float bounds;
-	public float end;
-
 
 	public float start(){
 
@@ -26,9 +22,8 @@ public class MainMenuControl : MonoBehaviour {
 		
 	void Start(){
 
-		RectTransform rt = (RectTransform)window.transform;
+		rt = (RectTransform)window.transform;
 		sc = (RectTransform)screen.transform;
-		bounds =rt.rect.width;
 	}
 
 	void Update(){
@@ -39,20 +34,25 @@ public class MainMenuControl : MonoBehaviour {
 	void OnGUI(){
 		if (opened == true) {
 			float starting = start ();
+			float bounds =rt.rect.width;
 			controler.transform.rotation = Quaternion.Euler(0,0,0);
 			window.transform.position = new Vector3
 				(Mathf.Lerp (starting, sc.rect.width - bounds/2
 				             , Time.deltaTime * 0.8f), 
 				 window.transform.position.y, window.transform.position.z);
+			GameObject.Find("Main Camera").GetComponent<MovingCamera>().enabled = false;
 		}
 		
 		if (opened == false) {
 			float starting = start ();
+			float bounds =rt.rect.width;
 			controler.transform.rotation = Quaternion.Euler(0,0,180);
 			window.transform.position = new Vector3
 				(Mathf.Lerp ( starting,sc.rect.width + bounds/2
 				             , Time.deltaTime * 0.8f), 
 				 window.transform.position.y, window.transform.position.z);
+			GameObject.Find("Main Camera").GetComponent<MovingCamera>().enabled = true;
+	
 		}
 	}
 	

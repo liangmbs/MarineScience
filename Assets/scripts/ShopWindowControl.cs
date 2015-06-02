@@ -11,8 +11,9 @@ public class ShopWindowControl : MonoBehaviour {
 
 	//initialize Button
 	public GameObject controler;
+	RectTransform rt;
 
-
+	
 	//define if it is open;
 	public bool open = false;
 	public float bounds;
@@ -24,8 +25,7 @@ public class ShopWindowControl : MonoBehaviour {
 	
 
 	void Start(){
-		RectTransform rt = (RectTransform)window.transform;
-		bounds =rt.rect.width;
+		rt = (RectTransform)window.transform;
 	}
 
 	void Update(){
@@ -36,19 +36,24 @@ public class ShopWindowControl : MonoBehaviour {
 	void OnGUI(){
 		if (open == true) {
 			float starting = start ();
+			bounds =rt.rect.width;
 			controler.transform.rotation = Quaternion.Euler(0,0,180);
 			window.transform.position = new Vector3
 				(Mathf.Lerp (starting, bounds/2, Time.deltaTime), 
 				 window.transform.position.y, window.transform.position.z);
+			GameObject.Find("Main Camera").GetComponent<MovingCamera>().enabled = false;
+
 		}
 
 		if (open == false) {
 			float starting = start ();
-
+			bounds =rt.rect.width;
 			controler.transform.rotation = Quaternion.Euler(0,0,0);
 			window.transform.position = new Vector3
 				(Mathf.Lerp (starting, -bounds/2,  Time.deltaTime * 0.8f), 
 				 window.transform.position.y, window.transform.position.z);
+			GameObject.Find("Main Camera").GetComponent<MovingCamera>().enabled = true;
+
 		}
 	}
 

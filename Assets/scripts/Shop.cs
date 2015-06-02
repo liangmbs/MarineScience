@@ -14,12 +14,15 @@ public class Shop : MonoBehaviour {
 	public GameObject tire1Selected;
 	public GameObject tire2Selected;
 	public GameObject tire3Selected;
-	
+
+
+
+
+
 	// Use this for initialization
 	void Start () {
 	
-	}
-	
+	}	
 	// Update is called once per frame
 	void Update () {
 		tire1Button.GetComponent<Button>().
@@ -36,7 +39,6 @@ public class Shop : MonoBehaviour {
 		NonSelectedTire1.SetActive(false);
 		NonSelectedTire2.SetActive(false);	
 	}
-
 
 
 
