@@ -41,7 +41,7 @@ public class ShopWindowControl : MonoBehaviour {
 			window.transform.position = new Vector3
 				(Mathf.Lerp (starting, bounds/2, Time.deltaTime), 
 				 window.transform.position.y, window.transform.position.z);
-			GameObject.Find("Main Camera").GetComponent<MovingCamera>().enabled = false;
+			//GameObject.Find("Main Camera").GetComponent<MovingCamera>().enabled = false;
 
 		}
 
@@ -52,7 +52,7 @@ public class ShopWindowControl : MonoBehaviour {
 			window.transform.position = new Vector3
 				(Mathf.Lerp (starting, -bounds/2,  Time.deltaTime * 0.8f), 
 				 window.transform.position.y, window.transform.position.z);
-			GameObject.Find("Main Camera").GetComponent<MovingCamera>().enabled = true;
+			//GameObject.Find("Main Camera").GetComponent<MovingCamera>().enabled = true;
 
 		}
 	}

@@ -7,6 +7,7 @@ public class CharacterManager : MonoBehaviour {
 	public float speciesAmount = 0;
 	public float performanceRate = 1;
     public float fedRate = 1;
+    public float cost = 100;
 
     //object references
 	public ThermalCurve thermalcurve;
@@ -50,8 +51,8 @@ public class CharacterManager : MonoBehaviour {
         }
         else //otherwise, fish reproduce
         {
-            speciesAmount = speciesAmount * getFinalPerformance() * 
-                (1 + reproductionMultiplier) * days;
+            speciesAmount = speciesAmount + speciesAmount * getFinalPerformance() * 
+                (reproductionMultiplier) * days;
         }
 
         if (speciesAmount < 1)

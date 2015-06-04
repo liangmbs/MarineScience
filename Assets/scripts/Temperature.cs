@@ -40,7 +40,7 @@ public class Temperature : MonoBehaviour {
     private float pickFlicker = 0;
     private float flipTimer = 0;
     private TempDot currentDot;
-    private bool animating = false;
+    public bool animating = false;
 
     private Queue<float> historicalTemperatures;
 
@@ -67,6 +67,7 @@ public class Temperature : MonoBehaviour {
             //make the lines children of this object
             lineObj.transform.parent = this.transform;
             lineObj.transform.position = transform.position + new Vector3(0, 0, -1);
+            lineObj.transform.localScale = new Vector3(1,1,1);
             //and put them in a list
             lines.Add(lineObj.GetComponent<LineRenderer>());
         }
@@ -77,6 +78,7 @@ public class Temperature : MonoBehaviour {
         {
             GameObject dotObj = (GameObject)UnityEditor.PrefabUtility.InstantiatePrefab(dotPrefab);
             dotObj.transform.parent = this.transform;
+            //dotObj.transform.localScale *= transform.localScale;
             dots.Add(new TempDot(dotObj.GetComponent<SpriteRenderer>(), 0, null, i));
         }
         currentDot = dots[0];
@@ -90,19 +92,18 @@ public class Temperature : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetButtonDown("Jump"))
-        {
-            //generatePossibilities();
-            //drawLines();
-            animating = true;
-            animationTimer = 0;
-            pickTimer = 0;
-        }
         if (animating)
         {
             Animate();
         }
 	}
+
+    public void updateTemperature()
+    {
+        animating = true;
+        animationTimer = 0;
+        pickTimer = 0;
+    }
 
     void Animate()
     {
@@ -274,7 +275,7 @@ public class Temperature : MonoBehaviour {
                 dots[d].lineRender = lines[i];
                 SpriteRenderer dot = dots[d].spriteRender;
                 dot.color = cTemp;
-                dot.transform.position = new Vector3(xOrigin + dotSpacing * j, yPos, -1) + transform.position;
+                dot.transform.position = Vector3.Scale(new Vector3(xOrigin + dotSpacing * j, yPos, -1), transform.localScale) + transform.position;
                 d++;
             }
         }

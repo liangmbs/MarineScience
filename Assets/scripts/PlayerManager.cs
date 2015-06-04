@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour {
 
@@ -12,14 +13,19 @@ public class PlayerManager : MonoBehaviour {
     //Highest level in the species list
     public int lowestLevel = 1;
     public int highestLevel = 3;
-
+    public Temperature temperature;
 	/*
 	 *  Player's data
 	 */
 
 	public float days = 0;
 	public float moneys = 0;
-	public float currentTemperature = 20;
+    public float dailyIncome = 100;
+    public float netWorthIncomeRate = .2f;
+    public float sellRate = .5f;
+    public bool waitingForTemperature = false;
+
+    public Text moneyText;
 
 	/*
 	 * Initialize with three species at each level
@@ -33,11 +39,23 @@ public class PlayerManager : MonoBehaviour {
 
     public void Update()
     {
-        if (Input.GetButtonDown("Submit"))
+        if (Input.GetButtonDown("Submit") && !waitingForTemperature)
         {
-            StepEcosystem(1);
+            waitingForTemperature = true;
+            temperature.updateTemperature();
         }
-        if (Input.GetButtonDown("Fire1"))
+        if (!temperature.animating && waitingForTemperature)
+        {
+            StepEcosystem(0.5f);
+            waitingForTemperature = false;
+            moneys += dailyIncome;
+            foreach (CharacterManager c in species)
+            {
+                moneys += c.cost * c.speciesAmount * netWorthIncomeRate;
+            }
+
+        }
+        /*if (Input.GetButtonDown("Fire1"))
         {
             if (Random.value < .05)
                 CreatureAmountChanged(2, 1);
@@ -45,6 +63,27 @@ public class PlayerManager : MonoBehaviour {
                 CreatureAmountChanged(1, 1);
             else
                 CreatureAmountChanged(0, 1);
+        }*/
+
+        moneyText.text = Mathf.Floor(moneys).ToString();
+    }
+
+    public void Buy(int index)
+    {
+        if (moneys >= species[index].cost)
+        {
+            CreatureAmountChanged(index, 1);
+            moneys -= species[index].cost;
+            moneyText.text =  moneys.ToString();
+        }
+    }
+
+    public void SellAll()
+    {
+        foreach (CharacterManager c in species)
+        {
+            moneys += Mathf.Round(c.speciesAmount) * c.cost * sellRate;
+            c.speciesAmount = 0;
         }
     }
 
@@ -57,11 +96,9 @@ public class PlayerManager : MonoBehaviour {
     public void StepEcosystem(float dayStep)
     {
         days += dayStep;
-        //TODO: update temperature
-        currentTemperature = 15 + Random.value * 10;
         foreach (CharacterManager c in species)
         {
-            c.updatePerformance(currentTemperature);
+            c.updatePerformance(temperature.temperature);
         }
         Predation(dayStep);
         foreach (CharacterManager c in species)
