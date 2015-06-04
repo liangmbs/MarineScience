@@ -63,7 +63,11 @@ public class Temperature : MonoBehaviour {
         for (int i = 0; i < numPredictions; i++)
         {
             //instantiate
+#if UNITY_EDITOR
             GameObject lineObj = (GameObject)UnityEditor.PrefabUtility.InstantiatePrefab(linePrefab);
+#else
+            GameObject lineObj = GameObject.Instantiate(linePrefab);
+#endif
             //make the lines children of this object
             lineObj.transform.parent = this.transform;
             lineObj.transform.position = transform.position + new Vector3(0, 0, -1);
@@ -76,7 +80,11 @@ public class Temperature : MonoBehaviour {
         dots = new List<TempDot>();
         for (int i = 0; i < numPredictions + maxChanceDots; i++)
         {
+#if UNITY_EDITOR
             GameObject dotObj = (GameObject)UnityEditor.PrefabUtility.InstantiatePrefab(dotPrefab);
+#else
+            GameObject dotObj = GameObject.Instantiate(dotPrefab);
+#endif
             dotObj.transform.parent = this.transform;
             //dotObj.transform.localScale *= transform.localScale;
             dots.Add(new TempDot(dotObj.GetComponent<SpriteRenderer>(), 0, null, i));

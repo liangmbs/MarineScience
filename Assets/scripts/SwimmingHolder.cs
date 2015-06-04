@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using UnityEditor;
 
 public class SwimmingHolder : MonoBehaviour {
     public PlayerManager player;
@@ -47,8 +46,13 @@ public class SwimmingHolder : MonoBehaviour {
 
     void AddCreature(int cId)
     {
-        //GameObject cObj = GameObject.Instantiate(cyplo);
-        GameObject cObj = (GameObject)PrefabUtility.InstantiatePrefab(prefabs[cId]);
+        //if we're running in the editor, we can instantiate as prefabs. 
+        //This lets us change variables in the prefab and see the effects
+#if UNITY_EDITOR
+        GameObject cObj = (GameObject)UnityEditor.PrefabUtility.InstantiatePrefab(prefabs[cId]);
+#else
+        GameObject cObj = GameObject.Instantiate(prefabs[cId]);
+#endif
         SwimmingCreature c = cObj.GetComponent<SwimmingCreature>();
         creatures.Add(c);
         c.creatureFlock = creatures;
