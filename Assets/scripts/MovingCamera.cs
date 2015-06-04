@@ -16,6 +16,12 @@ void Start(){
 }
 
 
+	void update(){
+		//SetActive ();
+	}
+
+
+
 void LateUpdate(){
 	
 	if (Input.GetButton ("Fire1")) {
@@ -47,4 +53,24 @@ void LateUpdate(){
 		Mathf.Clamp (transform.position.y, min.y , max.y),
 		Mathf.Clamp (transform.position.z, min.z, max.z));
 }
+
+
+	/*
+	public void SetActive(){
+		bool open1 = GameObject.Find ("ShopCanvas").GetComponent<ShopWindowControl>().open;
+		bool open2 = GameObject.Find ("MainMenuCanvas").GetComponent<ShopWindowControl>().open;
+
+		if (open1 == true || open2 == true) {
+			gameObject.GetComponent<MovingCamera> ().enabled = false;
+		} else {
+			gameObject.GetComponent<MovingCamera> ().enabled = true;
+
+		}
+
+	}
+*/
+
+
+
+
 }
