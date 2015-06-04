@@ -5,7 +5,8 @@ public class Temperature : MonoBehaviour {
 
     private LineRenderer historyLine;
 
-    private List<LineRenderer> lines;
+    private List<LineRenderer> predictionLines;
+    private List<LineRenderer> historicalLineRenders;
     private List<TempDot> dots; 
 
     public float maxTemp = 40;
@@ -47,19 +48,36 @@ public class Temperature : MonoBehaviour {
     private List<float> possibleTemperatures;
     private List<int> possibleLikelihoods;
 
+    private Vector3 homePos;
+
     public float temperature = 20;
 
 	// Use this for initialization
 	void Start () {
+        homePos = transform.position;
+        //create our historical lines
         historyLine = GetComponent<LineRenderer>();
         historicalTemperatures = new Queue<float>();
         for (int i = 0; i < historicalSegments; i++)
         {
             historicalTemperatures.Enqueue(20);
         }
+        historicalLineRenders = new List<LineRenderer>();
+        for (int i = 0; i < historicalSegments - 1; i++)
+        {
+#if UNITY_EDITOR
+            GameObject lineObj = (GameObject)UnityEditor.PrefabUtility.InstantiatePrefab(linePrefab);
+#else
+            GameObject lineObj = GameObject.Instantiate(linePrefab);
+#endif
+            lineObj.transform.parent = this.transform;
+            lineObj.transform.position = transform.position + new Vector3(0, 0, -1);
+            lineObj.transform.localScale = new Vector3(1, 1, 1);
+            historicalLineRenders.Add(lineObj.GetComponent<LineRenderer>());
+        }
 
-        //create our branching lines
-        lines = new List<LineRenderer>();
+            //create our branching lines
+            predictionLines = new List<LineRenderer>();
         for (int i = 0; i < numPredictions; i++)
         {
             //instantiate
@@ -73,7 +91,7 @@ public class Temperature : MonoBehaviour {
             lineObj.transform.position = transform.position + new Vector3(0, 0, -1);
             lineObj.transform.localScale = new Vector3(1,1,1);
             //and put them in a list
-            lines.Add(lineObj.GetComponent<LineRenderer>());
+            predictionLines.Add(lineObj.GetComponent<LineRenderer>());
         }
 
         //create some dots
@@ -106,6 +124,22 @@ public class Temperature : MonoBehaviour {
         }
 	}
 
+    void OnDrawGizmos()
+    {
+        float segL = (historicalSegments - 1) * segmentSpacing;
+        float dotL = dotSpacing * (maxChanceDots + 1);
+        Vector3 tPos = transform.position;
+        Gizmos.color = neutralColor;
+        Gizmos.DrawLine(tPos + new Vector3(0, minTemp + (maxTemp - minTemp) / 2, 0),
+            tPos + new Vector3(segL, minTemp + (maxTemp - minTemp) / 2, 0));
+        Gizmos.color = hotColor;
+        Gizmos.DrawLine(tPos + new Vector3(segL + segmentSpacing, maxTemp, 0),
+            tPos + new Vector3(segL + segmentSpacing + dotL, maxTemp, 0));
+        Gizmos.color = coldColor;
+        Gizmos.DrawLine(tPos + new Vector3(segL + segmentSpacing, minTemp, 0),
+            tPos + new Vector3(segL + segmentSpacing + dotL, minTemp, 0));
+    }
+
     public void updateTemperature()
     {
         animating = true;
@@ -122,6 +156,7 @@ public class Temperature : MonoBehaviour {
             flipTimer = 0;
             PickTemperature();
             selectorDot.GetComponent<SpriteRenderer>().enabled = false;
+            transform.position = homePos;
             return;
         }
 
@@ -160,6 +195,7 @@ public class Temperature : MonoBehaviour {
                 pickFlicker = 0;
             }
             pickTimer += Time.deltaTime;
+            transform.position = Vector3.Lerp(homePos, homePos + new Vector3(-segmentSpacing, 0, 0), pickTimer / pickSeconds);
             currentDot.lineRender.SetColors(Color.white, Color.white);
         }
     }
@@ -167,6 +203,8 @@ public class Temperature : MonoBehaviour {
     void PickTemperature()
     {
         temperature = currentDot.temperature;
+        historicalTemperatures.Dequeue();
+        historicalTemperatures.Enqueue(temperature);
         generatePossibilities();
         drawLines();
     }
@@ -246,26 +284,33 @@ public class Temperature : MonoBehaviour {
     //draw the lines (and dots)
     void drawLines()
     {
-        //float x = transform.position.x;
-        historyLine.SetVertexCount(historicalSegments);
-
-        for (int i = 0; i < lines.Count; i++)
+        float[] tempArr = historicalTemperatures.ToArray();
+        for (int i = 0; i < historicalSegments - 1; i++)
         {
-            if (i >= possibleTemperatures.Count)
-            {
-                //we don't need this line, so hide it.
-                lines[i].enabled = false;
-            }
-            else
-            {
-                LineRenderer lin = lines[i];
-                lin.enabled = true;
-                lin.SetVertexCount(2);
-                lin.SetPosition(0, new Vector3(segmentSpacing, temperature, -1 - i));
-                lin.SetPosition(1, new Vector3(segmentSpacing * 2, possibleTemperatures[i], -1 - i));
-                lin.SetColors(getColorTemperature(temperature), getColorTemperature(possibleTemperatures[i]));
-            }
+            LineRenderer linRend = historicalLineRenders[i];
+            linRend.SetVertexCount(2);
+            linRend.SetPosition(0, new Vector3(i * segmentSpacing, tempArr[i], 0));
+            linRend.SetPosition(1, new Vector3((i + 1)* segmentSpacing, tempArr[i + 1], 0));
+            linRend.SetColors(getColorTemperature(tempArr[i]), getColorTemperature(tempArr[i + 1]));
         }
+
+            for (int i = 0; i < predictionLines.Count; i++)
+            {
+                if (i >= possibleTemperatures.Count)
+                {
+                    //we don't need this line, so hide it.
+                    predictionLines[i].enabled = false;
+                }
+                else
+                {
+                    LineRenderer lin = predictionLines[i];
+                    lin.enabled = true;
+                    lin.SetVertexCount(2);
+                    lin.SetPosition(0, new Vector3(segmentSpacing * (historicalSegments - 1), temperature, -1 - i));
+                    lin.SetPosition(1, new Vector3(segmentSpacing * (historicalSegments), possibleTemperatures[i], -1 - i));
+                    lin.SetColors(getColorTemperature(temperature), getColorTemperature(possibleTemperatures[i]));
+                }
+            }
 
         int d = 0;
         //Debug.Log("dots " + dots.Count);
@@ -273,14 +318,14 @@ public class Temperature : MonoBehaviour {
         {
             int nDots = possibleLikelihoods[i];
             Color cTemp = getColorTemperature(possibleTemperatures[i]);
-            float xOrigin = segmentSpacing * 2 + dotSpacing;
+            float xOrigin = segmentSpacing * historicalSegments + dotSpacing;
             float yPos = possibleTemperatures[i];
             for (int j = 0; j < nDots; j++)
             {
                 //Debug.Log("d" + d);
                 dots[d].index = i;
                 dots[d].temperature = possibleTemperatures[i];
-                dots[d].lineRender = lines[i];
+                dots[d].lineRender = predictionLines[i];
                 SpriteRenderer dot = dots[d].spriteRender;
                 dot.color = cTemp;
                 dot.transform.position = Vector3.Scale(new Vector3(xOrigin + dotSpacing * j, yPos, -1), transform.localScale) + transform.position;
