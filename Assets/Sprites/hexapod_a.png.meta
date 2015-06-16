@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 8b60f6ca1e2f04b498ecdbe30fb00a95
-timeCreated: 1429641892
+timeCreated: 1429642687
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -68,7 +68,7 @@ TextureImporter:
         width: 83
         height: 83
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: hexapod_a_1
       rect:
@@ -78,7 +78,7 @@ TextureImporter:
         width: 86
         height: 87
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: hexapod_a_2
       rect:
@@ -88,7 +88,7 @@ TextureImporter:
         width: 83
         height: 83
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: hexapod_a_3
       rect:
@@ -97,8 +97,8 @@ TextureImporter:
         y: 877
         width: 96
         height: 93
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: .986029923, y: .100944929}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: hexapod_a_4
       rect:
@@ -107,8 +107,8 @@ TextureImporter:
         y: 867
         width: 104
         height: 103
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: hexapod_a_5
       rect:
@@ -117,8 +117,8 @@ TextureImporter:
         y: 877
         width: 97
         height: 93
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: .0269580334, y: .098411642}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: hexapod_a_6
       rect:
@@ -128,7 +128,7 @@ TextureImporter:
         width: 354
         height: 307
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: hexapod_a_7
       rect:
@@ -138,7 +138,7 @@ TextureImporter:
         width: 467
         height: 404
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: hexapod_a_8
       rect:
@@ -147,8 +147,8 @@ TextureImporter:
         y: 25
         width: 96
         height: 93
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: .979062378, y: .901793957}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: hexapod_a_9
       rect:
@@ -157,8 +157,8 @@ TextureImporter:
         y: 25
         width: 104
         height: 102
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 2
+      pivot: {x: .5, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: hexapod_a_10
       rect:
@@ -167,8 +167,8 @@ TextureImporter:
         y: 25
         width: 97
         height: 93
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: .0318024643, y: .901793957}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
