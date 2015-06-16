@@ -16,41 +16,49 @@ public class ShopWindowControl : MonoBehaviour {
 	
 	//define if it is open;
 	public bool open = false;
-	public float bounds;
 
-	public float start(){
+    private float homeX;
+    public float slideAmount = 555;
+    public float slideTime = .6f;
+    public float slideTimer = 0;
 
-		return window.transform.position.x;
-	}
-	
-
-	void Start(){
+	void Start() 
+    {
 		rt = (RectTransform)window.transform;
 		controler.GetComponent<Button>().
 			onClick.AddListener (() => Controler());
+        float startX = rt.anchoredPosition.x;
 	}
+
+    void Update()
+    {
+        if (slideTimer < 0)
+        {
+            slideTimer = 0;
+        }
+        if (slideTimer > 0)
+        {
+            slideTimer -= Time.deltaTime;
+        }
+    }
 
 	void OnGUI(){
 		/*controler.GetComponent<Button>().
 			onClick.AddListener (() => Controler());*/
 		if (open == true) {
-			float starting = start ();
-			bounds =rt.rect.width;
 			controler.transform.rotation = Quaternion.Euler(0,0,180);
-			window.transform.position = new Vector3
-				(Mathf.Lerp (starting, bounds/2, Time.deltaTime), 
-				 window.transform.position.y, window.transform.position.z);
+			rt.anchoredPosition = new Vector2
+				(Mathf.Lerp (homeX - slideAmount, homeX, 1 - (slideTimer / slideTime)),
+                 rt.anchoredPosition.y);
 			//GameObject.Find("Main Camera").GetComponent<MovingCamera>().enabled = false;
 
 		}
 
 		if (open == false) {
-			float starting = start ();
-			bounds =rt.rect.width;
 			controler.transform.rotation = Quaternion.Euler(0,0,0);
-			window.transform.position = new Vector3
-				(Mathf.Lerp (starting, -bounds/2,  Time.deltaTime * 0.8f), 
-				 window.transform.position.y, window.transform.position.z);
+            rt.anchoredPosition = new Vector2
+                (Mathf.Lerp(homeX, homeX - slideAmount, 1 - (slideTimer / slideTime)),
+                 rt.anchoredPosition.y);
 			//GameObject.Find("Main Camera").GetComponent<MovingCamera>().enabled = true;
 
 		}
@@ -59,6 +67,7 @@ public class ShopWindowControl : MonoBehaviour {
 
 	void Controler(){
 		open = !open;
+        slideTimer = slideTime;
 	}
 
 }

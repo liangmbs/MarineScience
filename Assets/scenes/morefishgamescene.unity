@@ -7106,7 +7106,9 @@ MonoBehaviour:
   window: {fileID: 1605732530}
   controler: {fileID: 116639632}
   open: 0
-  bounds: 0
+  slideAmount: 550
+  slideTime: .600000024
+  slideTimer: 0
 --- !u!212 &1943393660
 SpriteRenderer:
   m_ObjectHideFlags: 0
