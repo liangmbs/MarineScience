@@ -74,12 +74,14 @@ public class Shop : MonoBehaviour {
                 break;
         }
     }
-	/*
-	public void InstantiateSelectedWindow(GameObject selected){
-		(Instantiate (selectionWindow, selected.transform.position, Quaternion.identity)
-		 as GameObject).transform.parent = GameObject.Find ("ShopCanvas").transform;
+
+	public void SelectedWindow(GameObject selected){
+		selectionWindow.SetActive (true);
+		selectionWindow.transform.position = new Vector3
+			(Mathf.Lerp (selectionWindow.transform.position.x, selected.transform.position.x, Time.deltaTime), 
+			 selected.transform.position.y, selected.transform.position.z);
 	}
-	*/
+
 
 	public void addfishes(int number){
 
