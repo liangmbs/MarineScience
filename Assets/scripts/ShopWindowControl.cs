@@ -26,14 +26,13 @@ public class ShopWindowControl : MonoBehaviour {
 
 	void Start(){
 		rt = (RectTransform)window.transform;
-	}
-
-	void Update(){
 		controler.GetComponent<Button>().
 			onClick.AddListener (() => Controler());
 	}
 
 	void OnGUI(){
+		/*controler.GetComponent<Button>().
+			onClick.AddListener (() => Controler());*/
 		if (open == true) {
 			float starting = start ();
 			bounds =rt.rect.width;
@@ -58,7 +57,7 @@ public class ShopWindowControl : MonoBehaviour {
 	}
 
 
-	public void Controler(){
+	void Controler(){
 		open = !open;
 	}
 

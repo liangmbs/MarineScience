@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 using UnityEngine.UI;
 
 
@@ -7,6 +8,17 @@ public class Shop : MonoBehaviour {
 
     public PlayerManager playerObj;
 
+	//initialize the prefab
+	public GameObject selectionWindow;
+
+	//text
+	public Text totalfishes;
+
+	//plus button
+	public GameObject plus5;
+	public GameObject plus10;
+	public GameObject plus100;
+	
 	// Tires' button
 	public GameObject tire1Button;
 	public GameObject tire2Button;
@@ -21,8 +33,14 @@ public class Shop : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		plus5.GetComponent<Button>().
+			onClick.AddListener(()=> addfishes(5));
+		plus10.GetComponent<Button> ().
+			onClick.AddListener (() => addfishes (10));
+		plus100.GetComponent<Button> ().
+			onClick.AddListener (() => addfishes (100));
 	}	
+
 	// Update is called once per frame
 	void Update () {
 		tire1Button.GetComponent<Button>().
@@ -56,6 +74,17 @@ public class Shop : MonoBehaviour {
                 break;
         }
     }
+	/*
+	public void InstantiateSelectedWindow(GameObject selected){
+		(Instantiate (selectionWindow, selected.transform.position, Quaternion.identity)
+		 as GameObject).transform.parent = GameObject.Find ("ShopCanvas").transform;
+	}
+	*/
 
+	public void addfishes(int number){
 
+		int totalnumber = Int16.Parse(totalfishes.text);
+		totalnumber += number;
+		totalfishes.text = totalnumber.ToString ();
+	}
 }
