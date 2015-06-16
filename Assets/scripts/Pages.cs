@@ -17,15 +17,15 @@ public class Pages : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
 		rightButton.GetComponent<Button> ().
 			onClick.AddListener (() => Windows (rightButton, leftButton, Panel1, Panel2));
 		leftButton.GetComponent<Button> ().
 			onClick.AddListener (() => Windows (leftButton, rightButton, Panel2, Panel1));
+	}
+	
+	// Update is called once per frame
+	void Update () {
+
 	}
 	
 	public void Windows(GameObject selectedButton, GameObject nonselectedButton,GameObject selectedPanel,GameObject nonselectedPanel){
@@ -33,6 +33,7 @@ public class Pages : MonoBehaviour {
 		nonselectedPanel.SetActive (true);
 		selectedButton.SetActive (false);
 		nonselectedButton.SetActive (true);
+		GameObject.Find ("ShopCanvas").GetComponent<Shop> ().selectionWindow.SetActive (false);
 	}
 
 

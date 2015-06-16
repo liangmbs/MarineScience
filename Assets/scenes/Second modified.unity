@@ -6402,8 +6402,8 @@ RectTransform:
   - {fileID: 32714084}
   - {fileID: 766917933}
   - {fileID: 116639633}
-  - {fileID: 2110036535}
   - {fileID: 1905791671}
+  - {fileID: 2110036535}
   - {fileID: 1412066564}
   - {fileID: 176509494}
   - {fileID: 2132849858}
@@ -7672,7 +7672,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1905791671
 Transform:
   m_ObjectHideFlags: 0
@@ -7680,11 +7680,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1905791670}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -118, y: 6, z: -16}
-  m_LocalScale: {x: 28, y: 28, z: 1}
+  m_LocalPosition: {x: -118, y: 6, z: -10}
+  m_LocalScale: {x: 28, y: 28, z: 0}
   m_Children: []
   m_Father: {fileID: 1605732531}
-  m_RootOrder: 8
+  m_RootOrder: 7
 --- !u!212 &1905791672
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7841,7 +7841,9 @@ MonoBehaviour:
   window: {fileID: 1605732530}
   controler: {fileID: 116639632}
   open: 0
-  bounds: 0
+  slideAmount: 555
+  slideTime: .600000024
+  slideTimer: 0
 --- !u!212 &1943393660
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8843,7 +8845,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1605732531}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_AnchorMin: {x: .0340000018, y: .680674553}
   m_AnchorMax: {x: .335510582, y: .750464499}
   m_AnchoredPosition: {x: 1.5890274, y: 0}

@@ -29,6 +29,7 @@ public class Shop : MonoBehaviour {
 	public GameObject tire2Selected;
 	public GameObject tire3Selected;
 
+
     private int currentTab = 1;
 
 	// Use this for initialization
@@ -39,16 +40,18 @@ public class Shop : MonoBehaviour {
 			onClick.AddListener (() => addfishes (10));
 		plus100.GetComponent<Button> ().
 			onClick.AddListener (() => addfishes (100));
-	}	
-
-	// Update is called once per frame
-	void Update () {
 		tire1Button.GetComponent<Button>().
 			onClick.AddListener (() => EnableWindow (tire1Selected, tire2Selected, tire3Selected, 1));
 		tire2Button.GetComponent<Button>().
 			onClick.AddListener (() => EnableWindow (tire2Selected, tire1Selected, tire3Selected, 2));
 		tire3Button.GetComponent<Button>().
 			onClick.AddListener (() => EnableWindow (tire3Selected, tire1Selected, tire2Selected, 3));
+		selectionWindow.SetActive (false);
+	}	
+
+	// Update is called once per frame
+	void Update () {
+
 	}
 
 
@@ -57,6 +60,8 @@ public class Shop : MonoBehaviour {
 		NonSelectedTire1.SetActive(false);
 		NonSelectedTire2.SetActive(false);
         currentTab = tab;
+		selectionWindow.SetActive (false);
+
 	}
 
     public void buttonPress(int button)
@@ -77,8 +82,7 @@ public class Shop : MonoBehaviour {
 
 	public void SelectedWindow(GameObject selected){
 		selectionWindow.SetActive (true);
-		selectionWindow.transform.position = new Vector3
-			(Mathf.Lerp (selectionWindow.transform.position.x, selected.transform.position.x, Time.deltaTime), 
+		selectionWindow.transform.position = new Vector3 (selected.transform.position.x,
 			 selected.transform.position.y, selected.transform.position.z);
 	}
 
