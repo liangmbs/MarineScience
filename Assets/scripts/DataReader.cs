@@ -18,12 +18,12 @@ public class DataReader : MonoBehaviour
     string[] words2; // temptorary variable to load the data
     public List<float> WaterTemplist = new List<float>();
     public List<float> FoodConcentlist = new List<float>();
-    public dataChart waterOutput;
+    //public dataChart waterOutput;
 
     void Start()
     {
         inputwatertemperature();
-        waterOutput.data = WaterTemplist.ToArray();
+        //waterOutput.data = WaterTemplist.ToArray();
         //inputfoodconcentration();
     }
 
