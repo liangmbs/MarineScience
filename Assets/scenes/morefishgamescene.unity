@@ -1969,7 +1969,7 @@ Prefab:
     - target: {fileID: 11430286, guid: 40cb4c4bde0e3ce4994c72b022e89ffd, type: 2}
       propertyPath: thermalcurve
       value: 
-      objectReference: {fileID: 1312538215}
+      objectReference: {fileID: 1437411096}
     - target: {fileID: 11430286, guid: 40cb4c4bde0e3ce4994c72b022e89ffd, type: 2}
       propertyPath: cost
       value: 500
@@ -5504,12 +5504,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 10bf172eb4977de4bb5ee4f5ef60af44, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &1311802564 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11437164, guid: 10bf172eb4977de4bb5ee4f5ef60af44,
-    type: 2}
-  m_PrefabInternal: {fileID: 1311802563}
-  m_Script: {fileID: 11500000, guid: 9c7bdbeef116994469f92c84d48e0cd4, type: 3}
 --- !u!4 &1311802565 stripped
 Transform:
   m_PrefabParentObject: {fileID: 448656, guid: 10bf172eb4977de4bb5ee4f5ef60af44, type: 2}
@@ -5588,12 +5582,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 448656, guid: 10bf172eb4977de4bb5ee4f5ef60af44, type: 2}
   m_PrefabInternal: {fileID: 1312538213}
---- !u!114 &1312538215 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11437164, guid: 10bf172eb4977de4bb5ee4f5ef60af44,
-    type: 2}
-  m_PrefabInternal: {fileID: 1312538213}
-  m_Script: {fileID: 11500000, guid: 9c7bdbeef116994469f92c84d48e0cd4, type: 3}
 --- !u!21 &1322207589
 Material:
   serializedVersion: 5
@@ -8819,7 +8807,7 @@ Prefab:
     - target: {fileID: 11412362, guid: 3032856d14a8d1f4492258bf18bb52b4, type: 2}
       propertyPath: thermalcurve
       value: 
-      objectReference: {fileID: 1311802564}
+      objectReference: {fileID: 1437411096}
     - target: {fileID: 11412362, guid: 3032856d14a8d1f4492258bf18bb52b4, type: 2}
       propertyPath: cost
       value: 3000
