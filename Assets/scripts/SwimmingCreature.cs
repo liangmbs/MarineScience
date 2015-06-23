@@ -327,15 +327,12 @@ public class SwimmingCreature : MonoBehaviour {
     public void Spawn()
     {
         //randomly spawn outside the bounds
-        float xSpawn;
-        float ySpawn;
-        if (Random.value < .5)
-            xSpawn = bounds.xMin + bounds.xMin * Random.value;
+        float xSpawn = 0;
+        float ySpawn = Random.Range(bounds.yMin, bounds.yMax);
+        if (Random.value < .5f)
+            xSpawn = bounds.xMin + 10 + bounds.xMin * Random.value;
         else
-            xSpawn = bounds.xMax + bounds.xMax * Random.value;
-
-        xSpawn = Random.value * bounds.xMax;
-        ySpawn = Random.value * bounds.yMax;
+            xSpawn = bounds.xMax + 10 + bounds.xMax * Random.value;
 
         transform.position = new Vector3(xSpawn, ySpawn, transform.position.z);
         velocity = new Vector2(Random.Range(-maxSpeed, maxSpeed),

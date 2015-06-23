@@ -181,7 +181,7 @@ Transform:
   m_GameObject: {fileID: 103302}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 35.9267731, y: -98.0620193, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: .5, y: .5, z: 1}
   m_Children:
   - {fileID: 464552}
   - {fileID: 435922}
@@ -321,9 +321,9 @@ MonoBehaviour:
   bounds:
     serializedVersion: 2
     x: -88
-    y: -45
+    y: -70
     width: 176
-    height: 100
+    height: 130
   edgeRadius: 30
   edgePower: 10
   level: 3
