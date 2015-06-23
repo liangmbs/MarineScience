@@ -31,6 +31,7 @@ public class PlayerManager : MonoBehaviour {
 	 * Initialize with three species at each level
 	 */
 	void Awake(){
+        species = new List<CharacterManager>(GetComponentsInChildren<CharacterManager>());
         foreach (CharacterManager c in species)
         {
             c.player = this;

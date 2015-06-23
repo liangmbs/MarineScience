@@ -14,6 +14,9 @@ public class Shop : MonoBehaviour {
 	//text
 	public Text totalfishes;
 
+    //curve
+    public CurveRenderer curveRender;
+
 	//plus button
 	public GameObject plus5;
 	public GameObject plus10;
@@ -29,8 +32,8 @@ public class Shop : MonoBehaviour {
 	public GameObject tire2Selected;
 	public GameObject tire3Selected;
 
-
-    private int currentTab = 1;
+    private int selectedFish = 0;
+    private int currentFishes = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -59,25 +62,34 @@ public class Shop : MonoBehaviour {
 		SlectedTire.SetActive (true);
 		NonSelectedTire1.SetActive(false);
 		NonSelectedTire2.SetActive(false);
-        currentTab = tab;
+        //currentTab = tab;
 		selectionWindow.SetActive (false);
 
 	}
 
-    public void buttonPress(int button)
+    public void buttonPress(int fish)
     {
-        switch(currentTab)
+        //Debug.Log("click" + fish);
+        //add 1 fish or switch to new fish type.
+        if (selectedFish == fish)
         {
-            case 1:
-                playerObj.Buy(0);
-                break;
-            case 2:
-                playerObj.Buy(1);
-                break;
-            case 3:
-                playerObj.Buy(2);
-                break;
+            currentFishes += 1;
         }
+        else
+        {
+            selectedFish = fish;
+            currentFishes = 1;
+        }
+
+        //cap purchasing based on money
+        while (playerObj.species[selectedFish].cost * currentFishes > playerObj.moneys)
+        {
+            currentFishes--;
+        }
+        //update text
+        totalfishes.text = currentFishes.ToString();
+        //update thermal curve
+        curveRender.curve = playerObj.species[selectedFish].thermalcurve;
     }
 
 	public void SelectedWindow(GameObject selected){
@@ -88,9 +100,22 @@ public class Shop : MonoBehaviour {
 
 
 	public void addfishes(int number){
+		currentFishes += number;
 
-		int totalnumber = Int16.Parse(totalfishes.text);
-		totalnumber += number;
-		totalfishes.text = totalnumber.ToString ();
+        //cap purchasing based on money
+        while (playerObj.species[selectedFish].cost * currentFishes > playerObj.moneys)
+        {
+            currentFishes--;
+        }
+
+        totalfishes.text = currentFishes.ToString();
 	}
+
+    public void buyFishes()
+    {
+        playerObj.CreatureAmountChanged(selectedFish, currentFishes);
+        playerObj.moneys = playerObj.moneys - playerObj.species[selectedFish].cost * currentFishes;
+        currentFishes = 0;
+        totalfishes.text = currentFishes.ToString();
+    }
 }
