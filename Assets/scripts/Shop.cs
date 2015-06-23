@@ -13,6 +13,8 @@ public class Shop : MonoBehaviour {
 
 	//text
 	public Text totalfishes;
+    public Text totalPrice;
+    public Text currentName;
 
     //curve
     public CurveRenderer curveRender;
@@ -88,6 +90,8 @@ public class Shop : MonoBehaviour {
         }
         //update text
         totalfishes.text = currentFishes.ToString();
+        totalPrice.text = (playerObj.species[selectedFish].cost * currentFishes).ToString();
+        currentName.text = playerObj.species[selectedFish].uniqueName;
         //update thermal curve
         curveRender.curve = playerObj.species[selectedFish].thermalcurve;
     }
@@ -109,6 +113,7 @@ public class Shop : MonoBehaviour {
         }
 
         totalfishes.text = currentFishes.ToString();
+        totalPrice.text = (playerObj.species[selectedFish].cost * currentFishes).ToString();
 	}
 
     public void buyFishes()
