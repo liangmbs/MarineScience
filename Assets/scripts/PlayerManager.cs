@@ -25,15 +25,7 @@ public class PlayerManager : MonoBehaviour {
     public float sellRate = .5f;
     public bool waitingForTemperature = false;
 
-    //Particle emitters
-    public ParticleEmitter tooCold;
-    public ParticleEmitter tooHot;
-    public ParticleEmitter eaten;
-    public ParticleEmitter starved;
-
-    //other objects
     public Text moneyText;
-    public SwimmingHolder swimmingHolder;
 
 	/*
 	 * Initialize with three species at each level
@@ -43,12 +35,6 @@ public class PlayerManager : MonoBehaviour {
         foreach (CharacterManager c in species)
         {
             c.player = this;
-            c.swimming = swimmingHolder;
-        }
-
-        for (int i = 0; i < species.Count; i++)
-        {
-            species[i].id = i;
         }
 	}
 
@@ -164,13 +150,7 @@ public class PlayerManager : MonoBehaviour {
         foreach (CharacterManager c in eatenCreatures)
         {
             float ratio = c.speciesAmount / totalAmount;
-            float newAmount = c.speciesAmount - ratio * eatAmount;
-            int changeAmount = Mathf.FloorToInt(c.speciesAmount) - Mathf.FloorToInt(newAmount);
-            if (changeAmount > 0)
-            {
-                swimmingHolder.KillCreatures(c.id, changeAmount, eaten);
-            }
-            c.speciesAmount = newAmount;
+            c.speciesAmount = c.speciesAmount - ratio * eatAmount;
         }
     }
 

@@ -3730,12 +3730,7 @@ MonoBehaviour:
   netWorthIncomeRate: .200000003
   sellRate: .5
   waitingForTemperature: 0
-  tooCold: {fileID: 0}
-  tooHot: {fileID: 0}
-  eaten: {fileID: 0}
-  starved: {fileID: 0}
   moneyText: {fileID: 1478096806}
-  swimmingHolder: {fileID: 1205177499}
 --- !u!4 &882694907
 Transform:
   m_ObjectHideFlags: 0

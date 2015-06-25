@@ -19,7 +19,7 @@ public class SwimmingHolder : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        /*for (int i = 0; i < player.species.Count; i++)
+        for (int i = 0; i < player.species.Count; i++)
         {
             int speciesAmount = Mathf.FloorToInt(player.species[i].speciesAmount);
             if (speciesAmount != speciesNumbers[i])
@@ -33,7 +33,7 @@ public class SwimmingHolder : MonoBehaviour {
                     }
                 }
                 else if (speciesAmount < speciesNumbers[i])
-                {
+                {;
                     while (speciesNumbers[i] > speciesAmount)
                     {
                         RemoveCreature(i);
@@ -41,23 +41,8 @@ public class SwimmingHolder : MonoBehaviour {
                     }
                 }
             }
-        }*/
+        }
 	}
-
-    public void AddCreatures(int id, int number) {
-        for (int i = 0; i < number; i++)
-        {
-            AddCreature(id);
-        }
-    }
-
-    public void KillCreatures(int id, int number, ParticleEmitter cause)
-    {
-        for (int i = 0; i < number; i++)
-        {
-            RemoveCreature(id, cause);
-        }
-    }
 
     void AddCreature(int cId)
     {
@@ -75,7 +60,7 @@ public class SwimmingHolder : MonoBehaviour {
         c.Spawn();
     }
 
-    void RemoveCreature(int cId, ParticleEmitter cause)
+    void RemoveCreature(int cId)
     {
         bool foundOne = false;
         int index = 0;
@@ -97,7 +82,7 @@ public class SwimmingHolder : MonoBehaviour {
         {
             SwimmingCreature c = creatures[found];
             creatures.Remove(c);
-            c.KillForever(cause);
+            c.KillForever();
         }
     }
 }

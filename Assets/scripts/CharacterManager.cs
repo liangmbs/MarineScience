@@ -24,16 +24,8 @@ public class CharacterManager : MonoBehaviour {
     public float deathRate = .5f; //if I'm dying, population drops by this ratio every day
     public float minimumDeaths = 1; //if I'm dying, I will always lose at least this many fish!
 
-    [HideInInspector]
-    public int id = 0;
-    [HideInInspector]
-    public SwimmingHolder swimming;
-
-    private float lastTemp
-
     public void updatePerformance(float temperature)
     {
-        lastTemp = temperature;
         performanceRate = thermalcurve.getCurve(temperature + 273);
     }
     
@@ -54,25 +46,8 @@ public class CharacterManager : MonoBehaviour {
         {
             float deaths = speciesAmount * deathRate;
             deaths = Mathf.Max(minimumDeaths, deathRate);
-            float newAmount = speciesAmount - deaths * days;
-            int changeAmount = Mathf.FloorToInt(speciesAmount) - Mathf.FloorToInt(newAmount);
-            if (changeAmount > 0)
-            {
-                if (performanceRate < deathThreashold)
-                {
-                    if(lastTemp + 273 <= thermalcurve.optimalTemp) {
-                        swimming.KillCreatures(id, changeAmount, player.tooCold);
-                    } 
-                    else {
-                        swimming.KillCreatures(id, changeAmount, player.tooHot);
-                    }
-                }
-                else
-                {
-                    swimming.KillCreatures(id, changeAmount, player.starved);
-                }
-            }
-            speciesAmount = Mathf.Min(0, newAmount);
+            speciesAmount -= deaths * days;
+            speciesAmount = Mathf.Min(0, speciesAmount);
         }
         else //otherwise, fish reproduce
         {

@@ -49,22 +49,10 @@ public class SwimmingCreature : MonoBehaviour {
     //animator
     private Animator anim;
     
-    //death stuff
-    public float deathDuration = 2;
-    private float deathTimer = 0;
-    private bool dying = false;
-    private ParticleEmitter deathParticle;
-    public float deathParticleRate = .1f;
-    private float deathParticleTimer = 0;
-    public float deathRandomness = 10;
-    public Color particleTint = Color.white;
-    private Vector3 startingScale = new Vector3(1, 1, 1);
 
 	// Use this for initialization
 	void Start () {
-        deathTimer = deathDuration;
         anim = GetComponent<Animator>();
-        startingScale = transform.localScale;
 	}
 	
 	// Update is called once per frame
@@ -351,29 +339,8 @@ public class SwimmingCreature : MonoBehaviour {
             Random.Range(-maxSpeed, maxSpeed));
     }
 
-    public void die()
+    public void KillForever()
     {
-        deathTimer -= Time.deltaTime;
-        deathParticleTimer += Time.deltaTime;
-        while (deathParticleTimer >= deathParticleRate && deathParticleRate != 0)
-        {
-            deathParticle.Emit(transform.localPosition, new Vector3(velocity.x + Random.value * deathRandomness,
-                velocity.y + Random.value * deathRandomness, 0), 1, 1, particleTint);
-            deathParticleTimer -= deathParticleRate;
-        }
-
-        transform.localScale = startingScale * deathTimer / deathDuration;
-
-        if (deathTimer <= 0)
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    public void KillForever(ParticleEmitter emitter)
-    {
-        dying = true;
-        deathTimer = deathDuration;
-        deathParticle = emitter;
+        Destroy(gameObject);
     }
 }
