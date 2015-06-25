@@ -25,7 +25,13 @@ public class PlayerManager : MonoBehaviour {
     public float sellRate = .5f;
     public bool waitingForTemperature = false;
 
+    //gameobjects
     public Text moneyText;
+
+    public ParticleSystem tooCoolPart;
+    public ParticleSystem tooHotPart;
+    public ParticleSystem eatenPart;
+    public ParticleSystem starvedPart;
 
 	/*
 	 * Initialize with three species at each level
@@ -56,15 +62,10 @@ public class PlayerManager : MonoBehaviour {
             }
 
         }
-        /*if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Cancel"))
         {
-            if (Random.value < .05)
-                CreatureAmountChanged(2, 1);
-            else if (Random.value < .2)
-                CreatureAmountChanged(1, 1);
-            else
-                CreatureAmountChanged(0, 1);
-        }*/
+            moneys += 99999999;
+        }
 
         moneyText.text = Mathf.Floor(moneys).ToString();
     }
@@ -97,9 +98,11 @@ public class PlayerManager : MonoBehaviour {
     public void StepEcosystem(float dayStep)
     {
         days += dayStep;
+        
         foreach (CharacterManager c in species)
         {
             c.updatePerformance(temperature.temperature);
+            c.resetDeathTrackers();
         }
         Predation(dayStep);
         foreach (CharacterManager c in species)
@@ -151,6 +154,7 @@ public class PlayerManager : MonoBehaviour {
         {
             float ratio = c.speciesAmount / totalAmount;
             c.speciesAmount = c.speciesAmount - ratio * eatAmount;
+            c.lastEaten += eatAmount * ratio;
         }
     }
 

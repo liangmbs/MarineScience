@@ -33,10 +33,29 @@ public class SwimmingHolder : MonoBehaviour {
                     }
                 }
                 else if (speciesAmount < speciesNumbers[i])
-                {;
+                {
+                    //figure out the cause of death
+                    CharacterManager man = player.species[i];
+                    ParticleSystem pSys;
+                    if (man.lastEaten > man.lastStarve + man.lastCool + man.lastHot)
+                    {
+                        pSys = player.eatenPart;
+                    } else if (man.lastStarve != 0) {
+                        pSys = player.starvedPart;
+                    }
+                    else if (man.lastHot != 0)
+                    {
+                        pSys = player.tooHotPart;
+                    }
+                    else
+                    {
+                        pSys = player.tooCoolPart;
+                    }
+
+                    //remove them
                     while (speciesNumbers[i] > speciesAmount)
                     {
-                        RemoveCreature(i);
+                        RemoveCreature(i, pSys);
                         speciesNumbers[i]--;
                     }
                 }
@@ -60,14 +79,14 @@ public class SwimmingHolder : MonoBehaviour {
         c.Spawn();
     }
 
-    void RemoveCreature(int cId)
+    void RemoveCreature(int cId, ParticleSystem cause)
     {
         bool foundOne = false;
         int index = 0;
         int found = -1;
         while (index < creatures.Count && !foundOne)
         {
-            if (creatures[index].id == cId)
+            if (creatures[index].id == cId && !creatures[index].isDying)
             {
                 foundOne = true;
                 found = index;
@@ -82,7 +101,7 @@ public class SwimmingHolder : MonoBehaviour {
         {
             SwimmingCreature c = creatures[found];
             creatures.Remove(c);
-            c.KillForever();
+            c.startDying(cause);
         }
     }
 }

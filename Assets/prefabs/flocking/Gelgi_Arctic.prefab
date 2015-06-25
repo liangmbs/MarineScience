@@ -199,6 +199,11 @@ MonoBehaviour:
   maxForce: .100000001
   velocity: {x: 0, y: 0}
   acceleration: {x: 0, y: 0}
+  rotates: 0
+  isDying: 0
+  deathParticles: {fileID: 0}
+  deathTime: 1
+  particleSize: 2
 --- !u!212 &21204630
 SpriteRenderer:
   m_ObjectHideFlags: 1

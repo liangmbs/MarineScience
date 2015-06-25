@@ -46,13 +46,26 @@ public class SwimmingCreature : MonoBehaviour {
     public Vector2 velocity = new Vector2(0, 0);
     public Vector2 acceleration = new Vector2(0, 0);
 
+    public bool rotates = true;
+
     //animator
     private Animator anim;
-    
+
+    //death
+    [HideInInspector]
+    public bool isDying = false;
+    [HideInInspector]
+    public ParticleSystem deathParticles;
+    public float deathTime = 1;
+    private float dyingTimer = 0;
+    private Vector3 startingScale = Vector3.one;
+    public float particleSize = 10;
+    private float particleTimer = 0;
 
 	// Use this for initialization
 	void Start () {
         anim = GetComponent<Animator>();
+        startingScale = transform.localScale;
 	}
 	
 	// Update is called once per frame
@@ -64,7 +77,10 @@ public class SwimmingCreature : MonoBehaviour {
         huntSq = Mathf.Pow(huntRadius, 2);
         eatSq = Mathf.Pow(eatRadius, 2);
 
-        if (creatureFlock != null)
+        if (isDying)
+        {
+            die();
+        } else if (creatureFlock != null)
         {
             Flock(creatureFlock);
         }
@@ -89,7 +105,10 @@ public class SwimmingCreature : MonoBehaviour {
         // get rotation relative to UP
         float zRot = Mathf.Atan2(velocity.y, velocity.x) - Mathf.Atan2(-1, 0);
         //set rotation
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, zRot * Mathf.Rad2Deg));
+        if (rotates)
+        {
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, zRot * Mathf.Rad2Deg));
+        }
     }
 
     //updates the 
@@ -330,16 +349,43 @@ public class SwimmingCreature : MonoBehaviour {
         float xSpawn = 0;
         float ySpawn = Random.Range(bounds.yMin, bounds.yMax);
         if (Random.value < .5f)
-            xSpawn = bounds.xMin + 10 + bounds.xMin * Random.value;
+            xSpawn = bounds.xMin - 10;
         else
-            xSpawn = bounds.xMax + 10 + bounds.xMax * Random.value;
+            xSpawn = bounds.xMax + 10;
 
         transform.position = new Vector3(xSpawn, ySpawn, transform.position.z);
         velocity = new Vector2(Random.Range(-maxSpeed, maxSpeed),
             Random.Range(-maxSpeed, maxSpeed));
     }
 
-    public void KillForever()
+    private void die()
+    {
+        dyingTimer -= Time.deltaTime;
+        if (dyingTimer <= 0)
+        {
+            KillForever();
+        }
+        else
+        {
+            transform.localScale = startingScale * dyingTimer / deathTime;
+            particleTimer += Time.deltaTime;
+            while(particleTimer > 1/deathParticles.emissionRate) {
+                particleTimer -= 1/deathParticles.emissionRate;
+                deathParticles.Emit(transform.position,
+                    particleSize * deathParticles.startSpeed * 2 * new Vector3(Random.value - .5f, Random.value - .5f, 0), 
+                    particleSize * deathParticles.startSize, 3, Color.white);
+            }
+        }
+    }
+
+    public void startDying(ParticleSystem cause)
+    {
+        deathParticles = cause;
+        isDying = true;
+        dyingTimer = deathTime;
+    }
+
+    private void KillForever()
     {
         Destroy(gameObject);
     }
