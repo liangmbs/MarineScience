@@ -121,6 +121,7 @@ public class Shop : MonoBehaviour {
         playerObj.CreatureAmountChanged(selectedFish, currentFishes);
         playerObj.moneys = playerObj.moneys - playerObj.species[selectedFish].cost * currentFishes;
         currentFishes = 0;
-        totalfishes.text = currentFishes.ToString();
+        totalfishes.text = "0";
+        totalPrice.text = "0";
     }
 }
