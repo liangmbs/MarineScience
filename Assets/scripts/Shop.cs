@@ -40,8 +40,6 @@ public class Shop : MonoBehaviour {
     private int currentFishes = 0;
     private int currentSellingFishes = 0;
 
-    public float sellRatio = 0.5f;
-
 	// Use this for initialization
 	void Start () {
 		tire1Button.GetComponent<Button>().
@@ -137,7 +135,7 @@ public class Shop : MonoBehaviour {
         }
 
         sellingfishes.text = currentSellingFishes.ToString();
-        sellingPrice.text = (playerObj.species[selectedFish].cost * currentSellingFishes * sellRatio).ToString();
+        sellingPrice.text = (playerObj.species[selectedFish].cost * currentSellingFishes * playerObj.sellRate).ToString();
     }
 
     public void buyFishes()
@@ -152,7 +150,7 @@ public class Shop : MonoBehaviour {
     public void sellFishes()
     {
         playerObj.CreatureAmountChanged(selectedFish, -currentSellingFishes);
-        playerObj.moneys = playerObj.moneys + playerObj.species[selectedFish].cost * sellRatio * currentSellingFishes;
+        playerObj.moneys = playerObj.moneys + playerObj.species[selectedFish].cost * playerObj.sellRate * currentSellingFishes;
         currentSellingFishes = 0;
         sellingfishes.text = "0";
         sellingPrice.text = "0";
@@ -163,6 +161,6 @@ public class Shop : MonoBehaviour {
         currentSellingFishes = Mathf.RoundToInt(playerObj.species[selectedFish].speciesAmount * slider.value);
 
         sellingfishes.text = currentSellingFishes.ToString();
-        sellingPrice.text = (playerObj.species[selectedFish].cost * currentSellingFishes * sellRatio).ToString();
+        sellingPrice.text = (playerObj.species[selectedFish].cost * currentSellingFishes * playerObj.sellRate).ToString();
     }
 }
