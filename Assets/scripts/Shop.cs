@@ -16,13 +16,15 @@ public class Shop : MonoBehaviour {
     public Text totalPrice;
     public Text currentName;
 
+    public Text sellingfishes;
+    public Text sellingPrice;
+    public Text sellingName;
+
     //curve
     public CurveRenderer curveRender;
 
-	//plus button
-	public GameObject plus5;
-	public GameObject plus10;
-	public GameObject plus100;
+	//sell slider
+    public Scrollbar slider;
 	
 	// Tires' button
 	public GameObject tire1Button;
@@ -36,15 +38,12 @@ public class Shop : MonoBehaviour {
 
     private int selectedFish = 0;
     private int currentFishes = 0;
+    private int currentSellingFishes = 0;
+
+    public float sellRatio = 0.5f;
 
 	// Use this for initialization
 	void Start () {
-		plus5.GetComponent<Button>().
-			onClick.AddListener(()=> addfishes(5));
-		plus10.GetComponent<Button> ().
-			onClick.AddListener (() => addfishes (10));
-		plus100.GetComponent<Button> ().
-			onClick.AddListener (() => addfishes (100));
 		tire1Button.GetComponent<Button>().
 			onClick.AddListener (() => EnableWindow (tire1Selected, tire2Selected, tire3Selected, 1));
 		tire2Button.GetComponent<Button>().
@@ -52,6 +51,8 @@ public class Shop : MonoBehaviour {
 		tire3Button.GetComponent<Button>().
 			onClick.AddListener (() => EnableWindow (tire3Selected, tire1Selected, tire2Selected, 3));
 		selectionWindow.SetActive (false);
+
+        buttonPress(0);
 	}	
 
 	// Update is called once per frame
@@ -92,6 +93,7 @@ public class Shop : MonoBehaviour {
         totalfishes.text = currentFishes.ToString();
         totalPrice.text = (playerObj.species[selectedFish].cost * currentFishes).ToString();
         currentName.text = playerObj.species[selectedFish].uniqueName;
+        sellingName.text = currentName.text;
         //update thermal curve
         curveRender.curve = playerObj.species[selectedFish].thermalcurve;
     }
@@ -105,6 +107,10 @@ public class Shop : MonoBehaviour {
 
 	public void addfishes(int number){
 		currentFishes += number;
+        if (currentFishes < 0)
+        {
+            currentFishes = 0;
+        }
 
         //cap purchasing based on money
         while (playerObj.species[selectedFish].cost * currentFishes > playerObj.moneys)
@@ -116,6 +122,24 @@ public class Shop : MonoBehaviour {
         totalPrice.text = (playerObj.species[selectedFish].cost * currentFishes).ToString();
 	}
 
+    public void addSellingFishes(int number)
+    {
+        currentSellingFishes += number;
+        if (currentSellingFishes < 0)
+        {
+            currentSellingFishes = 0;
+        }
+
+        //cap purchasing based on money
+        if (playerObj.species[selectedFish].speciesAmount < currentSellingFishes)
+        {
+            currentSellingFishes = Mathf.FloorToInt(playerObj.species[selectedFish].speciesAmount);
+        }
+
+        sellingfishes.text = currentSellingFishes.ToString();
+        sellingPrice.text = (playerObj.species[selectedFish].cost * currentSellingFishes * sellRatio).ToString();
+    }
+
     public void buyFishes()
     {
         playerObj.CreatureAmountChanged(selectedFish, currentFishes);
@@ -123,5 +147,22 @@ public class Shop : MonoBehaviour {
         currentFishes = 0;
         totalfishes.text = "0";
         totalPrice.text = "0";
+    }
+
+    public void sellFishes()
+    {
+        playerObj.CreatureAmountChanged(selectedFish, -currentSellingFishes);
+        playerObj.moneys = playerObj.moneys + playerObj.species[selectedFish].cost * sellRatio * currentSellingFishes;
+        currentSellingFishes = 0;
+        sellingfishes.text = "0";
+        sellingPrice.text = "0";
+    }
+
+    public void sliderSlide()
+    {
+        currentSellingFishes = Mathf.RoundToInt(playerObj.species[selectedFish].speciesAmount * slider.value);
+
+        sellingfishes.text = currentSellingFishes.ToString();
+        sellingPrice.text = (playerObj.species[selectedFish].cost * currentSellingFishes * sellRatio).ToString();
     }
 }
