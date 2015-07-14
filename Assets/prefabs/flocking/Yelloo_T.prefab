@@ -489,9 +489,11 @@ MonoBehaviour:
   maxForce: .119999997
   velocity: {x: 0, y: 0}
   acceleration: {x: 0, y: 0}
+  rotates: 1
   isDying: 0
   deathParticles: {fileID: 0}
-  deathTime: 1
+  lure: {fileID: 0}
+  deathTime: 3
   particleSize: 1
 --- !u!212 &21203634
 SpriteRenderer:
@@ -863,7 +865,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: deathTime
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 136378}
