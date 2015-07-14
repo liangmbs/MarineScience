@@ -5,6 +5,7 @@ public class SwimmingHolder : MonoBehaviour {
     public PlayerManager player;
     private List<SwimmingCreature> creatures;
     public List<GameObject> prefabs;
+    public List<Lure> lures;
     //number of swimming creatures for each speices. make sure to update this
     public List<int> speciesNumbers; 
 
@@ -37,7 +38,14 @@ public class SwimmingHolder : MonoBehaviour {
                     //figure out the cause of death
                     CharacterManager man = player.species[i];
                     ParticleSystem pSys;
-                    if (man.lastEaten > man.lastStarve + man.lastCool + man.lastHot)
+                    bool luring = false;
+                    if (man.lastSold > 0)
+                    {
+                        man.lastSold = 0;
+                        luring = true;
+                        pSys = null;
+                    }
+                    else if (man.lastEaten > man.lastStarve + man.lastCool + man.lastHot)
                     {
                         pSys = player.eatenPart;
                     } else if (man.lastStarve != 0) {
@@ -47,15 +55,26 @@ public class SwimmingHolder : MonoBehaviour {
                     {
                         pSys = player.tooHotPart;
                     }
-                    else
+                    else if (man.lastCool != 0)
                     {
                         pSys = player.tooCoolPart;
+                    } else
+                    {
+                        pSys = null;
+                        luring = true;
                     }
 
                     //remove them
                     while (speciesNumbers[i] > speciesAmount)
                     {
-                        RemoveCreature(i, pSys);
+                        if (luring)
+                        {
+                            RemoveCreature(i, null, lures[Random.Range(0, lures.Count)]);
+                        }
+                        else
+                        {
+                            RemoveCreature(i, pSys, null);
+                        }
                         speciesNumbers[i]--;
                     }
                 }
@@ -79,7 +98,7 @@ public class SwimmingHolder : MonoBehaviour {
         c.Spawn();
     }
 
-    void RemoveCreature(int cId, ParticleSystem cause)
+    void RemoveCreature(int cId, ParticleSystem cause, Lure lure)
     {
         bool foundOne = false;
         int index = 0;
@@ -101,7 +120,10 @@ public class SwimmingHolder : MonoBehaviour {
         {
             SwimmingCreature c = creatures[found];
             creatures.Remove(c);
-            c.startDying(cause);
+            if (cause == null)
+                c.startFishing(lure);
+            else
+                c.startDying(cause);
         }
     }
 }

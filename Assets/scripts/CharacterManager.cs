@@ -32,6 +32,8 @@ public class CharacterManager : MonoBehaviour {
     public float lastStarve = 0;
     [HideInInspector]
     public float lastEaten = 0;
+    [HideInInspector]
+    public float lastSold = 0;
 
     private float lastTemp = 0;
 
@@ -47,6 +49,7 @@ public class CharacterManager : MonoBehaviour {
         lastHot = 0;
         lastStarve = 0;
         lastEaten = 0;
+        lastSold = 0;
     }
     
 	public float GetEatingRate(){

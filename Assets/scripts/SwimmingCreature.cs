@@ -56,6 +56,10 @@ public class SwimmingCreature : MonoBehaviour {
     public bool isDying = false;
     [HideInInspector]
     public ParticleSystem deathParticles;
+    [HideInInspector]
+    public Lure lure;
+    enum DeathCause {Particle, Lure, Fish};
+    private DeathCause deathCause;
     public float deathTime = 1;
     private float dyingTimer = 0;
     private Vector3 startingScale = Vector3.one;
@@ -80,6 +84,8 @@ public class SwimmingCreature : MonoBehaviour {
         if (isDying)
         {
             die();
+            velocity = Vector3.zero;
+            acceleration = Vector3.zero;
         } else if (creatureFlock != null)
         {
             Flock(creatureFlock);
@@ -360,20 +366,46 @@ public class SwimmingCreature : MonoBehaviour {
 
     private void die()
     {
-        dyingTimer -= Time.deltaTime;
         if (dyingTimer <= 0)
         {
             KillForever();
         }
         else
         {
-            transform.localScale = startingScale * dyingTimer / deathTime;
-            particleTimer += Time.deltaTime;
-            while(particleTimer > 1/deathParticles.emissionRate) {
-                particleTimer -= 1/deathParticles.emissionRate;
-                deathParticles.Emit(transform.position,
-                    particleSize * deathParticles.startSpeed * 2 * new Vector3(Random.value - .5f, Random.value - .5f, 0), 
-                    particleSize * deathParticles.startSize, 3, Color.white);
+            switch (deathCause)
+            {
+                case DeathCause.Particle:
+                    //tick timer
+                    dyingTimer -= Time.deltaTime;
+                    //shrink and die
+                    transform.localScale = startingScale * dyingTimer / deathTime;
+                    //emit partiles according to parameters
+                    particleTimer += Time.deltaTime;
+                    while(particleTimer > 1/deathParticles.emissionRate) {
+                        particleTimer -= 1/deathParticles.emissionRate;
+                        deathParticles.Emit(transform.position,
+                            particleSize * deathParticles.startSpeed * 2 * 
+                            new Vector3(Random.value - .5f, Random.value - .5f, 0), 
+                            particleSize * deathParticles.startSize, 3, Color.white);
+                    }
+                    break;
+                case DeathCause.Lure:
+                    //only do stuff if we're being fished
+                    if (lure.amITheTarget(this))
+                    {
+                        //tick timer
+                        dyingTimer -= Time.deltaTime;
+                        //move with the lure
+                        if (getDeathRatio() < .5f)
+                        {
+                            transform.position = lure.transform.position;
+                            transform.rotation = Quaternion.EulerAngles(0, 0, 180);
+                        }
+                    }
+                    break;
+                case DeathCause.Fish:
+                    //todo: swim into a predator's mouth
+                    break;
             }
         }
     }
@@ -383,10 +415,27 @@ public class SwimmingCreature : MonoBehaviour {
         deathParticles = cause;
         isDying = true;
         dyingTimer = deathTime;
+        deathCause = DeathCause.Particle;
+    }
+
+    public void startFishing(Lure cause)
+    {
+        lure = cause;
+        isDying = true;
+        dyingTimer = deathTime;
+        deathCause = DeathCause.Lure;
+        lure.gameObject.SetActive(true);
+        lure.addTarget(this);
+        lure.Reset();
     }
 
     private void KillForever()
     {
         Destroy(gameObject);
+    }
+
+    public float getDeathRatio()
+    {
+        return dyingTimer / deathTime;
     }
 }

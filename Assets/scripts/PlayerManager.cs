@@ -80,13 +80,10 @@ public class PlayerManager : MonoBehaviour {
         }
     }
 
-    public void SellAll()
+    public void SellCreatures(int index, float amount)
     {
-        foreach (CharacterManager c in species)
-        {
-            moneys += Mathf.Round(c.speciesAmount) * c.cost * sellRate;
-            c.speciesAmount = 0;
-        }
+        species[index].lastSold = amount;
+        CreatureAmountChanged(index, amount);
     }
 
     public void CreatureAmountChanged(int index, float amount)

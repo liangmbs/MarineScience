@@ -149,7 +149,7 @@ public class Shop : MonoBehaviour {
 
     public void sellFishes()
     {
-        playerObj.CreatureAmountChanged(selectedFish, -currentSellingFishes);
+        playerObj.SellCreatures(selectedFish, -currentSellingFishes);
         playerObj.moneys = playerObj.moneys + playerObj.species[selectedFish].cost * playerObj.sellRate * currentSellingFishes;
         currentSellingFishes = 0;
         sellingfishes.text = "0";
