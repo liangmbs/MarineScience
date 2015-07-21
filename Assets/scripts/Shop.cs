@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 using UnityEngine.UI;
 
@@ -10,6 +11,9 @@ public class Shop : MonoBehaviour {
 
 	//initialize the prefab
 	public GameObject selectionWindow;
+	public List<float> costs = new List<float>();
+	public List<Text> price = new List<Text>();
+
 
 	//text
 	public Text totalfishes;
@@ -51,13 +55,26 @@ public class Shop : MonoBehaviour {
 		selectionWindow.SetActive (false);
 
         buttonPress(0);
+
+		//writePricebox ();
 	}	
 
-	// Update is called once per frame
-	void Update () {
+	void Awake(){
+		foreach (CharacterManager c in playerObj.species) {
+			costs.Add (c.cost);
+		}
+		for (int i = 0; i<=26; i++) {
+			price[i].text = costs[i].ToString();
+		}
 
 	}
 
+	public void writePricebox (){
+		for (int i = 0; i<=26; i++) {
+			price[i].text = costs[i].ToString();
+		}
+
+	}
 
 	public void EnableWindow(GameObject SlectedTire, GameObject NonSelectedTire1, GameObject NonSelectedTire2, int tab){
 		SlectedTire.SetActive (true);

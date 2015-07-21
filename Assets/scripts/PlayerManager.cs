@@ -10,6 +10,8 @@ public class PlayerManager : MonoBehaviour {
      *  Make sure that these are in the same order as the SwimmingHolder's prefabs!
 	 */
 	public List<CharacterManager> species; 
+
+
     //Highest level in the species list
     public int lowestLevel = 1;
     public int highestLevel = 3;

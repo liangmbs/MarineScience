@@ -100,10 +100,8 @@ public class CharacterManager : MonoBehaviour {
             speciesAmount = 0;
         }
     }
-	
-	//obtain the performance rate based on the optimal temperature
-	void Update(){
 
-	}
+
+
 	
 }
