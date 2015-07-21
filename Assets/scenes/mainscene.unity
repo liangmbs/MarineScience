@@ -99,7 +99,7 @@ GameObject:
   - 114: {fileID: 24212968}
   - 114: {fileID: 24212967}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: Page1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -122,7 +122,7 @@ RectTransform:
   - {fileID: 1030204660}
   - {fileID: 980732012}
   m_Father: {fileID: 766917933}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_AnchorMin: {x: .0775473192, y: .0764998347}
   m_AnchorMax: {x: .612150967, y: .832000017}
   m_AnchoredPosition: {x: -.599998474, y: .199999809}
@@ -258,7 +258,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &32714084
 RectTransform:
   m_ObjectHideFlags: 0
@@ -594,7 +594,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &94904708
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1363,7 +1363,7 @@ GameObject:
   - 114: {fileID: 176509496}
   - 114: {fileID: 176509495}
   m_Layer: 5
-  m_Name: Tire3Button
+  m_Name: Tier3Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2318,7 +2318,7 @@ GameObject:
   - 114: {fileID: 381033260}
   - 114: {fileID: 381033259}
   m_Layer: 5
-  m_Name: ShopArrow_Left 1
+  m_Name: PageL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2612,7 +2612,7 @@ GameObject:
   - 114: {fileID: 438661294}
   - 114: {fileID: 438661293}
   m_Layer: 5
-  m_Name: Panel 2
+  m_Name: Page2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3362,7 +3362,7 @@ GameObject:
   - 114: {fileID: 543482187}
   - 114: {fileID: 543482186}
   m_Layer: 5
-  m_Name: ShopArrow_Right 2
+  m_Name: PageR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4480,7 +4480,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &766917933
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4491,10 +4491,10 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1665368904}
-  - {fileID: 1808112414}
   - {fileID: 24212966}
   - {fileID: 773726574}
+  - {fileID: 1665368904}
+  - {fileID: 1808112414}
   m_Father: {fileID: 1605732531}
   m_RootOrder: 5
   m_AnchorMin: {x: .0314360298, y: .117325507}
@@ -4556,7 +4556,7 @@ GameObject:
   - 114: {fileID: 773726576}
   - 114: {fileID: 773726575}
   m_Layer: 5
-  m_Name: Panel2
+  m_Name: Page2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4576,7 +4576,7 @@ RectTransform:
   - {fileID: 2035845066}
   - {fileID: 524010696}
   m_Father: {fileID: 766917933}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_AnchorMin: {x: .0775473192, y: .0764998347}
   m_AnchorMax: {x: .612150967, y: .832000017}
   m_AnchoredPosition: {x: -.599975586, y: -.299987793}
@@ -5860,7 +5860,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1605732531}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_AnchorMin: {x: .0314360298, y: .117325507}
   m_AnchorMax: {x: .950489521, y: .76240474}
   m_AnchoredPosition: {x: 3.5, y: 8.39999962}
@@ -5954,6 +5954,7 @@ Camera:
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
+  m_StereoMirrorMode: 0
 --- !u!198 &918046692 stripped
 ParticleSystem:
   m_PrefabParentObject: {fileID: 19896776, guid: 08245e650c0c8454683d322516f46b7d,
@@ -6887,6 +6888,7 @@ Camera:
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
+  m_StereoMirrorMode: 0
 --- !u!1 &1026908560
 GameObject:
   m_ObjectHideFlags: 0
@@ -7367,7 +7369,7 @@ GameObject:
   - 114: {fileID: 1082563215}
   - 114: {fileID: 1082563214}
   m_Layer: 5
-  m_Name: ShopArrow_Left 2
+  m_Name: PageL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7966,7 +7968,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1605732531}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_AnchorMin: {x: .0314360298, y: .117325507}
   m_AnchorMax: {x: .950489521, y: .76240474}
   m_AnchoredPosition: {x: 3.5, y: 8.39999962}
@@ -8011,7 +8013,7 @@ GameObject:
   - 114: {fileID: 1202532679}
   - 114: {fileID: 1202532678}
   m_Layer: 5
-  m_Name: Panel 1
+  m_Name: Page1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8169,7 +8171,7 @@ GameObject:
   - 114: {fileID: 1216342605}
   - 114: {fileID: 1216342604}
   m_Layer: 5
-  m_Name: ShopArrow_Right 1
+  m_Name: PageR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9138,7 +9140,7 @@ Transform:
   m_PrefabInternal: {fileID: 1312538213}
 --- !u!21 &1322207589
 Material:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -9147,6 +9149,7 @@ Material:
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: -1
+  stringTagMap: {}
   m_SavedProperties:
     serializedVersion: 2
     m_TexEnvs:
@@ -9426,7 +9429,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1398316927
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9758,7 +9761,7 @@ GameObject:
   - 114: {fileID: 1412066566}
   - 114: {fileID: 1412066565}
   m_Layer: 5
-  m_Name: Tire2Button
+  m_Name: Tier2Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10747,9 +10750,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 15.9999981}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1193245749}
-  - {fileID: 2088598148}
   - {fileID: 901154509}
+  - {fileID: 2088598148}
+  - {fileID: 1193245749}
   - {fileID: 1411271868}
   - {fileID: 32714084}
   - {fileID: 766917933}
@@ -11057,7 +11060,7 @@ GameObject:
   - 114: {fileID: 1665368906}
   - 114: {fileID: 1665368905}
   m_Layer: 5
-  m_Name: ShopArrow_Right
+  m_Name: PageR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11074,7 +11077,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 766917933}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_AnchorMin: {x: .614575505, y: .451785773}
   m_AnchorMax: {x: .645122707, y: .504785717}
   m_AnchoredPosition: {x: -.310058594, y: -.0276947021}
@@ -11424,6 +11427,7 @@ MonoBehaviour:
   m_SubmitButton: Submit
   m_CancelButton: Cancel
   m_InputActionsPerSecond: 10
+  m_RepeatDelay: .5
   m_AllowActivationOnMobileDevice: 0
 --- !u!114 &1744282646
 MonoBehaviour:
@@ -12075,7 +12079,7 @@ GameObject:
   - 114: {fileID: 1808112416}
   - 114: {fileID: 1808112415}
   m_Layer: 5
-  m_Name: ShopArrow_Left
+  m_Name: PageL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12092,7 +12096,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 766917933}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_AnchorMin: {x: .0404526666, y: .439357251}
   m_AnchorMax: {x: .0702736601, y: .5}
   m_AnchoredPosition: {x: -.0355834961, y: -.194992065}
@@ -13677,7 +13681,7 @@ GameObject:
   - 114: {fileID: 2110036537}
   - 114: {fileID: 2110036536}
   m_Layer: 5
-  m_Name: Tire1Button
+  m_Name: Tier1Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13975,6 +13979,7 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
+  m_StereoMirrorMode: 0
 --- !u!4 &2127570768
 Transform:
   m_ObjectHideFlags: 0
