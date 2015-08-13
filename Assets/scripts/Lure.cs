@@ -68,6 +68,7 @@ public class Lure : MonoBehaviour {
             }
             else
             {
+                target = fishes[0].transform.position;
                 //go down to the fish
                 float amount2 = 1 - (t.getDeathRatio() - .5f) * 2;
                 transform.position = Vector3.Lerp(

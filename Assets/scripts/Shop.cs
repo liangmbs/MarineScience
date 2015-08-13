@@ -11,9 +11,9 @@ public class Shop : MonoBehaviour {
 
 	//initialize the prefab
 	public GameObject selectionWindow;
-	public List<float> costs = new List<float>();
-	public List<Text> price = new List<Text>();
-
+	List<Text> priceTexts;
+    public List<GameObject> Pages;
+    public GameObject costPrefab;
 
 	//text
 	public Text totalfishes;
@@ -56,23 +56,38 @@ public class Shop : MonoBehaviour {
 
         buttonPress(0);
 
-		//writePricebox ();
+        writePricebox();
 	}	
 
 	void Awake(){
-		foreach (CharacterManager c in playerObj.species) {
-			costs.Add (c.cost);
-		}
-		for (int i = 0; i<=26; i++) {
-			price[i].text = costs[i].ToString();
-		}
-
+        //add cost boxes to all the buttons
+        priceTexts = new List<Text>();
+        foreach (GameObject p in Pages)
+        {
+            foreach (Transform child in p.transform)
+            {
+                GameObject nText = GameObject.Instantiate(costPrefab);
+                nText.transform.parent = child.transform;
+                nText.transform.position = child.transform.position + costPrefab.transform.position;
+                priceTexts.Add(nText.GetComponent<Text>());
+            }
+        }
 	}
 
 	public void writePricebox (){
-		for (int i = 0; i<=26; i++) {
-			price[i].text = costs[i].ToString();
-		}
+        //collect all the fish costs
+        List<float> costs = new List<float>();
+        foreach (CharacterManager c in playerObj.species)
+        {
+            costs.Add(c.cost);
+        }
+
+        //update the text boxes
+        for (int i = 0; i < costs.Count; i++ )
+        {
+            priceTexts[i].text = "$" + costs[i];
+        }
+
 
 	}
 
@@ -157,8 +172,7 @@ public class Shop : MonoBehaviour {
 
     public void buyFishes()
     {
-        playerObj.CreatureAmountChanged(selectedFish, currentFishes);
-        playerObj.moneys = playerObj.moneys - playerObj.species[selectedFish].cost * currentFishes;
+        playerObj.BuyCreatures(selectedFish, currentFishes);
         currentFishes = 0;
         totalfishes.text = "0";
         totalPrice.text = "0";
@@ -166,8 +180,7 @@ public class Shop : MonoBehaviour {
 
     public void sellFishes()
     {
-        playerObj.SellCreatures(selectedFish, -currentSellingFishes);
-        playerObj.moneys = playerObj.moneys + playerObj.species[selectedFish].cost * playerObj.sellRate * currentSellingFishes;
+        playerObj.SellCreatures(selectedFish, currentSellingFishes);
         currentSellingFishes = 0;
         sellingfishes.text = "0";
         sellingPrice.text = "0";

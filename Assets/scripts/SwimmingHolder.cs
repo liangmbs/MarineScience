@@ -25,11 +25,16 @@ public class SwimmingHolder : MonoBehaviour {
             int speciesAmount = Mathf.FloorToInt(player.species[i].speciesAmount);
             if (speciesAmount != speciesNumbers[i])
             {
+                //birth new creatures
                 if (speciesAmount > speciesNumbers[i])
                 {
                     while (speciesNumbers[i] < speciesAmount)
                     {
-                        AddCreature(i);
+                        //birth the creature using the right effect (bought or reproduced)
+                        if (player.species[i].birthList.Count == 0)
+                            AddCreature(i, CharacterManager.BirthCause.Reproduction);
+                        else
+                            AddCreature(i, player.species[i].birthList.Dequeue());
                         speciesNumbers[i]++;
                     }
                 }
@@ -37,52 +42,25 @@ public class SwimmingHolder : MonoBehaviour {
                 {
                     //figure out the cause of death
                     CharacterManager man = player.species[i];
-                    ParticleSystem pSys;
-                    bool luring = false;
-                    if (man.lastSold > 0)
-                    {
-                        man.lastSold = 0;
-                        luring = true;
-                        pSys = null;
-                    }
-                    else if (man.lastEaten > man.lastStarve + man.lastCool + man.lastHot)
-                    {
-                        pSys = player.eatenPart;
-                    } else if (man.lastStarve != 0) {
-                        pSys = player.starvedPart;
-                    }
-                    else if (man.lastHot != 0)
-                    {
-                        pSys = player.tooHotPart;
-                    }
-                    else if (man.lastCool != 0)
-                    {
-                        pSys = player.tooCoolPart;
-                    } else
-                    {
-                        pSys = null;
-                        luring = true;
-                    }
 
                     //remove them
                     while (speciesNumbers[i] > speciesAmount)
                     {
-                        if (luring)
-                        {
-                            RemoveCreature(i, null, lures[Random.Range(0, lures.Count)]);
-                        }
-                        else
-                        {
-                            RemoveCreature(i, pSys, null);
-                        }
+                        if (man.deathList.Count == 0)
+                            RemoveCreature(i, CharacterManager.DeathCause.Starve);
+                        else 
+                            RemoveCreature(i, man.deathList.Dequeue());
                         speciesNumbers[i]--;
                     }
                 }
             }
+            //clear the queues to correct for any rounding errors
+            player.species[i].deathList.Clear();
+            player.species[i].birthList.Clear();
         }
 	}
 
-    void AddCreature(int cId)
+    void AddCreature(int cId, CharacterManager.BirthCause cause)
     {
         //if we're running in the editor, we can instantiate as prefabs. 
         //This lets us change variables in the prefab and see the effects
@@ -98,7 +76,7 @@ public class SwimmingHolder : MonoBehaviour {
         c.Spawn();
     }
 
-    void RemoveCreature(int cId, ParticleSystem cause, Lure lure)
+    void RemoveCreature(int cId, CharacterManager.DeathCause cause)
     {
         bool foundOne = false;
         int index = 0;
@@ -120,10 +98,25 @@ public class SwimmingHolder : MonoBehaviour {
         {
             SwimmingCreature c = creatures[found];
             creatures.Remove(c);
-            if (cause == null)
-                c.startFishing(lure);
-            else
-                c.startDying(cause);
+            if(cause == null)
+                cause = CharacterManager.DeathCause.Starve;
+            switch(cause) {
+                case CharacterManager.DeathCause.Sold:
+                    c.startFishing(lures[Random.Range(0, lures.Count)]);
+                    break;
+                case CharacterManager.DeathCause.Hot:
+                    c.startDying(player.tooHotPart);
+                    break;
+                case CharacterManager.DeathCause.Cold:
+                    c.startDying(player.tooCoolPart);
+                    break;
+                case CharacterManager.DeathCause.Eaten:
+                    c.startDying(player.eatenPart);
+                    break;
+                case CharacterManager.DeathCause.Starve:
+                    c.startDying(player.starvedPart);
+                    break;
+            }
         }
     }
 }

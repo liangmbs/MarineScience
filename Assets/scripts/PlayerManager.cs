@@ -26,6 +26,7 @@ public class PlayerManager : MonoBehaviour {
     public float netWorthIncomeRate = .2f;
     public float sellRate = .5f;
     public bool waitingForTemperature = false;
+    public float maxFishes = 200;
 
     //gameobjects
     public Text moneyText;
@@ -72,25 +73,21 @@ public class PlayerManager : MonoBehaviour {
         moneyText.text = Mathf.Floor(moneys).ToString();
     }
 
-    public void Buy(int index)
+    public void BuyCreatures(int index, float amount)
     {
-        if (moneys >= species[index].cost)
-        {
-            CreatureAmountChanged(index, 1);
-            moneys -= species[index].cost;
-            moneyText.text =  moneys.ToString();
-        }
+        moneys = moneys - species[index].cost * amount;
+        species[index].birthList.Enqueue(CharacterManager.BirthCause.Bought);
+        species[index].speciesAmount += amount;
     }
 
     public void SellCreatures(int index, float amount)
     {
-        species[index].lastSold = amount;
-        CreatureAmountChanged(index, amount);
-    }
-
-    public void CreatureAmountChanged(int index, float amount)
-    {
-        species[index].speciesAmount += amount;
+        for (int i = 0; i < amount; i++)
+        {
+            species[index].deathList.Enqueue(CharacterManager.DeathCause.Sold);
+        }
+        species[index].speciesAmount -= amount;
+        moneys = moneys + species[index].cost * sellRate * amount;
     }
 
     //step the ecosystem forward by a given number or fraction of days
@@ -101,7 +98,6 @@ public class PlayerManager : MonoBehaviour {
         foreach (CharacterManager c in species)
         {
             c.updatePerformance(temperature.temperature);
-            c.resetDeathTrackers();
         }
         Predation(dayStep);
         foreach (CharacterManager c in species)
@@ -152,8 +148,12 @@ public class PlayerManager : MonoBehaviour {
         foreach (CharacterManager c in eatenCreatures)
         {
             float ratio = c.speciesAmount / totalAmount;
-            c.speciesAmount = c.speciesAmount - ratio * eatAmount;
-            c.lastEaten += eatAmount * ratio;
+            float eatenFish = ratio * eatAmount;
+            c.speciesAmount = c.speciesAmount - eatenFish;
+            for (int i = 0; i < eatenFish - .9f; i++)
+            {
+                c.deathList.Enqueue(CharacterManager.DeathCause.Eaten);
+            }
         }
     }
 

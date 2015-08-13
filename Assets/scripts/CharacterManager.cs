@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class CharacterManager : MonoBehaviour {
 
@@ -24,16 +24,13 @@ public class CharacterManager : MonoBehaviour {
     public float deathRate = .5f; //if I'm dying, population drops by this ratio every day
     public float minimumDeaths = 1; //if I'm dying, I will always lose at least this many fish!
 
-    [HideInInspector]
-    public float lastCool = 0;
-    [HideInInspector]
-    public float lastHot = 0;
-    [HideInInspector]
-    public float lastStarve = 0;
-    [HideInInspector]
-    public float lastEaten = 0;
-    [HideInInspector]
-    public float lastSold = 0;
+    public enum DeathCause { Cold, Hot, Starve, Eaten, Sold};
+    
+    public Queue<DeathCause> deathList = new Queue<DeathCause>();
+
+    public enum BirthCause { Reproduction, Bought};
+    
+    public Queue<BirthCause> birthList = new Queue<BirthCause>();
 
     private float lastTemp = 0;
 
@@ -41,15 +38,6 @@ public class CharacterManager : MonoBehaviour {
     {
         lastTemp = temperature;
         performanceRate = thermalcurve.getCurve(temperature + 273);
-    }
-
-    public void resetDeathTrackers()
-    {
-        lastCool = 0;
-        lastHot = 0;
-        lastStarve = 0;
-        lastEaten = 0;
-        lastSold = 0;
     }
     
 	public float GetEatingRate(){
@@ -71,33 +59,57 @@ public class CharacterManager : MonoBehaviour {
             deaths = Mathf.Max(minimumDeaths, deathRate);
             speciesAmount -= deaths * days;
             speciesAmount = Mathf.Min(0, speciesAmount);
-
+            Debug.Log(deaths * days);
             //figure out why we're dying (starve, too hot, or too cool)
             if (fedRate < deathThreashold)
             {
-                lastStarve = deaths * days;
+                float starved = deaths * days;
+                for (int i = 0; i < starved; i++)
+                {
+                    deathList.Enqueue(DeathCause.Starve);
+                    Debug.Log("die starve");
+                }
             }
             else
             {
                 if (lastTemp + 273 < thermalcurve.optimalTemp)
                 {
-                    lastCool = deaths * days;
+                    float cooled = deaths * days;
+                    for (int i = 0; i < cooled; i++)
+                    {
+                        deathList.Enqueue(DeathCause.Cold);
+                        Debug.Log("die cold");
+                    }
                 }
                 else
                 {
-                    lastHot = deaths * days;
+                    float heated = deaths * days;
+                    for (int i = 0; i < heated; i++)
+                    {
+                        deathList.Enqueue(DeathCause.Hot);
+                        Debug.Log("die hot");
+                    }
                 }
             }
         }
         else //otherwise, fish reproduce
         {
-            speciesAmount = speciesAmount + speciesAmount * getFinalPerformance() * 
+            float reproduced = speciesAmount * getFinalPerformance() * 
                 (reproductionMultiplier) * days;
+            speciesAmount = speciesAmount + reproduced;
+            for(int i = 0; i < reproduced - .9f; i++) {
+                birthList.Enqueue(BirthCause.Reproduction);
+            }
         }
 
         if (speciesAmount < 1)
         {
             speciesAmount = 0;
+            //clear out any straggler fish
+            deathList.Enqueue(DeathCause.Starve);
+            deathList.Enqueue(DeathCause.Starve);
+            deathList.Enqueue(DeathCause.Starve);
+            deathList.Enqueue(DeathCause.Starve);
         }
     }
 

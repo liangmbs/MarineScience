@@ -83,9 +83,11 @@ public class SwimmingCreature : MonoBehaviour {
 
         if (isDying)
         {
+            if (creatureFlock != null)
+            {
+                Flock(creatureFlock);
+            }
             die();
-            velocity = Vector3.zero;
-            acceleration = Vector3.zero;
         } else if (creatureFlock != null)
         {
             Flock(creatureFlock);
