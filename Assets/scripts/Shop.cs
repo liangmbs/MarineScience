@@ -67,8 +67,13 @@ public class Shop : MonoBehaviour {
             foreach (Transform child in p.transform)
             {
                 GameObject nText = GameObject.Instantiate(costPrefab);
-                nText.transform.parent = child.transform;
-                nText.transform.position = child.transform.position + costPrefab.transform.position;
+                RectTransform rT = nText.GetComponent<RectTransform>();
+                RectTransform prefabRT = costPrefab.GetComponent<RectTransform>();
+                rT.SetParent(child.transform);
+                rT.localScale = Vector3.one;
+                rT.localPosition = prefabRT.localPosition;
+                rT.offsetMax = prefabRT.offsetMax;
+                rT.offsetMin = prefabRT.offsetMin;
                 priceTexts.Add(nText.GetComponent<Text>());
             }
         }
