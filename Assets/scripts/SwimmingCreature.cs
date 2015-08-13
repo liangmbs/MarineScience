@@ -21,7 +21,6 @@ public class SwimmingCreature : MonoBehaviour {
     public float avoidRadius = .5f;
     public float fleeRadius = 10;
     public float huntRadius = 10;
-    public float eatRadius = 1;
 
     public float alignPower = 1;
     public float attractPower = 1;
@@ -35,7 +34,6 @@ public class SwimmingCreature : MonoBehaviour {
     private float avoidSq = .25f;
     private float fleeSq = 100;
     private float huntSq = 100;
-    private float eatSq = 1;
 
     //maximum movement speed
     public float maxSpeed = 30;
@@ -79,7 +77,6 @@ public class SwimmingCreature : MonoBehaviour {
         avoidSq = Mathf.Pow(avoidRadius, 2);
         fleeSq = Mathf.Pow(fleeRadius, 2);
         huntSq = Mathf.Pow(huntRadius, 2);
-        eatSq = Mathf.Pow(eatRadius, 2);
 
         if (isDying)
         {
@@ -188,8 +185,6 @@ public class SwimmingCreature : MonoBehaviour {
                         huntTotal += hn * powerRatio;
                         huntCount++;
                     }
-
-                    eat(c, distSq);
                 }
             }
         }
@@ -334,21 +329,6 @@ public class SwimmingCreature : MonoBehaviour {
             transform.position = new Vector3(transform.position.x, bounds.yMax, transform.position.z);*/
 
         return steer;
-    }
-
-    private void eat(SwimmingCreature creature, float distSq)
-    {
-        if (distSq < eatSq)
-        {
-            creature.getEaten();
-        }
-    }
-
-    public void getEaten()
-    {
-        //TODO: play death animation
-        //TODO: don't spawn until animation is done playing
-        Spawn();
     }
 
     public void Spawn()
