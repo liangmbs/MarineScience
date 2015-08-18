@@ -72,6 +72,8 @@ public class SwimmingHolder : MonoBehaviour {
         SwimmingCreature c = cObj.GetComponent<SwimmingCreature>();
         c.creatureFlock = creatures;
         c.id = cId;
+        //move it out of the way so that it doesn't flicker before spawning.
+        c.transform.position = c.transform.position + new Vector3(99999, 9999, 0);
         switch (cause)
         {
             case CharacterManager.BirthCause.Bought:
