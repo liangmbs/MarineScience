@@ -80,10 +80,22 @@ public class SwimmingHolder : MonoBehaviour {
                 c.StartBuying();
                 break;
             case CharacterManager.BirthCause.Reproduction:
-                c.StartReproducing(player.reproducePart, findCreatureOfID(cId).transform.position);
+                c.StartReproducing(player.reproducePart, findRandomCreatureOfID(cId).transform.position);
                 break;
         }
         creatures.Add(c);
+    }
+
+    SwimmingCreature findRandomCreatureOfID(int cID)
+    {
+        List<SwimmingCreature> filteredC = new List<SwimmingCreature>();
+        foreach(SwimmingCreature c in creatures) {
+            if (c.id == cID && !c.isDying)
+            {
+                filteredC.Add(c);
+            }
+        }
+        return (filteredC[Random.Range(0, filteredC.Count)]);
     }
 
     SwimmingCreature findCreatureOfID(int cID)
