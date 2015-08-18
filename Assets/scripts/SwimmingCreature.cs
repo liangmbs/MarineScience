@@ -98,6 +98,7 @@ public class SwimmingCreature : MonoBehaviour {
         }
         else
         {
+            transform.localScale = startingScale;
             if (creatureFlock != null)
             {
                 Flock(creatureFlock);
@@ -165,24 +166,29 @@ public class SwimmingCreature : MonoBehaviour {
                 //flock within level
                 if (c.level == level)
                 {
+                    //avoid neutral creatures
                     Vector2 av = Avoid(c, distSq);
                     if (av != Vector2.zero)
                     {
                         avoidTotal += av * powerRatio;
                         avoidCount++;
                     }
-                    Vector2 at = Attract(c, distSq);
-                    if (at != Vector2.zero)
+                    //flock with same species
+                    if (c.id == id)
                     {
-                        attractTotal += at * powerRatio;
-                        attractCount++;
-                    }
-                    Vector2 al = Align(c, distSq);
-                    if (al != Vector2.zero)
-                    {
-                        //Debug.Log("A_L_ " + al);
-                        alignTotal += al * powerRatio;
-                        alignCount++;
+                        Vector2 at = Attract(c, distSq);
+                        if (at != Vector2.zero)
+                        {
+                            attractTotal += at * powerRatio;
+                            attractCount++;
+                        }
+                        Vector2 al = Align(c, distSq);
+                        if (al != Vector2.zero)
+                        {
+                            //Debug.Log("A_L_ " + al);
+                            alignTotal += al * powerRatio;
+                            alignCount++;
+                        }
                     }
                 }
                 else if (c.level > level)
