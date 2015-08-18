@@ -52,42 +52,44 @@ public class CharacterManager : MonoBehaviour {
     //fish reproduce or die based on performance.
     public void ReproduceOrDie(float days)
     {
+        if (speciesAmount == 0)
+        {
+            return;
+        }
+        Debug.Log("reproducing or dying: " + speciesAmount + " of " + uniqueName);
         //if performance is too low, fish die
         if (getFinalPerformance() < deathThreashold)
         {
-            float deaths = speciesAmount * deathRate;
-            deaths = Mathf.Max(minimumDeaths, deathRate);
-            speciesAmount -= deaths * days;
-            speciesAmount = Mathf.Min(0, speciesAmount);
-            Debug.Log(deaths * days);
+            float deaths = speciesAmount * deathRate * days;
+            deaths = Mathf.Max(minimumDeaths, deaths);
+            speciesAmount -= deaths;
+            speciesAmount = Mathf.Max(0, speciesAmount);
+            Debug.Log("Deaths: " + deaths);
             //figure out why we're dying (starve, too hot, or too cool)
             if (fedRate < deathThreashold)
             {
-                float starved = deaths * days;
-                for (int i = 0; i < starved; i++)
+                Debug.Log("died from starvation");
+                for (int i = 0; i < deaths; i++)
                 {
                     deathList.Enqueue(DeathCause.Starve);
-                    Debug.Log("die starve");
                 }
             }
             else
             {
                 if (lastTemp + 273 < thermalcurve.optimalTemp)
                 {
-                    float cooled = deaths * days;
-                    for (int i = 0; i < cooled; i++)
+                    Debug.Log("died from cold");
+                    for (int i = 0; i < deaths; i++)
                     {
                         deathList.Enqueue(DeathCause.Cold);
-                        Debug.Log("die cold");
                     }
                 }
                 else
                 {
-                    float heated = deaths * days;
-                    for (int i = 0; i < heated; i++)
+                    Debug.Log("died from heat");
+                    for (int i = 0; i < deaths; i++)
                     {
                         deathList.Enqueue(DeathCause.Hot);
-                        Debug.Log("die hot");
                     }
                 }
             }
@@ -97,6 +99,7 @@ public class CharacterManager : MonoBehaviour {
             float reproduced = speciesAmount * getFinalPerformance() * 
                 (reproductionMultiplier) * days;
             speciesAmount = speciesAmount + reproduced;
+            Debug.Log("reproduced: " + reproduced);
             for(int i = 0; i < reproduced - .9f; i++) {
                 birthList.Enqueue(BirthCause.Reproduction);
             }
