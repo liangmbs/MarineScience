@@ -99,15 +99,52 @@ public class PlayerManager : MonoBehaviour {
     {
         days += dayStep;
         
+        //calculate performance rates (based on temperature and food supply)
         foreach (CharacterManager c in species)
         {
             c.updatePerformance(temperature.temperature);
         }
+        //bigger creatures eat the smaller ones
         Predation(dayStep);
+        //creatures reproduce or die depending on performance rate
         foreach (CharacterManager c in species)
         {
             c.ReproduceOrDie(dayStep);
         }
+        //fish out any excess fish
+        float totalFish = getTotalFishCount();
+        if (totalFish > maxFishes)
+        {
+            int fishToSell = Mathf.FloorToInt(totalFish - maxFishes);
+            for (int i = 0; i < fishToSell; i++)
+            {
+                //randomly pick a fish
+                float fish = Random.Range(0, Mathf.FloorToInt(getTotalFishCount()));
+                //step through character managers until we find the fish that we want to remove.
+                foreach (CharacterManager c in species)
+                {
+                    if (fish <= c.speciesAmount)
+                    {
+                        c.speciesAmount--;
+                        c.deathList.Enqueue(CharacterManager.DeathCause.Sold);
+                        break;
+                    }
+                    fish -= c.speciesAmount;
+                }
+            }
+        }
+
+    }
+
+    //returns the total amount of all fish
+    private float getTotalFishCount()
+    {
+        float totalFish = 0;
+        foreach (CharacterManager c in species)
+        {
+            totalFish += c.speciesAmount;
+        }
+        return totalFish;
     }
 
     //gets the total amount of all species for a given level
