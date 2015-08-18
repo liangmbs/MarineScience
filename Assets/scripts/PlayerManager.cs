@@ -35,6 +35,7 @@ public class PlayerManager : MonoBehaviour {
     public ParticleSystem tooHotPart;
     public ParticleSystem eatenPart;
     public ParticleSystem starvedPart;
+    public ParticleSystem reproducePart;
 
 	/*
 	 * Initialize with three species at each level
@@ -76,7 +77,10 @@ public class PlayerManager : MonoBehaviour {
     public void BuyCreatures(int index, float amount)
     {
         moneys = moneys - species[index].cost * amount;
-        species[index].birthList.Enqueue(CharacterManager.BirthCause.Bought);
+        for (int i = 0; i < amount; i++)
+        {
+            species[index].birthList.Enqueue(CharacterManager.BirthCause.Bought);
+        }
         species[index].speciesAmount += amount;
     }
 

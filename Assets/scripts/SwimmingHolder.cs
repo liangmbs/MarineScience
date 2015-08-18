@@ -70,10 +70,35 @@ public class SwimmingHolder : MonoBehaviour {
         GameObject cObj = GameObject.Instantiate(prefabs[cId]);
 #endif
         SwimmingCreature c = cObj.GetComponent<SwimmingCreature>();
-        creatures.Add(c);
         c.creatureFlock = creatures;
         c.id = cId;
-        c.Spawn();
+        switch (cause)
+        {
+            case CharacterManager.BirthCause.Bought:
+                c.StartBuying();
+                break;
+            case CharacterManager.BirthCause.Reproduction:
+                c.StartReproducing(player.reproducePart, findCreatureOfID(cId).transform.position);
+                break;
+        }
+        creatures.Add(c);
+    }
+
+    SwimmingCreature findCreatureOfID(int cID)
+    {
+        int index = 0;
+        while (index < creatures.Count)
+        {
+            if (creatures[index].id == cID && !creatures[index].isDying)
+            {
+                return (creatures[index]);
+            }
+            else
+            {
+                index++;
+            }
+        }
+        return null;
     }
 
     void RemoveCreature(int cId, CharacterManager.DeathCause cause)

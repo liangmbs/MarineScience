@@ -56,10 +56,20 @@ public class SwimmingCreature : MonoBehaviour {
     public ParticleSystem deathParticles;
     [HideInInspector]
     public Lure lure;
+    [HideInInspector]
+    public bool isSpawning = true;
+    [HideInInspector]
+    public FishDrop fishDrop;
+    [HideInInspector]
+    public ParticleSystem spawnParticles;
     enum DeathCause {Particle, Lure, Fish};
     private DeathCause deathCause;
+    enum SpawnCause {Reproduction, Bought};
+    private SpawnCause spawnCause;
     public float deathTime = 1;
     private float dyingTimer = 0;
+    public float spawnTime = 1;
+    private float spawningTimer = 1;
     private Vector3 startingScale = Vector3.one;
     public float particleSize = 10;
     private float particleTimer = 0;
@@ -80,19 +90,25 @@ public class SwimmingCreature : MonoBehaviour {
 
         if (isDying)
         {
+            die();
+        }
+        else if (isSpawning)
+        {
+            spawn();
+        }
+        else
+        {
             if (creatureFlock != null)
             {
                 Flock(creatureFlock);
             }
-            die();
-        } else if (creatureFlock != null)
-        {
-            Flock(creatureFlock);
         }
+
+        //Debug.Log("v" + velocity + " a" + acceleration);
 
         velocity += acceleration;
         //cap velocity
-        if (velocity.magnitude > maxSpeed)
+        if (velocity.magnitude > maxSpeed )
         {
             velocity = velocity.normalized * maxSpeed;
         }
@@ -110,13 +126,13 @@ public class SwimmingCreature : MonoBehaviour {
         // get rotation relative to UP
         float zRot = Mathf.Atan2(velocity.y, velocity.x) - Mathf.Atan2(-1, 0);
         //set rotation
-        if (rotates)
+        if (rotates && velocity != Vector2.zero)
         {
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, zRot * Mathf.Rad2Deg));
         }
     }
 
-    //updates the 
+    //updates the flock
     private void Flock(List<SwimmingCreature> creatures)
     {
         acceleration = Vector2.zero;
@@ -164,6 +180,7 @@ public class SwimmingCreature : MonoBehaviour {
                     Vector2 al = Align(c, distSq);
                     if (al != Vector2.zero)
                     {
+                        //Debug.Log("A_L_ " + al);
                         alignTotal += al * powerRatio;
                         alignCount++;
                     }
@@ -207,6 +224,12 @@ public class SwimmingCreature : MonoBehaviour {
             alignTotal * alignPower + 
             fleeTotal * fleePower+ 
             huntTotal * huntPower;
+        /*Debug.Log("e" + EdgeSteer() + 
+            "at" + avoidTotal + 
+            "at" + attractTotal +
+            "al" + alignTotal +
+            "f" + fleeTotal +
+            "h" + huntTotal);*/
 
         if (acceleration.magnitude > maxForce)
         {
@@ -251,8 +274,10 @@ public class SwimmingCreature : MonoBehaviour {
         if (distSq < alignSq)
         {
             //align with the other creature
-            Vector2 alignVector = creature.velocity.normalized;
+            //Debug.Log("V- " + creature.velocity);
+            Vector2 alignVector = creature.velocity;
             alignVector.Normalize();
+            //Debug.Log("VV- " + alignVector);
             //TODO: weight by distance
             return alignVector;
         }
@@ -331,19 +356,73 @@ public class SwimmingCreature : MonoBehaviour {
         return steer;
     }
 
-    public void Spawn()
+    private void spawn()
     {
-        //randomly spawn outside the bounds
-        float xSpawn = 0;
-        float ySpawn = Random.Range(bounds.yMin, bounds.yMax);
-        if (Random.value < .5f)
-            xSpawn = bounds.xMin - 10;
+        velocity += new Vector2(Random.value, Random.value);
+        if (spawningTimer <= 0)
+        {
+            velocity = new Vector2(Random.value, Random.value) * maxSpeed;
+            isSpawning = false;
+            spawningTimer = 0;
+        }
         else
-            xSpawn = bounds.xMax + 10;
+        {
+            //tick timer
+            spawningTimer -= Time.deltaTime;
+            switch (spawnCause)
+            {
+                case SpawnCause.Reproduction:
+                    //flock
+                    if (creatureFlock != null)
+                    {
+                        Flock(creatureFlock);
+                    }
+                    //tick timer
+                    spawningTimer -= Time.deltaTime;
+                    //grow
+                    transform.localScale = startingScale * (1 - spawningTimer) / spawnTime;
+                    //emit partiles according to parameters
+                    particleTimer += Time.deltaTime;
+                    while (particleTimer > 1 / spawnParticles.emissionRate)
+                    {
+                        particleTimer -= 1 / spawnParticles.emissionRate;
+                        spawnParticles.Emit(transform.position,
+                            particleSize * spawnParticles.startSpeed * 2 *
+                            new Vector3(Random.value - .5f, Random.value - .5f, 0),
+                            particleSize * spawnParticles.startSize, spawnParticles.startLifetime, Color.white);
+                    }
+                    break;
+                case SpawnCause.Bought:
+                    //only do stuff if we're being fished
+                    transform.position = fishDrop.getPos(spawningTimer / spawnTime);
+                    break;
+            }
+        }
+    }
 
-        transform.position = new Vector3(xSpawn, ySpawn, transform.position.z);
-        velocity = new Vector2(Random.Range(-maxSpeed, maxSpeed),
-            Random.Range(-maxSpeed, maxSpeed));
+    public void StartReproducing(ParticleSystem particles, Vector3 spawnPos)
+    {
+        transform.position = spawnPos;
+        spawnParticles = particles;
+        spawnTime = spawnTime * (.5f + Random.value);
+        spawningTimer = spawnTime;
+        spawnCause = SpawnCause.Reproduction;
+        isSpawning = true;
+    }
+
+    public void StartBuying()
+    {
+        spawnTime = spawnTime * (.5f + Random.value);
+        spawningTimer = spawnTime;
+        //Random.seed = GetInstanceID();
+        fishDrop = new FishDrop(new Vector3(
+            Random.Range(bounds.xMin + edgeRadius, bounds.xMax - edgeRadius), 
+            Random.Range(bounds.yMin, bounds.yMax), 
+            transform.position.z), 
+            FishDrop.sceneHeight * (2 + .2f * Random.value) );
+        transform.position = fishDrop.getPos(0);
+        spawnCause = SpawnCause.Bought;
+        isSpawning = true;
     }
 
     private void die()
@@ -357,6 +436,11 @@ public class SwimmingCreature : MonoBehaviour {
             switch (deathCause)
             {
                 case DeathCause.Particle:
+                    //flock
+                    if (creatureFlock != null)
+                    {
+                        Flock(creatureFlock);
+                    }
                     //tick timer
                     dyingTimer -= Time.deltaTime;
                     //shrink and die
@@ -367,8 +451,8 @@ public class SwimmingCreature : MonoBehaviour {
                         particleTimer -= 1/deathParticles.emissionRate;
                         deathParticles.Emit(transform.position,
                             particleSize * deathParticles.startSpeed * 2 * 
-                            new Vector3(Random.value - .5f, Random.value - .5f, 0), 
-                            particleSize * deathParticles.startSize, 3, Color.white);
+                            new Vector3(Random.value - .5f, Random.value - .5f, 0),
+                            particleSize * deathParticles.startSize, deathParticles.startLifetime, Color.white);
                     }
                     break;
                 case DeathCause.Lure:
@@ -396,6 +480,7 @@ public class SwimmingCreature : MonoBehaviour {
     {
         deathParticles = cause;
         isDying = true;
+        deathTime = deathTime * (.5f + Random.value);
         dyingTimer = deathTime;
         deathCause = DeathCause.Particle;
     }
@@ -404,6 +489,7 @@ public class SwimmingCreature : MonoBehaviour {
     {
         lure = cause;
         isDying = true;
+        deathTime = deathTime * (.5f + Random.value);
         dyingTimer = deathTime;
         deathCause = DeathCause.Lure;
         lure.gameObject.SetActive(true);
