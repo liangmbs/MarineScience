@@ -247,21 +247,23 @@ MonoBehaviour:
   avoidRadius: 20
   fleeRadius: 20
   huntRadius: 20
-  eatRadius: 4
   alignPower: .300000012
   attractPower: .600000024
   avoidPower: 1
   fleePower: 1
   huntPower: 1
   maxSpeed: 20
-  maxForce: .0500000007
+  maxForce: .100000001
   velocity: {x: 0, y: 0}
   acceleration: {x: 0, y: 0}
   rotates: 1
   isDying: 0
   deathParticles: {fileID: 0}
   lure: {fileID: 0}
+  isSpawning: 1
+  spawnParticles: {fileID: 0}
   deathTime: 3
+  spawnTime: 1
   particleSize: 5
 --- !u!212 &21214836
 SpriteRenderer:
@@ -429,6 +431,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: deathTime
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: maxForce
+      value: .100000001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

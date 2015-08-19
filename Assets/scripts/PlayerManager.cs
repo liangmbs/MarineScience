@@ -22,11 +22,19 @@ public class PlayerManager : MonoBehaviour {
 
 	public float days = 0;
 	public float moneys = 0;
+    public float dayStep = 1;
     public float dailyIncome = 100;
     public float netWorthIncomeRate = .2f;
     public float sellRate = .5f;
-    public bool waitingForTemperature = false;
     public float maxFishes = 200;
+    public float stepWaitTime = 1;
+    float stepTimer = 0;
+    bool waitingForTemperature = false;
+    bool waitingForSteps = false;
+    enum FishSteps { predation, reproduce, capMax, finished};
+    FishSteps currentStep = FishSteps.finished;
+    [HideInInspector]
+    public bool busy = false;
 
     //gameobjects
     public Text moneyText;
@@ -50,15 +58,19 @@ public class PlayerManager : MonoBehaviour {
 
     public void Update()
     {
-        if (Input.GetButtonDown("Submit") && !waitingForTemperature)
+        if (Input.GetButtonDown("Submit") && !busy)
         {
             waitingForTemperature = true;
+            busy = true;
             temperature.updateTemperature();
         }
         if (!temperature.animating && waitingForTemperature)
         {
-            StepEcosystem(0.5f);
             waitingForTemperature = false;
+            currentStep = FishSteps.predation;
+            stepTimer = 0;
+            waitingForSteps = true;
+
             moneys += dailyIncome;
             foreach (CharacterManager c in species)
             {
@@ -66,9 +78,49 @@ public class PlayerManager : MonoBehaviour {
             }
 
         }
+        if (waitingForSteps)
+        {
+            stepTimer -= Time.deltaTime;
+            if (stepTimer <= 0)
+            {
+                switch (currentStep)
+                {
+                    case FishSteps.predation:
+                        //calculate performance rates (based on temperature and food supply)
+                        foreach (CharacterManager c in species)
+                        {
+                            c.updatePerformance(temperature.temperature);
+                        }
+                        //bigger creatures eat the smaller ones
+                        Predation(dayStep);
+                        currentStep = FishSteps.reproduce;
+                        stepTimer = stepWaitTime;
+                        break;
+                    case FishSteps.reproduce:
+                        //creatures reproduce or die depending on performance rate
+                        foreach (CharacterManager c in species)
+                        {
+                            c.ReproduceOrDie(dayStep);
+                        }
+                        currentStep = FishSteps.capMax;
+                        stepTimer = stepWaitTime;
+                        break;
+                    case FishSteps.capMax:
+                        capFishMax();
+                        days += dayStep;
+                        busy = false;
+                        waitingForSteps = false;
+                        stepTimer = 0;
+                        currentStep = FishSteps.finished;
+                        break;
+                }
+            }
+        }
+
+
         if (Input.GetButtonDown("Cancel"))
         {
-            moneys += 99999999;
+            moneys += 999999;
         }
 
         moneyText.text = Mathf.Floor(moneys).ToString();
@@ -94,28 +146,14 @@ public class PlayerManager : MonoBehaviour {
         moneys = moneys + species[index].cost * sellRate * amount;
     }
 
-    //step the ecosystem forward by a given number or fraction of days
-    public void StepEcosystem(float dayStep)
+    private void capFishMax()
     {
-        days += dayStep;
-        
-        //calculate performance rates (based on temperature and food supply)
-        foreach (CharacterManager c in species)
-        {
-            c.updatePerformance(temperature.temperature);
-        }
-        //bigger creatures eat the smaller ones
-        Predation(dayStep);
-        //creatures reproduce or die depending on performance rate
-        foreach (CharacterManager c in species)
-        {
-            c.ReproduceOrDie(dayStep);
-        }
         //fish out any excess fish
         float totalFish = getTotalFishCount();
         if (totalFish > maxFishes)
         {
             int fishToSell = Mathf.FloorToInt(totalFish - maxFishes);
+            moneys += fishToSell * sellRate;
             for (int i = 0; i < fishToSell; i++)
             {
                 //randomly pick a fish
@@ -133,7 +171,6 @@ public class PlayerManager : MonoBehaviour {
                 }
             }
         }
-
     }
 
     //returns the total amount of all fish

@@ -177,6 +177,8 @@ public class Shop : MonoBehaviour {
 
     public void buyFishes()
     {
+        if (playerObj.busy)
+            return;
         playerObj.BuyCreatures(selectedFish, currentFishes);
         currentFishes = 0;
         totalfishes.text = "0";
@@ -185,6 +187,8 @@ public class Shop : MonoBehaviour {
 
     public void sellFishes()
     {
+        if (playerObj.busy)
+            return;
         playerObj.SellCreatures(selectedFish, currentSellingFishes);
         currentSellingFishes = 0;
         sellingfishes.text = "0";

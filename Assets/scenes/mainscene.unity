@@ -4704,11 +4704,13 @@ MonoBehaviour:
   temperature: {fileID: 1089677629}
   days: 0
   moneys: 500
+  dayStep: 1
   dailyIncome: 100
   netWorthIncomeRate: 0
   sellRate: .75
-  waitingForTemperature: 0
   maxFishes: 200
+  stepWaitTime: 3
+  busy: 0
   moneyText: {fileID: 1478096806}
   tooCoolPart: {fileID: 1089252170}
   tooHotPart: {fileID: 918046692}
