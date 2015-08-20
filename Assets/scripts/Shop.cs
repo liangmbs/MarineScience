@@ -111,12 +111,13 @@ public class Shop : MonoBehaviour {
         //add 1 fish or switch to new fish type.
         if (selectedFish == fish)
         {
-            currentFishes += 1;
+            addfishes(1);
         }
         else
         {
             selectedFish = fish;
-            currentFishes = 1;
+            currentFishes = 0;
+            addfishes(1);
         }
 
         slider.value = 0;
