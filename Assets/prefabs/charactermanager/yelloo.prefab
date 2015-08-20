@@ -42,15 +42,15 @@ MonoBehaviour:
   speciesAmount: 0
   performanceRate: 0
   fedRate: 1
-  cost: 100
+  cost: 130
   thermalcurve: {fileID: 0}
   player: {fileID: 0}
   uniqueName: yelloo
   eatingAmount: 3
   foodChainLevel: 1
-  reproductionMultiplier: .5
+  reproductionMultiplier: .349999994
   deathThreashold: .300000012
-  deathRate: .5
+  deathRate: .349999994
   minimumDeaths: 1
 --- !u!1001 &100100000
 Prefab:
@@ -58,7 +58,19 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: cost
+      value: 130
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathRate
+      value: .349999994
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: reproductionMultiplier
+      value: .349999994
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 179902}

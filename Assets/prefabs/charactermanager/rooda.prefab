@@ -46,11 +46,11 @@ MonoBehaviour:
   thermalcurve: {fileID: 0}
   player: {fileID: 0}
   uniqueName: rooda
-  eatingAmount: 3
+  eatingAmount: 4
   foodChainLevel: 3
-  reproductionMultiplier: .5
+  reproductionMultiplier: .699999988
   deathThreashold: .300000012
-  deathRate: .5
+  deathRate: .600000024
   minimumDeaths: 1
 --- !u!1001 &100100000
 Prefab:
@@ -58,7 +58,19 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: reproductionMultiplier
+      value: .699999988
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: eatingAmount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathRate
+      value: .600000024
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 162282}

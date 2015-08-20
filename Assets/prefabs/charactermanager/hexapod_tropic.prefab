@@ -48,9 +48,9 @@ MonoBehaviour:
   uniqueName: hexapod tropical
   eatingAmount: 3
   foodChainLevel: 1
-  reproductionMultiplier: .5
-  deathThreashold: .300000012
-  deathRate: .5
+  reproductionMultiplier: .699999988
+  deathThreashold: .400000006
+  deathRate: .699999988
   minimumDeaths: 1
 --- !u!1001 &100100000
 Prefab:
@@ -58,7 +58,19 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: reproductionMultiplier
+      value: .699999988
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathThreashold
+      value: .400000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathRate
+      value: .699999988
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 184610}

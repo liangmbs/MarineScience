@@ -12139,10 +12139,6 @@ Prefab:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 11412362, guid: 3032856d14a8d1f4492258bf18bb52b4, type: 2}
-      propertyPath: speciesAmount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11412362, guid: 3032856d14a8d1f4492258bf18bb52b4, type: 2}
       propertyPath: player
       value: 
       objectReference: {fileID: 882694906}
@@ -12150,10 +12146,6 @@ Prefab:
       propertyPath: thermalcurve
       value: 
       objectReference: {fileID: 1437411096}
-    - target: {fileID: 11412362, guid: 3032856d14a8d1f4492258bf18bb52b4, type: 2}
-      propertyPath: cost
-      value: 3000
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3032856d14a8d1f4492258bf18bb52b4, type: 2}
   m_IsPrefabParent: 0
