@@ -174,7 +174,7 @@ public class PlayerManager : MonoBehaviour {
     }
 
     //returns the total amount of all fish
-    private float getTotalFishCount()
+    public float getTotalFishCount()
     {
         float totalFish = 0;
         foreach (CharacterManager c in species)

@@ -119,6 +119,8 @@ public class Shop : MonoBehaviour {
             currentFishes = 1;
         }
 
+        slider.value = 0;
+
         //cap purchasing based on money
         while (playerObj.species[selectedFish].cost * currentFishes > playerObj.moneys)
         {
@@ -153,6 +155,13 @@ public class Shop : MonoBehaviour {
             currentFishes--;
         }
 
+        //cap based on total fish count
+        float totalFish = playerObj.getTotalFishCount();
+        while (totalFish + currentFishes > playerObj.maxFishes)
+        {
+            currentFishes--;
+        }
+
         totalfishes.text = currentFishes.ToString();
         totalPrice.text = (playerObj.species[selectedFish].cost * currentFishes).ToString();
 	}
@@ -165,11 +174,14 @@ public class Shop : MonoBehaviour {
             currentSellingFishes = 0;
         }
 
-        //cap purchasing based on money
-        if (playerObj.species[selectedFish].speciesAmount < currentSellingFishes)
+        //cap selling based on number of fish
+        float amount = playerObj.species[selectedFish].speciesAmount;
+        if (amount < currentSellingFishes)
         {
-            currentSellingFishes = Mathf.FloorToInt(playerObj.species[selectedFish].speciesAmount);
+            currentSellingFishes = Mathf.FloorToInt(amount);
         }
+
+        slider.value = currentSellingFishes / amount;
 
         sellingfishes.text = currentSellingFishes.ToString();
         sellingPrice.text = (playerObj.species[selectedFish].cost * currentSellingFishes * playerObj.sellRate).ToString();
