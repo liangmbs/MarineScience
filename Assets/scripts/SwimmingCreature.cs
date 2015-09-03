@@ -49,7 +49,9 @@ public class SwimmingCreature : MonoBehaviour {
     //animator
     private Animator anim;
 
-    //death
+    //effects
+    [HideInInspector]
+    public bool isBusy = false;
     [HideInInspector]
     public bool isDying = false;
     [HideInInspector]
@@ -57,17 +59,20 @@ public class SwimmingCreature : MonoBehaviour {
     [HideInInspector]
     public Lure lure;
     [HideInInspector]
+    public List<FishHunt> huntingFish;
+    [HideInInspector]
     public bool isSpawning = true;
     [HideInInspector]
     public FishDrop fishDrop;
     [HideInInspector]
     public ParticleSystem spawnParticles;
-    enum DeathCause {Particle, Lure, Fish};
+    enum DeathCause {Particle, Lure, Eaten};
     private DeathCause deathCause;
     enum SpawnCause {Reproduction, Bought};
     private SpawnCause spawnCause;
     public float deathTime = 1;
-    private float dyingTimer = 0;
+    [HideInInspector]
+    public float dyingTimer = 0;
     public float spawnTime = 1;
     private float spawningTimer = 1;
     private Vector3 startingScale = Vector3.one;
@@ -77,6 +82,7 @@ public class SwimmingCreature : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         anim = GetComponent<Animator>();
+        huntingFish = new List<FishHunt>();
         startingScale = transform.localScale;
 	}
 	
@@ -96,13 +102,18 @@ public class SwimmingCreature : MonoBehaviour {
         {
             spawn();
         }
+        else if (huntingFish.Count > 0)
+        {
+            huntingFish[0].update();
+            if (huntingFish[0].isDone())
+            {
+                huntingFish.Remove(huntingFish[0]);
+            }
+        }
         else
         {
             transform.localScale = startingScale;
-            if (creatureFlock != null)
-            {
-                Flock(creatureFlock);
-            }
+            Flock(creatureFlock);
         }
 
         //Debug.Log("v" + velocity + " a" + acceleration);
@@ -136,6 +147,10 @@ public class SwimmingCreature : MonoBehaviour {
     //updates the flock
     private void Flock(List<SwimmingCreature> creatures)
     {
+        if (creatures == null)
+        {
+            return;
+        }
         acceleration = Vector2.zero;
 
         Vector2 avoidTotal = Vector2.zero;
@@ -379,10 +394,7 @@ public class SwimmingCreature : MonoBehaviour {
             {
                 case SpawnCause.Reproduction:
                     //flock
-                    if (creatureFlock != null)
-                    {
-                        Flock(creatureFlock);
-                    }
+                    Flock(creatureFlock);
                     //tick timer
                     spawningTimer -= Time.deltaTime;
                     //grow
@@ -443,10 +455,7 @@ public class SwimmingCreature : MonoBehaviour {
             {
                 case DeathCause.Particle:
                     //flock
-                    if (creatureFlock != null)
-                    {
-                        Flock(creatureFlock);
-                    }
+                    Flock(creatureFlock);
                     //tick timer
                     dyingTimer -= Time.deltaTime;
                     //shrink and die
@@ -478,14 +487,13 @@ public class SwimmingCreature : MonoBehaviour {
                     else
                     {
                         //if we're not being fished, just swim around like we don't even know we're doomed
-                        if (creatureFlock != null)
-                        {
-                            Flock(creatureFlock);
-                        }
+                        Flock(creatureFlock);
                     }
                     break;
-                case DeathCause.Fish:
-                    //todo: swim into a predator's mouth
+                case DeathCause.Eaten:
+                    //dying timer is all handled by the FishHunt object, which is updated by the predator. 
+                    //the prey doesn't need to do anything other than swim around
+                    Flock(creatureFlock);
                     break;
             }
         }
@@ -493,6 +501,7 @@ public class SwimmingCreature : MonoBehaviour {
 
     public void startDying(ParticleSystem cause)
     {
+        isBusy = true;
         deathParticles = cause;
         isDying = true;
         deathTime = deathTime * (.5f + Random.value);
@@ -508,6 +517,7 @@ public class SwimmingCreature : MonoBehaviour {
 
     public void startFishing(Lure cause)
     {
+        isBusy = true;
         lure = cause;
         isDying = true;
         deathTime = deathTime * (.5f + Random.value);
@@ -516,6 +526,20 @@ public class SwimmingCreature : MonoBehaviour {
         lure.gameObject.SetActive(true);
         lure.addTarget(this);
         lure.Reset();
+    }
+
+    public void startEating()
+    {
+        isBusy = true;
+    }
+
+    public void getEaten(FishHunt hunt)
+    {
+        isBusy = true;
+        isDying = true;
+        deathCause = DeathCause.Eaten;
+        deathTime = 1;
+        dyingTimer = 1;
     }
 
     private void KillForever()

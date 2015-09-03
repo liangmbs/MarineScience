@@ -7,7 +7,8 @@ public class SwimmingHolder : MonoBehaviour {
     public List<GameObject> prefabs;
     public List<Lure> lures;
     //number of swimming creatures for each speices. make sure to update this
-    public List<int> speciesNumbers; 
+    public List<int> speciesNumbers;
+    public float predatorTime = 1;
 
 	// Use this for initialization
 	void Start () {
@@ -98,6 +99,19 @@ public class SwimmingHolder : MonoBehaviour {
         return (filteredC[Random.Range(0, filteredC.Count)]);
     }
 
+    SwimmingCreature findRandomCreatureOfTier(int tier)
+    {
+        List<SwimmingCreature> filteredC = new List<SwimmingCreature>();
+        foreach (SwimmingCreature c in creatures)
+        {
+            if (c.level == tier && !c.isDying)
+            {
+                filteredC.Add(c);
+            }
+        }
+        return (filteredC[Random.Range(0, filteredC.Count)]);
+    }
+
     SwimmingCreature findCreatureOfID(int cID)
     {
         int index = 0;
@@ -150,7 +164,12 @@ public class SwimmingHolder : MonoBehaviour {
                     c.startDying(player.tooCoolPart);
                     break;
                 case CharacterManager.DeathCause.Eaten:
-                    c.startDying(player.eatenPart);
+                    SwimmingCreature predator = findRandomCreatureOfTier(c.level + 1);
+                    float fasterHunting = Mathf.Max(1, predator.huntingFish.Count);
+                    FishHunt hunt = new FishHunt(predator, c, predatorTime / fasterHunting);
+                    predator.huntingFish.Add(hunt);
+                    c.getEaten(hunt);
+                    predator.startEating();
                     break;
                 case CharacterManager.DeathCause.Starve:
                     c.startDying(player.starvedPart);
