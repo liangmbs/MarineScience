@@ -99,7 +99,7 @@ GameObject:
   - 120: {fileID: 1127110}
   - 114: {fileID: 1127109}
   m_Layer: 0
-  m_Name: lure_5 (1)
+  m_Name: lure_14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -412,7 +412,7 @@ GameObject:
   - 120: {fileID: 50968398}
   - 114: {fileID: 50968397}
   m_Layer: 0
-  m_Name: lure_1 (1)
+  m_Name: lure_10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2173,7 +2173,7 @@ GameObject:
   - 120: {fileID: 379905569}
   - 114: {fileID: 379905568}
   m_Layer: 0
-  m_Name: lure_4 (1)
+  m_Name: lure_13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2397,7 +2397,7 @@ GameObject:
   - 120: {fileID: 396257948}
   - 114: {fileID: 396257947}
   m_Layer: 0
-  m_Name: lure_8 (1)
+  m_Name: lure_9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2566,7 +2566,7 @@ GameObject:
   - 120: {fileID: 411102501}
   - 114: {fileID: 411102500}
   m_Layer: 0
-  m_Name: lure_3 (1)
+  m_Name: lure_12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2959,7 +2959,7 @@ GameObject:
   - 120: {fileID: 486518798}
   - 114: {fileID: 486518797}
   m_Layer: 0
-  m_Name: lure_2 (1)
+  m_Name: lure_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3784,7 +3784,7 @@ GameObject:
   - 120: {fileID: 628568237}
   - 114: {fileID: 628568236}
   m_Layer: 0
-  m_Name: lure_7 (1)
+  m_Name: lure_16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5078,7 +5078,7 @@ GameObject:
   - 120: {fileID: 833922816}
   - 114: {fileID: 833922815}
   m_Layer: 0
-  m_Name: lure_6 (1)
+  m_Name: lure_15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
