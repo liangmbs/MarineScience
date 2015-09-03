@@ -2959,7 +2959,7 @@ GameObject:
   - 120: {fileID: 486518798}
   - 114: {fileID: 486518797}
   m_Layer: 0
-  m_Name: lure_1
+  m_Name: lure_11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
