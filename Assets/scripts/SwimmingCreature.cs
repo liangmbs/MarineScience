@@ -462,6 +462,7 @@ public class SwimmingCreature : MonoBehaviour {
                     }
                     break;
                 case DeathCause.Lure:
+                    
                     //only do stuff if we're being fished
                     if (lure.amITheTarget(this))
                     {
@@ -472,6 +473,14 @@ public class SwimmingCreature : MonoBehaviour {
                         {
                             transform.position = lure.transform.position;
                             transform.rotation = Quaternion.EulerAngles(0, 0, 180);
+                        }
+                    }
+                    else
+                    {
+                        //if we're not being fished, just swim around like we don't even know we're doomed
+                        if (creatureFlock != null)
+                        {
+                            Flock(creatureFlock);
                         }
                     }
                     break;
@@ -489,6 +498,12 @@ public class SwimmingCreature : MonoBehaviour {
         deathTime = deathTime * (.5f + Random.value);
         dyingTimer = deathTime;
         deathCause = DeathCause.Particle;
+    }
+
+    public void multDeathTime(float dTime)
+    {
+        deathTime = deathTime*dTime;
+        dyingTimer = dyingTimer*dTime;
     }
 
     public void startFishing(Lure cause)

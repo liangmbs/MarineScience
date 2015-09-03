@@ -53,7 +53,16 @@ public class Lure : MonoBehaviour {
                 fishes.Remove(t);
                 Reset();
                 if (fishes.Count > 0)
+                {
                     target = fishes[0].transform.position;
+                    //fish faster if we've got a lot of fish we need to get through
+                    if (fishes.Count > 1)
+                    {
+                        float timeSquish = 1 / Mathf.Sqrt(fishes.Count);
+                        timeSquish = Mathf.Max(0.1f, timeSquish);
+                        fishes[0].multDeathTime(timeSquish);
+                    }
+                }
             }
             else if (t.getDeathRatio() <= .5f)
             {
