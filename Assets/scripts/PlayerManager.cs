@@ -152,7 +152,7 @@ public class PlayerManager : MonoBehaviour {
         float totalFish = getTotalFishCount();
         if (totalFish > maxFishes)
         {
-            int fishToSell = Mathf.FloorToInt(totalFish - maxFishes);
+            int fishToSell = Mathf.CeilToInt(totalFish - maxFishes);
             moneys += fishToSell * sellRate;
             for (int i = 0; i < fishToSell; i++)
             {

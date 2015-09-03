@@ -158,7 +158,7 @@ public class Shop : MonoBehaviour {
 
         //cap based on total fish count
         float totalFish = playerObj.getTotalFishCount();
-        while (totalFish + currentFishes > playerObj.maxFishes)
+        while (totalFish + currentFishes >= playerObj.maxFishes)
         {
             currentFishes--;
         }
