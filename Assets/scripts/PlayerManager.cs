@@ -9,8 +9,8 @@ public class PlayerManager : MonoBehaviour {
 	 *  Player's species
      *  Make sure that these are in the same order as the SwimmingHolder's prefabs!
 	 */
-	public List<CharacterManager> species; 
-
+	public List<CharacterManager> species;
+    SwimmingHolder holder;
 
     //Highest level in the species list
     public int lowestLevel = 1;
@@ -33,6 +33,8 @@ public class PlayerManager : MonoBehaviour {
     bool waitingForSteps = false;
     enum FishSteps { predation, reproduce, capMax, finished};
     FishSteps currentStep = FishSteps.finished;
+    int predationPhase = 2;
+    int highestPredator = 3;
     [HideInInspector]
     public bool busy = false;
 
@@ -54,11 +56,12 @@ public class PlayerManager : MonoBehaviour {
         {
             c.player = this;
         }
+        holder = FindObjectOfType<SwimmingHolder>();
 	}
 
     public void Update()
     {
-        if (Input.GetButtonDown("Submit") && !busy)
+        if (Input.GetButtonDown("Submit") && !busy && !holder.anyCreaturesBusy())
         {
             waitingForTemperature = true;
             busy = true;
@@ -68,6 +71,7 @@ public class PlayerManager : MonoBehaviour {
         {
             waitingForTemperature = false;
             currentStep = FishSteps.predation;
+            predationPhase = 2;
             stepTimer = 0;
             waitingForSteps = true;
 
@@ -80,8 +84,8 @@ public class PlayerManager : MonoBehaviour {
         }
         if (waitingForSteps)
         {
-            stepTimer -= Time.deltaTime;
-            if (stepTimer <= 0)
+            Debug.Log(currentStep);
+            if (!holder.anyCreaturesBusy())
             {
                 switch (currentStep)
                 {
@@ -92,9 +96,12 @@ public class PlayerManager : MonoBehaviour {
                             c.updatePerformance(temperature.temperature);
                         }
                         //bigger creatures eat the smaller ones
-                        Predation(dayStep);
-                        currentStep = FishSteps.reproduce;
-                        stepTimer = stepWaitTime;
+                        Predation(dayStep, predationPhase);
+                        predationPhase++;
+                        if (predationPhase > highestPredator)
+                        {
+                            currentStep = FishSteps.reproduce;
+                        }
                         break;
                     case FishSteps.reproduce:
                         //creatures reproduce or die depending on performance rate
@@ -107,11 +114,11 @@ public class PlayerManager : MonoBehaviour {
                         break;
                     case FishSteps.capMax:
                         capFishMax();
-                        days += dayStep;
+                        currentStep = FishSteps.finished;
+                        break;
+                    case FishSteps.finished:
                         busy = false;
                         waitingForSteps = false;
-                        stepTimer = 0;
-                        currentStep = FishSteps.finished;
                         break;
                 }
             }
@@ -236,43 +243,40 @@ public class PlayerManager : MonoBehaviour {
     }
 
     // Food obtain
-    private void Predation(float dayStep)
+    private void Predation(float dayStep, int tier)
     {
         //step through each species level, skipping the first one (they don't eat anything)
-        for (int i = lowestLevel + 1; i <= highestLevel; i++)
+        List<CharacterManager> leveliCharacters = new List<CharacterManager>();
+        float leveliAmount = 0;
+        float foodRequestAmount = 0;
+        foreach (CharacterManager c in species)
         {
-            List<CharacterManager> leveliCharacters = new List<CharacterManager>();
-            float leveliAmount = 0;
-            float foodRequestAmount = 0;
-            foreach (CharacterManager c in species)
+            if (c.foodChainLevel == tier)
             {
-                if (c.foodChainLevel == i)
-                {
-                    leveliCharacters.Add(c);
-                    leveliAmount += c.speciesAmount;
-                    foodRequestAmount += c.speciesAmount * c.GetEatingRate() * dayStep;
-                }
+                leveliCharacters.Add(c);
+                leveliAmount += c.speciesAmount;
+                foodRequestAmount += c.speciesAmount * c.GetEatingRate() * dayStep;
             }
+        }
             
-            //if we don't have enough food to go around
-            if (foodRequestAmount > getTotalAmountAtLevel(i - 1))
+        //if we don't have enough food to go around
+        if (foodRequestAmount > getTotalAmountAtLevel(tier - 1))
+        {
+            //set fed performance to the reduced amount. 
+            float subOptimalFoodRate = getTotalAmountAtLevel(tier - 1) / foodRequestAmount;
+            foreach (CharacterManager c in leveliCharacters)
             {
-                //set fed performance to the reduced amount. 
-                float subOptimalFoodRate = getTotalAmountAtLevel(i-1) / foodRequestAmount;
-                foreach (CharacterManager c in leveliCharacters)
-                {
-                    c.fedRate = subOptimalFoodRate;
-                }
-                eatAtLevel(i - 1, getTotalAmountAtLevel(i - 1));
+                c.fedRate = subOptimalFoodRate;
             }
-            else
+            eatAtLevel(tier - 1, getTotalAmountAtLevel(tier - 1));
+        }
+        else
+        {
+            foreach (CharacterManager c in leveliCharacters)
             {
-                foreach (CharacterManager c in leveliCharacters)
-                {
-                    c.fedRate = 1;
-                }
-                eatAtLevel(i - 1, foodRequestAmount);
+                c.fedRate = 1;
             }
+            eatAtLevel(tier - 1, foodRequestAmount);
         }
     }
 

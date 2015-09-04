@@ -112,6 +112,7 @@ public class SwimmingCreature : MonoBehaviour {
         }
         else
         {
+            isBusy = false;
             transform.localScale = startingScale;
             Flock(creatureFlock);
         }
@@ -420,6 +421,7 @@ public class SwimmingCreature : MonoBehaviour {
 
     public void StartReproducing(ParticleSystem particles, Vector3 spawnPos)
     {
+        isBusy = true;
         transform.position = spawnPos;
         spawnParticles = particles;
         spawnTime = spawnTime * (.5f + Random.value);
@@ -430,6 +432,7 @@ public class SwimmingCreature : MonoBehaviour {
 
     public void StartBuying()
     {
+        isBusy = true;
         spawnTime = spawnTime * (.5f + Random.value);
         spawningTimer = spawnTime;
         //Random.seed = GetInstanceID();
@@ -544,6 +547,7 @@ public class SwimmingCreature : MonoBehaviour {
 
     private void KillForever()
     {
+        creatureFlock.Remove(this);
         Destroy(gameObject);
     }
 

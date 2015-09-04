@@ -87,6 +87,18 @@ public class SwimmingHolder : MonoBehaviour {
         creatures.Add(c);
     }
 
+    public bool anyCreaturesBusy()
+    {
+        foreach (SwimmingCreature c in creatures)
+        {
+            if (c.isBusy)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     SwimmingCreature findRandomCreatureOfID(int cID)
     {
         List<SwimmingCreature> filteredC = new List<SwimmingCreature>();
@@ -150,7 +162,7 @@ public class SwimmingHolder : MonoBehaviour {
         if (foundOne)
         {
             SwimmingCreature c = creatures[found];
-            creatures.Remove(c);
+            //creatures.Remove(c);
             if(cause == null)
                 cause = CharacterManager.DeathCause.Starve;
             switch(cause) {
