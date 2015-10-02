@@ -84,7 +84,7 @@ public class PlayerManager : MonoBehaviour {
         }
         if (waitingForSteps)
         {
-            Debug.Log(currentStep);
+            //Debug.Log(currentStep);
             if (!holder.anyCreaturesBusy())
             {
                 switch (currentStep)
