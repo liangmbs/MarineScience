@@ -732,6 +732,78 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 94904707}
+--- !u!1 &96523361
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 96523362}
+  - 222: {fileID: 96523364}
+  - 114: {fileID: 96523363}
+  m_Layer: 5
+  m_Name: description
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &96523362
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 96523361}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -29}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 760121270}
+  m_RootOrder: 5
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 76.5999985, y: -114.300003}
+  m_SizeDelta: {x: 120.5, y: 21.3999996}
+  m_Pivot: {x: .5, y: .5}
+--- !u!114 &96523363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 96523361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: .196078435, g: .196078435, b: .196078435, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 8352071b3a7fdd246895e079e19941a1, type: 3}
+    m_FontSize: 8
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: This fish is a good fish, it likes to fish with other fish every day.
+--- !u!222 &96523364
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 96523361}
 --- !u!1 &101993571
 GameObject:
   m_ObjectHideFlags: 0
@@ -5798,6 +5870,7 @@ RectTransform:
   - {fileID: 341498779}
   - {fileID: 780010014}
   - {fileID: 358411691}
+  - {fileID: 96523362}
   m_Father: {fileID: 1605732531}
   m_RootOrder: 16
   m_AnchorMin: {x: 0, y: 0}
@@ -7100,7 +7173,7 @@ GameObject:
   - 222: {fileID: 881088006}
   - 114: {fileID: 881088005}
   m_Layer: 5
-  m_Name: tier2
+  m_Name: tier2bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7118,10 +7191,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 901813096}
   m_RootOrder: 2
-  m_AnchorMin: {x: .478112698, y: .611754775}
+  m_AnchorMin: {x: .478112698, y: .61791265}
   m_AnchorMax: {x: .784534931, y: .707544565}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -4.17232513e-06}
+  m_SizeDelta: {x: 0, y: -8.46385956e-06}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &881088005
 MonoBehaviour:
@@ -7197,6 +7270,9 @@ MonoBehaviour:
   stepWaitTime: 3
   busy: 0
   moneyText: {fileID: 1478096806}
+  tier1EcoBar: {fileID: 1104233093}
+  tier2EcoBar: {fileID: 881088004}
+  tier3EcoBar: {fileID: 2106667188}
   tooCoolPart: {fileID: 1089252170}
   tooHotPart: {fileID: 918046692}
   eatenPart: {fileID: 88464938}
@@ -9702,7 +9778,7 @@ GameObject:
   - 222: {fileID: 1104233095}
   - 114: {fileID: 1104233094}
   m_Layer: 5
-  m_Name: tier1
+  m_Name: tier1bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9720,8 +9796,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 901813096}
   m_RootOrder: 3
-  m_AnchorMin: {x: .403070509, y: .522807121}
-  m_AnchorMax: {x: .859577119, y: .614035487}
+  m_AnchorMin: {x: .403070509, y: .521507144}
+  m_AnchorMax: {x: .859577119, y: .617889881}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: .5, y: .5}
@@ -15399,6 +15475,18 @@ MonoBehaviour:
   sellingfishes: {fileID: 449533080}
   sellingPrice: {fileID: 2071929344}
   sellingName: {fileID: 2065951854}
+  eatingName: Hunger
+  reproductionName: Spawn Rate
+  deathThreasholdName: Resilience
+  deathRateName: Health
+  thermalBreadthName: Thermal Tolerance
+  starChar: "\u2605"
+  eatingText: {fileID: 895865370}
+  reproductionText: {fileID: 1860694313}
+  deathThreasholdText: {fileID: 341498780}
+  deathRateText: {fileID: 780010015}
+  thermalBreadthText: {fileID: 358411692}
+  descriptionText: {fileID: 96523363}
   curveRender: {fileID: 2099872656}
   slider: {fileID: 1232693647}
   tire1Button: {fileID: 2110036534}
@@ -16417,7 +16505,7 @@ GameObject:
   - 222: {fileID: 2106667190}
   - 114: {fileID: 2106667189}
   m_Layer: 5
-  m_Name: tier3
+  m_Name: tier3bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

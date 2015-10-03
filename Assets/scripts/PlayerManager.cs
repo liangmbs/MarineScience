@@ -41,6 +41,10 @@ public class PlayerManager : MonoBehaviour {
     //gameobjects
     public Text moneyText;
 
+    public RectTransform tier1EcoBar;
+    public RectTransform tier2EcoBar;
+    public RectTransform tier3EcoBar;
+
     public ParticleSystem tooCoolPart;
     public ParticleSystem tooHotPart;
     public ParticleSystem eatenPart;
@@ -133,9 +137,25 @@ public class PlayerManager : MonoBehaviour {
         }
 
 
-        if (Input.GetButtonDown("Cancel"))
+        if (Input.GetButtonDown("Cancel") && Input.GetButton("Submit"))
         {
             moneys += 999999;
+        }
+
+        //set ecosystem pyramid.
+        float totalFishes = getTotalFishCount();
+        if (totalFishes > 0)
+        {
+            float t1Proportion = getTotalAmountAtLevel(1) / totalFishes;
+            float t2Proportion = (getTotalAmountAtLevel(2) * 3) / totalFishes;
+            float t3Proportion = (getTotalAmountAtLevel(3) * 9) / totalFishes;
+
+            Vector3 tiersProp = new Vector3(t1Proportion, t2Proportion, t3Proportion);
+            tiersProp.Normalize();
+            tiersProp *= 1 / Mathf.Max(Mathf.Max(tiersProp.x, tiersProp.y), tiersProp.z);
+            tier1EcoBar.localScale = new Vector3(tiersProp.x, 1, 1);
+            tier2EcoBar.localScale = new Vector3(tiersProp.y, 1, 1);
+            tier3EcoBar.localScale = new Vector3(tiersProp.z, 1, 1);
         }
 
         moneyText.text = Mathf.Floor(moneys).ToString();

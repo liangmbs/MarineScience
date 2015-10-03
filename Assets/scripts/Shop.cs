@@ -24,6 +24,20 @@ public class Shop : MonoBehaviour {
     public Text sellingPrice;
     public Text sellingName;
 
+    public string eatingName = "Hunger";
+    public string reproductionName = "Spawn Rate";
+    public string deathThreasholdName = "Resilience";
+    public string deathRateName = "Health";
+    public string thermalBreadthName = "Thermal Tolerance";
+    public string starChar = "★";
+
+    public Text eatingText;
+    public Text reproductionText;
+    public Text deathThreasholdText;
+    public Text deathRateText;
+    public Text thermalBreadthText;
+    public Text descriptionText;
+
     //curve
     public CurveRenderer curveRender;
 
@@ -122,18 +136,38 @@ public class Shop : MonoBehaviour {
 
         slider.value = 0;
 
+        CharacterManager theFishWeWant = playerObj.species[selectedFish];
+
         //cap purchasing based on money
-        while (playerObj.species[selectedFish].cost * currentFishes > playerObj.moneys)
+        while (theFishWeWant.cost * currentFishes > playerObj.moneys)
         {
             currentFishes--;
         }
         //update text
         totalfishes.text = currentFishes.ToString();
-        totalPrice.text = "$" + (playerObj.species[selectedFish].cost * currentFishes).ToString();
-        currentName.text = playerObj.species[selectedFish].uniqueName;
+        totalPrice.text = "$" + (theFishWeWant.cost * currentFishes).ToString();
+        currentName.text = theFishWeWant.uniqueName;
         sellingName.text = currentName.text;
+
+        eatingText.text = eatingName + "\n" + getStars(theFishWeWant.eatingStars);
+        reproductionText.text = reproductionName + "\n" + getStars(theFishWeWant.reproductionStars);
+        deathThreasholdText.text = deathThreasholdName + "\n" + getStars(theFishWeWant.deathThreasholdStars);
+        deathRateText.text = deathRateName + "\n" + getStars(theFishWeWant.deathRateStars);
+        thermalBreadthText.text = thermalBreadthName + "\n" + getStars(theFishWeWant.thermalBreadthStars);
+        descriptionText.text = theFishWeWant.description;
+
         //update thermal curve
         curveRender.curve = playerObj.species[selectedFish].thermalcurve;
+    }
+
+    private string getStars(int starNum)
+    {
+        string s = "";
+        for(int i = 0; i < starNum; i++)
+        {
+            s += starChar;
+        }
+        return s;
     }
 
 	public void SelectedWindow(GameObject selected){

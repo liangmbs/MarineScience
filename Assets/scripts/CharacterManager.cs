@@ -24,6 +24,13 @@ public class CharacterManager : MonoBehaviour {
     public float deathRate = .5f; //if I'm dying, population drops by this ratio every day
     public float minimumDeaths = 1; //if I'm dying, I will always lose at least this many fish!
 
+    public int eatingStars = 5;
+    public int reproductionStars = 5;
+    public int deathThreasholdStars = 5;
+    public int deathRateStars = 5;
+    public int thermalBreadthStars = 5;
+    public string description = "This is a fish";
+
     public enum DeathCause { Cold, Hot, Starve, Eaten, Sold};
     
     public Queue<DeathCause> deathList = new Queue<DeathCause>();
