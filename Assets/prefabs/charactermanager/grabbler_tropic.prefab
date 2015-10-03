@@ -48,17 +48,57 @@ MonoBehaviour:
   uniqueName: grabbler tropical
   eatingAmount: 3
   foodChainLevel: 2
-  reproductionMultiplier: .5
+  reproductionMultiplier: .600000024
   deathThreashold: .300000012
-  deathRate: .5
+  deathRate: .600000024
   minimumDeaths: 1
+  eatingStars: 3
+  reproductionStars: 4
+  deathThreasholdStars: 3
+  deathRateStars: 2
+  thermalBreadthStars: 3
+  description: The elongated claws of the tropical grabbler allow them to reach into
+    many tight places other grabblers cannot.
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: description
+      value: The elongated claws of the tropical grabbler allow them to reach into
+        many tight places other grabblers cannot.
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: thermalBreadthStars
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathRateStars
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathRate
+      value: .600000024
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathThreasholdStars
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: reproductionStars
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: eatingStars
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: reproductionMultiplier
+      value: .600000024
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 184368}

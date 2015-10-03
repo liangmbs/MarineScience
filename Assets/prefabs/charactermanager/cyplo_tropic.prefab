@@ -52,13 +52,49 @@ MonoBehaviour:
   deathThreashold: .300000012
   deathRate: .5
   minimumDeaths: 1
+  eatingStars: 0
+  reproductionStars: 3
+  deathThreasholdStars: 3
+  deathRateStars: 3
+  thermalBreadthStars: 3
+  description: Cyplos of the tropical variety have  many poisonous spines on their
+    body that make an effective defense.
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: eatingAmount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: eatingStars
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: thermalBreadthStars
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: reproductionStars
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathThreasholdStars
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathRateStars
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: description
+      value: Cyplos of the tropical variety have  many poisonous spines on their body
+        that make an effective defense.
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 145568}

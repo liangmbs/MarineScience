@@ -46,12 +46,19 @@ MonoBehaviour:
   thermalcurve: {fileID: 0}
   player: {fileID: 0}
   uniqueName: rooda
-  eatingAmount: 4
+  eatingAmount: 2
   foodChainLevel: 3
-  reproductionMultiplier: .699999988
+  reproductionMultiplier: .300000012
   deathThreashold: .300000012
-  deathRate: .600000024
+  deathRate: .400000006
   minimumDeaths: 1
+  eatingStars: 4
+  reproductionStars: 1
+  deathThreasholdStars: 3
+  deathRateStars: 4
+  thermalBreadthStars: 5
+  description: The robust common rooda are apex predators that hunt using their sharp
+    heads to impale their prey.
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -61,15 +68,36 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: reproductionMultiplier
-      value: .699999988
+      value: .300000012
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: eatingAmount
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: deathRate
-      value: .600000024
+      value: .400000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: description
+      value: The robust common rooda are apex predators that hunt using their sharp
+        heads to impale their prey.
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: eatingStars
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: reproductionStars
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathThreasholdStars
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathRateStars
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

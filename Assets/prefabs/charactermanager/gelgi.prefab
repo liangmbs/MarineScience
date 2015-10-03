@@ -48,10 +48,17 @@ MonoBehaviour:
   uniqueName: gelgi
   eatingAmount: 3
   foodChainLevel: 2
-  reproductionMultiplier: .349999994
-  deathThreashold: .300000012
-  deathRate: .349999994
+  reproductionMultiplier: .400000006
+  deathThreashold: .200000003
+  deathRate: .300000012
   minimumDeaths: 1
+  eatingStars: 3
+  reproductionStars: 2
+  deathThreasholdStars: 4
+  deathRateStars: 5
+  thermalBreadthStars: 1
+  description: Common gelgi eat large amounts of algae along with smaller animals
+    which gives them their green coloration.
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -65,11 +72,36 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: reproductionMultiplier
-      value: .349999994
+      value: .400000006
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: deathRate
-      value: .349999994
+      value: .300000012
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: thermalBreadthStars
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: description
+      value: Common gelgi eat large amounts of algae along with smaller animals which
+        gives them their green coloration.
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: eatingStars
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: reproductionStars
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathThreasholdStars
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathThreashold
+      value: .200000003
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

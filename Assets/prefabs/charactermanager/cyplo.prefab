@@ -42,6 +42,7 @@ MonoBehaviour:
   speciesAmount: 0
   performanceRate: 0
   fedRate: 1
+  cost: 100
   thermalcurve: {fileID: 11442756, guid: 5af7d6d39fa94fc4d9dfd0523c752c09, type: 2}
   player: {fileID: 0}
   uniqueName: cyplo
@@ -51,13 +52,49 @@ MonoBehaviour:
   deathThreashold: .300000012
   deathRate: .5
   minimumDeaths: 1
+  eatingStars: 0
+  reproductionStars: 3
+  deathThreasholdStars: 3
+  deathRateStars: 3
+  thermalBreadthStars: 3
+  description: The common cyplo is known for its bright orange color and single eye.
+    Their winks are considered good luck.
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: eatingStars
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: reproductionStars
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathThreasholdStars
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathRateStars
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: thermalBreadthStars
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: eatingAmount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: description
+      value: The common cyplo is known for its bright orange color and single eye.
+        Their winks are considered good luck.
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100760}

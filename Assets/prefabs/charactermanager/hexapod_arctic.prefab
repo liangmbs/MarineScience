@@ -48,10 +48,17 @@ MonoBehaviour:
   uniqueName: hexapod arctic
   eatingAmount: 3
   foodChainLevel: 1
-  reproductionMultiplier: .699999988
-  deathThreashold: .400000006
-  deathRate: .699999988
+  reproductionMultiplier: .600000024
+  deathThreashold: .300000012
+  deathRate: .600000024
   minimumDeaths: 1
+  eatingStars: 0
+  reproductionStars: 4
+  deathThreasholdStars: 3
+  deathRateStars: 2
+  thermalBreadthStars: 5
+  description: "Cold-loving arctic hexapods somewhat resemble snowflakes leading to
+    their nickname \u201Csea crystals\u201D."
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -61,15 +68,40 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: reproductionMultiplier
-      value: .699999988
+      value: .600000024
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: deathThreashold
-      value: .400000006
+      value: .300000012
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: deathRate
-      value: .699999988
+      value: .600000024
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: eatingAmount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: eatingStars
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: description
+      value: "Cold-loving arctic hexapods somewhat resemble snowflakes leading to
+        their nickname \u201Csea crystals\u201D."
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: reproductionStars
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathThreasholdStars
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathRateStars
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
