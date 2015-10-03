@@ -129,7 +129,7 @@ public class Shop : MonoBehaviour {
         }
         //update text
         totalfishes.text = currentFishes.ToString();
-        totalPrice.text = (playerObj.species[selectedFish].cost * currentFishes).ToString();
+        totalPrice.text = "$" + (playerObj.species[selectedFish].cost * currentFishes).ToString();
         currentName.text = playerObj.species[selectedFish].uniqueName;
         sellingName.text = currentName.text;
         //update thermal curve
