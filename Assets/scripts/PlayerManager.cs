@@ -59,13 +59,21 @@ public class PlayerManager : MonoBehaviour {
         holder = FindObjectOfType<SwimmingHolder>();
 	}
 
-    public void Update()
+    public void nextTurn()
     {
-        if (Input.GetButtonDown("Submit") && !busy && !holder.anyCreaturesBusy())
+        if(!busy && !holder.anyCreaturesBusy())
         {
             waitingForTemperature = true;
             busy = true;
             temperature.updateTemperature();
+        }
+    }
+
+    public void Update()
+    {
+        if (Input.GetButtonDown("Submit"))
+        {
+            nextTurn();
         }
         if (!temperature.animating && waitingForTemperature)
         {
